@@ -8,12 +8,16 @@ import {
   Post,
 } from '@nestjs/common';
 import { CreateUserDto } from './createUserDto';
+import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
+  constructor(private userService: UsersService) {}
+
   @Get()
   async findAllUsers(): Promise<any[]> {
-    return ['findAllUsers'];
+    // return ['findAllUsers'];
+    return this.userService.findAllUsers();
   }
 
   @Get(':id')
@@ -22,8 +26,9 @@ export class UsersController {
   }
 
   @Post()
-  async createUser(@Body() createUserDto: CreateUserDto): Promise<any[]> {
-    return ['createUser', `${createUserDto}`];
+  async createUser(@Body() createUserDto: CreateUserDto) {
+    // return ['createUser', `${createUserDto}`];
+    this.userService.createUser(createUserDto);
   }
 
   @Patch(':id')
