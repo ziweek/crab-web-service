@@ -35,11 +35,15 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <title>Krab</title>
+          {/* <title>Krab</title> */}
           <meta name="description" content="Krab" />
           <link
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
+          ></link>
+          <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Noto+Sans+Mono:wght@100;200;300;400;500;600;700;800;900&display=swap"
+            rel="stylesheet"
           ></link>
         </Head>
         <body>

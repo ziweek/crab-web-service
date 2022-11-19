@@ -16,17 +16,6 @@ const GlobalStyleWrapper = createGlobalStyle`
     color: inherit;
     text-decoration: none;
   }
-  input{
-    font-family: "S-CoreDream-3Light";
-    font-weight: 700;
-    font-style: normal;
-  }
-  textarea{
-    font-family: "S-CoreDream-3Light";
-    font-weight: 700;
-    font-style: normal;
-    resize: none;
-  }
   button {
     background:none;
     border:0;
@@ -81,28 +70,25 @@ const GlobalStyleWrapper = createGlobalStyle`
 `;
 
 const Container = styled.div`
-  /* font-family: "S-CoreDream-3Light"; */
-  /* font-family: "NotoSerif"; */
   position: relative;
-  /* -webkit-user-select: none;
+  -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none; */
-  max-width: 428px;
+  user-select: none;
+  max-width: 430px;
   width: 100vw;
   margin: 0 auto;
   font-size: 1.6rem;
-  background-color: black;
+  background-color: white;
+  font-family: "Noto Sans KR";
+  color: #222222;
 `;
 
 const GlobalStyle = ({ children }) => {
   return (
     <>
       <GlobalStyleWrapper />
-      <Container>
-        {children}
-        {/* <Body>{children}</Body> */}
-      </Container>
+      <Container>{children}</Container>
     </>
   );
 };
