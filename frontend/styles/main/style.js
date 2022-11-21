@@ -1,53 +1,20 @@
 import styled, { keyframes, css } from "styled-components";
 import { colors } from "styles/theme";
-import * as M from "../animation";
+import * as M from "../../styles/animation";
 export const Container = styled.div`
-  width: 80%;
+  width: 100%;
   display: flex;
   margin: 0 auto;
   flex-direction: column;
-  /* justify-content: center; */
+  justify-content: center;
   align-items: center;
   height: 100vh;
   overflow: hidden;
   position: relative;
-  background: white;
+  background: linear-gradient(167.98deg, #ffad78 0%, #ff8678 100%);
 `;
-export const PicContainer = styled.div`
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 5rem;
-`;
-export const PicBox = styled.div`
-  width: 50%;
-  background: ${colors.black};
-  border-radius: 90%;
-  overflow: hidden;
-  margin: 2rem;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  &::after {
-    content: "";
-    display: block;
-    padding-bottom: 100%;
-  }
-`;
-export const Name = styled.div`
-  font-size: 1.8rem;
-  font-weight: 700;
-`;
-export const ID = styled.div`
-  font-size: 1.4rem;
-  /* font-weight: 700; */
-  color: #cccccc;
-`;
-export const Info = styled.div`
+export const Text = styled.div`
   font-size: 1.6rem;
-  font-weight: 500;
-  color: #cccccc;
-  margin-top: 2rem;
 `;
 export const Title = styled.div`
   font-size: 3.2rem;

@@ -2,20 +2,81 @@ import styled, { keyframes, css } from "styled-components";
 import { colors } from "styles/theme";
 import * as M from "../animation";
 export const Container = styled.div`
-  width: 100%;
+  width: 80%;
   display: flex;
   margin: 0 auto;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   height: 100vh;
   overflow: hidden;
   position: relative;
-  background: linear-gradient(167.98deg, #ffad78 0%, #ff8678 100%);
+  background: white;
 `;
-export const Text = styled.div`
+export const PicContainer = styled.div`
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 5rem;
+`;
+export const PicBox = styled.div`
+  width: 50%;
+  background: ${colors.black};
+  border-radius: 90%;
+  overflow: hidden;
+  margin: 2rem;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  &::after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }
+`;
+export const Name = styled.div`
+  font-size: 2rem;
+  font-weight: 700;
+`;
+export const ID = styled.div`
   font-size: 1.6rem;
+  /* font-weight: 700; */
+  color: #cccccc;
 `;
+export const Intro = styled.div`
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #cccccc;
+  margin-top: 1.8rem;
+`;
+export const InfoContainer = styled.div`
+  display: flex;
+  width: 60%;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const InfoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #cccccc;
+  margin-top: 1.6rem;
+  & div:first-child {
+    color: #222;
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+`;
+export const Info = styled.div`
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #cccccc;
+  margin-top: 1.6rem;
+`;
+
 export const Title = styled.div`
   font-size: 3.2rem;
   margin: 2rem;

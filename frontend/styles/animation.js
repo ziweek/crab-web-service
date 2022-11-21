@@ -19,3 +19,12 @@ export const Logo = keyframes`
     transform:rotate(0)
 }
 `;
+export const FadeIn = keyframes`
+0%{
+    opacity: 0;
+}
+
+100%{
+    opacity:1;
+}
+`;
