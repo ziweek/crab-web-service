@@ -7,7 +7,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <RecoilRoot>
       <GlobalStyle>
         <Head>
-          <title>Krab</title>
+          <title>Craverse</title>
         </Head>
         <Component {...pageProps} />
       </GlobalStyle>

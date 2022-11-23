@@ -43,7 +43,9 @@ export const SignUpInputWrapper = styled.div`
   border-radius: 1000px;
   border-style: none;
   font-size: 1.8rem;
-  padding: 1.8rem;
+  /* padding: 1.8rem; */
+  padding-left: 1.8rem;
+  padding-right: 1.8rem;
   color: #222;
   margin-top: 2rem;
 `;
@@ -51,6 +53,7 @@ export const SignUpInput = styled.input`
   width: 90%;
   background-color: transparent;
   border: none;
+  padding: 1.8rem;
 `;
 
 export const Text = styled.div`
