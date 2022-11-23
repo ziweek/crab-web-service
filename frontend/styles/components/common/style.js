@@ -28,9 +28,25 @@ export const ModalContainer = styled.div`
   animation: ${modal} 0.5s;
 `;
 export const ModalWrapper = styled.div`
-  width: 80%;
+  width: 90%;
+`;
+export const TitleWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; ;
 `;
 export const Title = styled.div`
   font-size: 2.4rem;
   font-weight: 700;
+`;
+export const CloseBtn = styled.div`
+  color: #222;
+  font-size: 2.4rem;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    transform: rotate(360deg);
+  }
 `;

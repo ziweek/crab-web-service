@@ -10,14 +10,20 @@ const Main: NextPage = () => {
   const router = useRouter();
   const [openModal, setOpenModal] = useState(false);
   const title = "지금 주변 친구들";
+  const getSetOpenModal = (data) => {
+    setOpenModal(data);
+  };
+
   return (
     <S.Container
-      onClick={() => {
-        setOpenModal(!openModal);
-      }}
+    // onClick={() => {
+    //   setOpenModal(!openModal);
+    // }}
     >
       {/* {openModal && <S.BlackBG></S.BlackBG>} */}
-      {openModal && <Modal title={title}></Modal>}
+      {openModal && (
+        <Modal getSetOpenModal={getSetOpenModal} title={title}></Modal>
+      )}
     </S.Container>
   );
 };
