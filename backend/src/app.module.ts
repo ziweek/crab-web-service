@@ -2,10 +2,11 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
-import { RegionsModule } from './regions/regions.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { User } from './users/entity/users.entity';
+import { AuthModule } from './auth/auth.module';
+import { PostsModule } from './posts/posts.module';
 
 @Module({
   imports: [
@@ -25,7 +26,8 @@ import { User } from './users/entity/users.entity';
       synchronize: true,
     }),
     UsersModule,
-    RegionsModule,
+    AuthModule,
+    PostsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
