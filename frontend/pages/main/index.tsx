@@ -6,11 +6,23 @@ import Modal from "components/common/modal";
 import { useRouter } from "next/router";
 import * as S from "styles/main/style";
 import Map from "components/common/map";
-// import { stringify } from "querystring";
 const Main: NextPage = () => {
+  const src =
+    "https://cdn.siasat.com/wp-content/uploads/2020/04/Instagram-.jpg";
   const router = useRouter();
   const location = useGeoLocation();
   const [openModal, setOpenModal] = useState(false);
+  const [posts, setPosts] = useState([
+    {
+      id: 0,
+      author: "testAuthor",
+      img: "src",
+      content: "testContent",
+      lng: "126.865",
+      lat: "37.539",
+      tag: "testTag",
+    },
+  ]);
   const title = "지금 주변 친구들";
   const getSetOpenModal = (data) => {
     setOpenModal(data);

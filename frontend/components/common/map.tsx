@@ -1,7 +1,8 @@
 import {
   GoogleMap,
   LoadScriptNext,
-  MarkerF,
+  // MarkerF,
+  Marker,
   Circle,
 } from "@react-google-maps/api";
 import { useState, useEffect, useMemo } from "react";
@@ -10,12 +11,21 @@ import useGeoLocation from "hooks/useGeolocation";
 
 function MapComponent() {
   const location = useGeoLocation();
-  const options = {
+  const mOptions = {
+    panControl: false,
+    zoomControl: false,
+    mapTypeControl: false,
+    scaleControl: false,
+    streetViewControl: false,
+    overviewMapControl: false,
+    fullscreenControl: false,
+  };
+  const cOptions = {
     strokeColor: "#FF0000",
-    strokeOpacity: 0.8,
-    strokeWeight: 2,
+    strokeOpacity: 0.3,
+    strokeWeight: 1,
     fillColor: "#FF0000",
-    fillOpacity: 0.35,
+    fillOpacity: 0.2,
     clickable: false,
     draggable: false,
     editable: false,
@@ -24,13 +34,8 @@ function MapComponent() {
     zIndex: 1,
   };
   console.log("location", location.coordinates);
-  //   const [coordinates, setCoordinates] = useState(props.coordinates);
-  //   console.log(coordinates);
-  //   const center = useMemo(() => coordinates, []);
   const [center, setCenter] = useState(location.coordinates);
-  //   const center = useMemo(() => location.coordinates, []);
   useEffect(() => {
-    console.log("start");
     setCenter(location.coordinates);
   }, [location]);
   return (
@@ -41,15 +46,17 @@ function MapComponent() {
         <GoogleMap
           zoom={14}
           center={center}
+          clickableIcons={false}
+          options={mOptions}
           mapContainerClassName="map-container"
         >
           <Circle
             // required
             center={center}
             // required
-            options={options}
+            options={cOptions}
           />
-          <MarkerF
+          <Marker
             position={center}
             // icon={{ url: "/images/icons/map_marker.svg", scale: 5 }}
           />
