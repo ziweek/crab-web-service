@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { User } from './users/entity/users.entity';
 import { AuthModule } from './auth/auth.module';
 import { PostsModule } from './posts/posts.module';
+import { Post } from './posts/entity/post.entity';
 
 @Module({
   imports: [
@@ -22,7 +23,7 @@ import { PostsModule } from './posts/posts.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [User],
+      entities: [User, Post],
       synchronize: true,
     }),
     UsersModule,
