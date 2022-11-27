@@ -20,6 +20,11 @@ export const Container = styled.div`
   position: relative;
   background: linear-gradient(167.98deg, #ffad78 0%, #ff8678 100%);
 `;
+export const Main = styled.div`
+  font-size: 3rem;
+  font-weight: 700;
+  background-color: grey;
+`;
 // export const BlackBG = styled.div`
 //   position: fixed;
 //   width: 100%;

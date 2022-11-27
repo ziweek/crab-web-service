@@ -3,7 +3,7 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import Logo from "asset/image/logo.png";
 import { useRouter } from "next/router";
-import * as S from "styles/components/common/style";
+import * as S from "styles/components/common/modal";
 const Modal: NextPage = (props) => {
   console.log(props);
   const sendSetOpenModal = () => {
