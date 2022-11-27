@@ -32,13 +32,14 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-      child: WebView(
-        initialUrl: 'https://www.naver.com',
-        javascriptMode: JavascriptMode.unrestricted,
-        gestureNavigationEnabled: true,
-        userAgent: "random",
+      body: SafeArea(
+        child: WebView(
+          initialUrl: 'https://www.naver.com',
+          javascriptMode: JavascriptMode.unrestricted,
+          gestureNavigationEnabled: true,
+          userAgent: "random",
+        ),
       ),
-    ));
+    );
   }
 }
