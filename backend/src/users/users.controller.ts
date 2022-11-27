@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { CreateUserDto } from './createUserDto';
+import { CreateUserDto } from './dto/createUserDto';
 import { UsersService } from './users.service';
 
 @Controller('users')
