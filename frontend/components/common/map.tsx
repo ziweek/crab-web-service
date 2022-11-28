@@ -1,6 +1,7 @@
 import {
   GoogleMap,
   LoadScriptNext,
+  MarkerClusterer,
   // MarkerF,
   Marker,
   Circle,
@@ -9,8 +10,11 @@ import { useState, useEffect, useMemo } from "react";
 import styled from "styled-components";
 import useGeoLocation from "hooks/useGeolocation";
 
-function MapComponent() {
+function MapComponent(props: object) {
   const location = useGeoLocation();
+  const [mainPost, setMainPost] = useState();
+  const [markerLocations, setMarkerLocations] = useState(props.region);
+  console.log("test", props.region);
   const mOptions = {
     panControl: false,
     zoomControl: false,
@@ -31,13 +35,18 @@ function MapComponent() {
     editable: false,
     visible: true,
     radius: 1000,
-    zIndex: 1,
   };
   console.log("location", location.coordinates);
   const [center, setCenter] = useState(location.coordinates);
   useEffect(() => {
     setCenter(location.coordinates);
   }, [location]);
+  function createKey(location) {
+    return location.lat + location.lng;
+  }
+  useEffect(() => {
+    console.log("useEffect", mainPost);
+  }, [mainPost]);
   return (
     <Wrapper>
       <LoadScriptNext
@@ -56,6 +65,21 @@ function MapComponent() {
             // required
             options={cOptions}
           />
+          <MarkerClusterer>
+            {(clusterer) =>
+              markerLocations.map((location) => (
+                <Marker
+                  key={createKey(location.region)}
+                  position={location.region}
+                  clusterer={clusterer}
+                  onClick={() => {
+                    setMainPost(location.region);
+                    // console.log(mainPost);
+                  }}
+                />
+              ))
+            }
+          </MarkerClusterer>
           <Marker
             position={center}
             // icon={{ url: "/images/icons/map_marker.svg", scale: 5 }}

@@ -18,8 +18,21 @@ const Main: NextPage = () => {
       author: "testAuthor",
       img: "src",
       content: "testContent",
-      lng: "126.865",
-      lat: "37.539",
+      region: {
+        lng: 127.03,
+        lat: 37.6,
+      },
+      tag: "testTag",
+    },
+    {
+      id: 1,
+      author: "testAuthor1",
+      img: "src",
+      content: "testContent1",
+      region: {
+        lng: 126.865,
+        lat: 37.539,
+      },
       tag: "testTag",
     },
   ]);
@@ -33,7 +46,7 @@ const Main: NextPage = () => {
     //   setOpenModal(!openModal);
     // }}
     >
-      <Map></Map>
+      <Map region={posts}></Map>
       {/* <S.Main>테스트 {test}</S.Main> */}
       {location.loaded
         ? JSON.stringify(location.coordinates)
