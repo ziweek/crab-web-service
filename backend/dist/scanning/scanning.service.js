@@ -23,11 +23,13 @@ let ScanningService = class ScanningService {
         this.userRepository = userRepository;
         this.postRepository = postRepository;
     }
-    async getNearPosts(region) {
+    async calculateDistance() {
+        return;
+    }
+    async getNearPosts(getNearPostsDto) {
+        console.log(getNearPostsDto.region);
         const container = [];
-        console.log(region);
         const target = await this.postRepository.find();
-        console.log(target);
         target.forEach((e) => {
             console.log(e.region);
         });

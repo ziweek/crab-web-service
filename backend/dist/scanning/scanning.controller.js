@@ -22,7 +22,7 @@ let ScanningController = class ScanningController {
         this.scanningService = scanningService;
     }
     getNearPosts(getNearPostsDto) {
-        return this.scanningService.getNearPosts(getNearPostsDto.region);
+        return this.scanningService.getNearPosts(getNearPostsDto);
     }
     getNearFriends(getNearFriends) {
         return this.scanningService;

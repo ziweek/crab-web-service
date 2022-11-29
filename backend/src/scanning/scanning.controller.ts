@@ -9,7 +9,7 @@ export class ScanningController {
 
   @Post('/getNearPosts')
   getNearPosts(@Body() getNearPostsDto: GetNearPostsDto) {
-    return this.scanningService.getNearPosts(getNearPostsDto.region);
+    return this.scanningService.getNearPosts(getNearPostsDto);
   }
 
   @Post('/getNearFriends')

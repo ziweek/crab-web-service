@@ -1,3 +1,3 @@
 export class GetNearPostsDto {
-  region: string;
+  region: object;
 }

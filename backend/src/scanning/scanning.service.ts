@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Post } from 'src/posts/entity/post.entity';
 import { User } from 'src/users/entity/users.entity';
 import { Repository } from 'typeorm';
+import { GetNearPostsDto } from './dto/getNearPostsDto';
 
 @Injectable()
 export class ScanningService {
@@ -14,11 +15,15 @@ export class ScanningService {
     private postRepository: Repository<Post>,
   ) {}
 
-  async getNearPosts(region: string): Promise<any> {
+  async calculateDistance() {
+    return;
+  }
+
+  async getNearPosts(getNearPostsDto: GetNearPostsDto): Promise<any> {
+    console.log(getNearPostsDto.region);
     const container = [];
-    console.log(region);
     const target = await this.postRepository.find();
-    console.log(target);
+    // console.log(target);
     target.forEach((e) => {
       console.log(e.region);
     });

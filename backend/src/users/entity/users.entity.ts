@@ -21,6 +21,12 @@ export class User {
   name: string;
 
   @Column({ default: null })
+  nickname: string;
+
+  @Column({ default: null })
+  text: string;
+
+  @Column({ default: null })
   profileImg: string;
 
   @Column()

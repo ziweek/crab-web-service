@@ -27,6 +27,14 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)({ default: null }),
     __metadata("design:type", String)
+], User.prototype, "nickname", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ default: null }),
+    __metadata("design:type", String)
+], User.prototype, "text", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ default: null }),
+    __metadata("design:type", String)
 ], User.prototype, "profileImg", void 0);
 __decorate([
     (0, typeorm_1.Column)(),

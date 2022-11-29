@@ -1,3 +1,3 @@
 export class GetNearFriendsDto {
-  region: string;
+  region: object;
 }

@@ -13,6 +13,7 @@ const auth_controller_1 = require("./auth.controller");
 const typeorm_1 = require("@nestjs/typeorm");
 const users_entity_1 = require("../users/entity/users.entity");
 const authority_entity_1 = require("./entity/authority.entity");
+const passport_interface_1 = require("./security/passport.interface");
 const jwt_1 = require("@nestjs/jwt");
 const passport_1 = require("@nestjs/passport");
 let AuthModule = class AuthModule {
@@ -28,7 +29,7 @@ AuthModule = __decorate([
             passport_1.PassportModule,
         ],
         exports: [typeorm_1.TypeOrmModule],
-        providers: [auth_service_1.AuthService, jwt_1.JwtModule],
+        providers: [auth_service_1.AuthService, jwt_1.JwtModule, passport_interface_1.JwtStrategy],
         controllers: [auth_controller_1.AuthController],
     })
 ], AuthModule);
