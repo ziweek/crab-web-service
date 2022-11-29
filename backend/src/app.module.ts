@@ -10,6 +10,9 @@ import { PostsModule } from './posts/posts.module';
 import { Post } from './posts/entity/post.entity';
 import { CommentsModule } from './comments/comments.module';
 import { Comment } from './comments/entity/comment.entity';
+import { Authority } from './auth/entity/authority.entity';
+import { FriendshipsModule } from './friendships/friendships.module';
+import { Friendship } from './friendships/entity/friendship.entity';
 
 @Module({
   imports: [
@@ -25,13 +28,14 @@ import { Comment } from './comments/entity/comment.entity';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [User, Post, Comment],
+      entities: [User, Post, Comment, Authority, Friendship],
       synchronize: true,
     }),
     UsersModule,
     AuthModule,
     PostsModule,
     CommentsModule,
+    FriendshipsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
