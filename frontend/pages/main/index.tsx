@@ -62,7 +62,7 @@ const Main: NextPage = () => {
           posts={posts}
         ></Modal>
       )}
-      <Navbar></Navbar>
+      <Navbar tab={"main"}></Navbar>
     </S.Container>
   );
 };

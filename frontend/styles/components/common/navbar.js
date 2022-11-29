@@ -37,6 +37,12 @@ export const IconWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 20px;
+  ${(props) =>
+    props.tab === props.id &&
+    css`
+      background: rgba(233, 150, 122, 0.3);
+    `}
   &::after {
     content: "";
     display: block;

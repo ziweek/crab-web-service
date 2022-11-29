@@ -30,13 +30,14 @@ function MapComponent(props: any) {
     streetViewControl: false,
     overviewMapControl: false,
     fullscreenControl: false,
+    gestureHandling: "greedy",
   };
   const cOptions = {
-    strokeColor: "#FF0000",
-    strokeOpacity: 0.3,
+    strokeColor: "#E9967A",
+    strokeOpacity: 1,
     strokeWeight: 1,
-    fillColor: "#FF0000",
-    fillOpacity: 0.2,
+    fillColor: "#E9967A",
+    fillOpacity: 0.3,
     clickable: false,
     draggable: false,
     editable: false,

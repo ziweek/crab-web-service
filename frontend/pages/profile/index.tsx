@@ -25,7 +25,7 @@ const Profile: NextPage = () => {
           <div>친구</div>
         </S.InfoWrapper>
       </S.InfoContainer>
-      <Navbar></Navbar>
+      <Navbar tab={"profile"}></Navbar>
     </S.Container>
   );
 };
