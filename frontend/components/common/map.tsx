@@ -44,12 +44,15 @@ function MapComponent(props: any) {
     radius: 1000,
   };
   console.log("이거", location);
-  const [center, setCenter] = useState({ lat: 37.52, lng: 127 });
+  const [center, setCenter] = useState({ lat: 37.5867, lng: 126.9748 });
   // const [center, setCenter] = useState(location.coordinates);
   useEffect(() => {
-    // if (location) {
-    setCenter(location.coordinates);
-    // }
+    if (
+      !location.error &&
+      !(location.coordinates.lat === 0 && location.coordinates.lng === 0)
+    ) {
+      setCenter(location.coordinates);
+    }
   }, [location]);
   function createKey(location: any) {
     return location.lat + location.lng;
