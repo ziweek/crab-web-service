@@ -12,7 +12,7 @@ import { mainPostState } from "components/states";
 import styled from "styled-components";
 import useGeoLocation from "hooks/useGeolocation";
 
-function MapComponent(props: object) {
+function MapComponent(props: any) {
   const location = useGeoLocation();
   const sendSetOpenModal = () => {
     props.getSetOpenModal(true);
@@ -43,13 +43,15 @@ function MapComponent(props: object) {
     visible: true,
     radius: 1000,
   };
-  console.log("location", location.coordinates);
+  console.log("이거", location);
   const [center, setCenter] = useState({ lat: 37.52, lng: 127 });
   // const [center, setCenter] = useState(location.coordinates);
   useEffect(() => {
+    // if (location) {
     setCenter(location.coordinates);
+    // }
   }, [location]);
-  function createKey(location) {
+  function createKey(location: any) {
     return location.lat + location.lng;
   }
   // useEffect(() => {
@@ -67,7 +69,6 @@ function MapComponent(props: object) {
           clickableIcons={false}
           options={mOptions}
           mapContainerClassName="map-container"
-
           // ref={(map) =>
           //   map && map.panTo({ lat: 25.0112183, lng: 121.52067570000001 })
           // }
@@ -80,7 +81,7 @@ function MapComponent(props: object) {
           />
           <MarkerClusterer>
             {(clusterer) =>
-              markerLocations.map((location) => (
+              markerLocations.map((location: any) => (
                 <Marker
                   key={createKey(location.region)}
                   position={location.region}

@@ -5,8 +5,7 @@ import Logo from "asset/image/logo.png";
 import { useRouter } from "next/router";
 import * as S from "styles/components/common/modal";
 import { Sign } from "crypto";
-const Modal: NextPage = (props) => {
-  console.log("이거", props.posts);
+const Modal: NextPage = (props: any) => {
   const [mainPost, setMainPost] = useState(props.mainPost);
   const [posts, setPosts] = useState(props.posts);
   const sendSetOpenModal = () => {
@@ -40,7 +39,7 @@ const Modal: NextPage = (props) => {
       </S.ModalWrapper>
 
       {posts &&
-        posts.map((post) => (
+        posts.map((post: any) => (
           <S.ModalWrapper key={post.id}>
             <S.HeaderWrapper>
               <S.ProfileWrapper>
