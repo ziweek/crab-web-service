@@ -35,15 +35,15 @@ const GlobalStyleWrapper = createGlobalStyle`
 
     -webkit-tap-highlight-color: transparent;
   }
-  body {
-    /* background-color: #D6EAF1; */
-
-  }
-  body {
+body {
   padding: 0;
   margin: 0;
+ -ms-overflow-style: none;
   /* font-family: -apple-system, InkLipquid; */
 }
+::-webkit-scrollbar {
+    display: none;
+  }
   @media screen and (max-width: 415px) {
     html {
       font-size: 9.375px;

@@ -8,4 +8,13 @@ export const colors = {
   purple: "#7885FD",
   lightbrown: "#9E7358",
   pink: "#E982C6",
+  mainPurple0: "#635986",
+  mainPurple1: "#6A698E",
+  mainPurple2: "#7788A1",
+  mainPurple3: "#D08BA3",
+  mainPurple4: "#E4ACB1",
+  sub0: "#E9967A",
+  sub1: "#FFAD78",
+  sub2: "#FF8678",
+  sub3: "#79E8CE",
 };

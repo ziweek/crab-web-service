@@ -6,18 +6,24 @@ import Modal from "components/common/modal";
 import { useRouter } from "next/router";
 import * as S from "styles/main/style";
 import Map from "components/common/map";
+import { useRecoilState } from "recoil";
+import { mainPostState } from "components/states";
+
 const Main: NextPage = () => {
   const src =
     "https://cdn.siasat.com/wp-content/uploads/2020/04/Instagram-.jpg";
   const router = useRouter();
   const location = useGeoLocation();
   const [openModal, setOpenModal] = useState(false);
+  const [mainPost, setMainPost] = useRecoilState(mainPostState);
+
   const [posts, setPosts] = useState([
     {
       id: 0,
       author: "testAuthor",
       img: "src",
-      content: "testContent",
+      content:
+        "testContenttestContenttestContenttestContenttestContenttestContenttestContenttestContenttestContent",
       region: {
         lng: 127.03,
         lat: 37.6,
@@ -40,20 +46,21 @@ const Main: NextPage = () => {
   const getSetOpenModal = (data) => {
     setOpenModal(data);
   };
+  useEffect(() => {
+    console.log("recoil mainPost", mainPost);
+  }, [mainPost]);
   return (
-    <S.Container
-    // onClick={() => {
-    //   setOpenModal(!openModal);
-    // }}
-    >
-      <Map region={posts}></Map>
-      {/* <S.Main>테스트 {test}</S.Main> */}
-      {location.loaded
+    <S.Container>
+      <Map getSetOpenModal={getSetOpenModal} region={posts}></Map>
+      {/* {location.loaded
         ? JSON.stringify(location.coordinates)
-        : "Location data not available yet."}
-      {/* {openModal && <S.BlackBG></S.BlackBG>} */}
+        : "Location data not available yet."} */}
       {openModal && (
-        <Modal getSetOpenModal={getSetOpenModal} title={title}></Modal>
+        <Modal
+          getSetOpenModal={getSetOpenModal}
+          mainPost={mainPost}
+          posts={posts}
+        ></Modal>
       )}
     </S.Container>
   );
