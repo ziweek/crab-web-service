@@ -29,7 +29,7 @@ AuthModule = __decorate([
             passport_1.PassportModule,
         ],
         exports: [typeorm_1.TypeOrmModule],
-        providers: [auth_service_1.AuthService, jwt_1.JwtModule, passport_interface_1.JwtStrategy],
+        providers: [auth_service_1.AuthService, passport_interface_1.JwtStrategy],
         controllers: [auth_controller_1.AuthController],
     })
 ], AuthModule);

@@ -31,9 +31,30 @@ let ScanningService = class ScanningService {
         const container = [];
         const target = await this.postRepository.find();
         target.forEach((e) => {
-            console.log(e.region);
+            console.log(getNearPostsDto.region);
+            const latDif = e.region['lat'] - getNearPostsDto.region['lat'];
+            const lngDif = e.region['lng'] - getNearPostsDto.region['lng'];
+            const distance = Math.sqrt(latDif * latDif + lngDif * lngDif);
+            if (distance < 5) {
+                container.push(e);
+            }
         });
-        return 'aaa';
+        return container;
+    }
+    async getNearUsers(getNearFriendsDto) {
+        console.log(getNearFriendsDto.region);
+        const container = [];
+        const target = await this.postRepository.find();
+        target.forEach((e) => {
+            console.log(getNearFriendsDto.region);
+            const latDif = e.region['lat'] - getNearFriendsDto.region['lat'];
+            const lngDif = e.region['lng'] - getNearFriendsDto.region['lng'];
+            const distance = Math.sqrt(latDif * latDif + lngDif * lngDif);
+            if (distance < 5) {
+                container.push(e);
+            }
+        });
+        return container;
     }
 };
 ScanningService = __decorate([

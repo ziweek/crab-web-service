@@ -5,5 +5,5 @@ export declare class ScanningController {
     private scanningService;
     constructor(scanningService: ScanningService);
     getNearPosts(getNearPostsDto: GetNearPostsDto): Promise<any>;
-    getNearFriends(getNearFriends: GetNearFriendsDto): ScanningService;
+    getNearFriends(getNearFriends: GetNearFriendsDto): Promise<any>;
 }

@@ -5,7 +5,7 @@ export declare class Post {
     title: string;
     content: string;
     images: string;
-    region: string;
+    region: JSON;
     hidden: boolean;
     createAt: Date;
     updateAt: Date;

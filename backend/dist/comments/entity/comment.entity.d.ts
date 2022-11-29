@@ -3,7 +3,7 @@ import { User } from 'src/users/entity/users.entity';
 export declare class Comment {
     id: number;
     content: string;
-    region: string;
+    region: JSON;
     hidden: boolean;
     author: User;
     post: Post;

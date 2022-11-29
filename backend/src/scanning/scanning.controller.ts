@@ -14,6 +14,6 @@ export class ScanningController {
 
   @Post('/getNearFriends')
   getNearFriends(@Body() getNearFriends: GetNearFriendsDto) {
-    return this.scanningService;
+    return this.scanningService.getNearUsers(getNearFriends);
   }
 }

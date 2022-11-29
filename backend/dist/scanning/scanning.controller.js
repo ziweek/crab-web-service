@@ -25,7 +25,7 @@ let ScanningController = class ScanningController {
         return this.scanningService.getNearPosts(getNearPostsDto);
     }
     getNearFriends(getNearFriends) {
-        return this.scanningService;
+        return this.scanningService.getNearUsers(getNearFriends);
     }
 };
 __decorate([

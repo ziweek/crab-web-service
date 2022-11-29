@@ -8,6 +8,7 @@ export declare class User {
     profileImg: string;
     phone: number;
     email: string;
+    region: JSON;
     password: string;
     posts: Post[];
     authority: Authority;

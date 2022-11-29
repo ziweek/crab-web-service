@@ -1,6 +1,6 @@
 export class CreateCommentDto {
   content: string;
 
-  region: string;
+  region: JSON;
   hidden: boolean;
 }

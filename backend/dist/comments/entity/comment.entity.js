@@ -24,8 +24,8 @@ __decorate([
     __metadata("design:type", String)
 ], Comment.prototype, "content", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
+    (0, typeorm_1.Column)({ type: 'json' }),
+    __metadata("design:type", Object)
 ], Comment.prototype, "region", void 0);
 __decorate([
     (0, typeorm_1.Column)(),

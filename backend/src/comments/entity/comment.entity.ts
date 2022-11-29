@@ -20,8 +20,8 @@ export class Comment {
   @Column()
   content: string;
 
-  @Column()
-  region: string;
+  @Column({ type: 'json' })
+  region: JSON;
 
   @Column()
   hidden: boolean;

@@ -2,6 +2,6 @@ export declare class CreatePostDto {
     title: string;
     content: string;
     images: string;
-    region: string;
+    region: JSON;
     hidden: boolean;
 }

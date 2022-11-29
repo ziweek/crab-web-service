@@ -14,6 +14,7 @@ import { Authority } from './auth/entity/authority.entity';
 import { FriendshipsModule } from './friendships/friendships.module';
 import { Friendship } from './friendships/entity/friendship.entity';
 import { ScanningModule } from './scanning/scanning.module';
+import { EventsModule } from './events/events.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { ScanningModule } from './scanning/scanning.module';
     CommentsModule,
     FriendshipsModule,
     ScanningModule,
+    EventsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

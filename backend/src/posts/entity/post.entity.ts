@@ -27,8 +27,8 @@ export class Post {
   @Column()
   images: string;
 
-  @Column()
-  region: string;
+  @Column({ type: 'json' })
+  region: JSON;
 
   @Column()
   hidden: boolean;

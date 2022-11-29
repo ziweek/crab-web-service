@@ -35,6 +35,9 @@ export class User {
   @Column()
   email: string;
 
+  @Column({ type: 'json', nullable: true })
+  region: JSON;
+
   @Column()
   password: string;
 
