@@ -13,7 +13,7 @@ import styled from "styled-components";
 import useGeoLocation from "hooks/useGeolocation";
 
 function MapComponent(props: any) {
-  const location = useGeoLocation();
+  const location: any = useGeoLocation();
   const sendSetOpenModal = () => {
     props.getSetOpenModal(true);
   };
@@ -43,7 +43,7 @@ function MapComponent(props: any) {
     visible: true,
     radius: 1000,
   };
-  console.log("이거", location);
+  console.log("location", location);
   const [center, setCenter] = useState({ lat: 37.5867, lng: 126.9748 });
   // const [center, setCenter] = useState(location.coordinates);
   useEffect(() => {

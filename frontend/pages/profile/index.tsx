@@ -4,9 +4,9 @@ import Image from "next/image";
 import Logo from "asset/image/logo.png";
 import { useRouter } from "next/router";
 import * as S from "styles/profile/style";
+import Navbar from "components/layout/navbar/navbar";
 const Profile: NextPage = () => {
   const router = useRouter();
-  const [pageIdx, setPageIdx] = useState(0);
   return (
     <S.Container>
       <S.PicContainer>
@@ -25,6 +25,7 @@ const Profile: NextPage = () => {
           <div>친구</div>
         </S.InfoWrapper>
       </S.InfoContainer>
+      <Navbar></Navbar>
     </S.Container>
   );
 };

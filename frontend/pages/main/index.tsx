@@ -43,7 +43,7 @@ const Main: NextPage = () => {
     },
   ]);
   const title = "지금 주변 친구들";
-  const getSetOpenModal = (data) => {
+  const getSetOpenModal = (data: any) => {
     setOpenModal(data);
   };
   useEffect(() => {

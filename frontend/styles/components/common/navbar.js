@@ -20,7 +20,7 @@ export const NavbarContainer = styled.div`
   border: 1px solid #eee;
   align-items: center;
   justify-content: space-between;
-  /* padding: 3rem; */
+  padding: 2rem;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   color: #222;
@@ -31,4 +31,46 @@ export const NavbarContainer = styled.div`
 `;
 export const IconWrapper = styled.div`
   width: 15%;
+  position: relative;
+  cursor: pointer;
+  font-size: 2.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &::after {
+    content: "";
+    display: block;
+    padding-bottom: 60%;
+  }
+  & i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+`;
+export const WriteIconWrapper = styled(IconWrapper)`
+  border-radius: 200px;
+  background: linear-gradient(167.98deg, #ffad78 0%, #ff8678 100%);
+  width: 18%;
+  color: white;
+  font-size: 3rem;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25);
+
+  &::after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }
+  &:hover i {
+    transition: 0.5s;
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 `;
