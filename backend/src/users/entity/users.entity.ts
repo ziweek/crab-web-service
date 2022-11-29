@@ -20,7 +20,7 @@ export class User {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ default: null })
   profileImg: string;
 
   @Column()
