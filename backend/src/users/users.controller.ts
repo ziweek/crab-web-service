@@ -7,14 +7,17 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from './dto/createUserDto';
 import { UsersService } from './users.service';
 
 @Controller('users')
+@ApiTags('User API')
 export class UsersController {
   constructor(private userService: UsersService) {}
 
   @Get()
+  @ApiOperation({ summary: 'aa' })
   async findAllUsers(): Promise<any[]> {
     // return ['findAllUsers'];
     return this.userService.findAllUsers();
