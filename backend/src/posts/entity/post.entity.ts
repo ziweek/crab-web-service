@@ -2,12 +2,15 @@ import { Comment } from 'src/comments/entity/comment.entity';
 import { User } from 'src/users/entity/users.entity';
 import {
   Column,
+  CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
@@ -21,12 +24,6 @@ export class Post {
   @Column()
   content: string;
 
-  // @Column()
-  // latitude: string;
-
-  // @Column()
-  // longitude: string;
-
   @Column()
   images: string;
 
@@ -36,17 +33,20 @@ export class Post {
   @Column()
   hidden: boolean;
 
-  @OneToOne(() => User)
+  @CreateDateColumn()
+  createAt: Date;
+
+  @UpdateDateColumn()
+  updateAt: Date;
+
+  @DeleteDateColumn()
+  deleteAt: Date | null;
+
+  @OneToOne(() => User, { nullable: true, eager: true })
   @JoinColumn()
   author: User;
 
-  @ManyToOne(() => User, (user) => user.id, {
-    eager: true,
-    onDelete: 'SET NULL',
-  })
-  friends: User;
-
-  @OneToMany(() => Comment, (comment) => comment.id, {
+  @OneToMany(() => Comment, (comment) => comment.post, {
     eager: true,
     onDelete: 'SET NULL',
   })

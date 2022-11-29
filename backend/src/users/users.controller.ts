@@ -24,23 +24,24 @@ export class UsersController {
   }
 
   @Get(':id')
-  async findOneUser(@Param() param): Promise<any[]> {
-    return ['findOneUser', `${param.id}`];
+  findOneUser(@Param() param) {
+    // console.log(param.id);
+    return this.userService.findOneUser(param.id);
+    // return ['findOneUser', `${param.id}`];
   }
 
   @Post()
   async createUser(@Body() createUserDto: CreateUserDto) {
-    // return ['createUser', `${createUserDto}`];
     this.userService.createUser(createUserDto);
   }
 
   @Patch(':id')
-  async updateUser(@Param() param): Promise<any[]> {
-    return ['updateUser', `${param.id}`];
+  updateUser(@Param() param, @Body() createUserDto: CreateUserDto) {
+    return this.userService.updateUser(param.id, createUserDto);
   }
 
   @Delete(':id')
-  async deleteUser(@Param() param): Promise<any[]> {
-    return ['deleteUser', `${param.id}`];
+  deleteUser(@Param() param) {
+    this.userService.deleteUser(param.id);
   }
 }

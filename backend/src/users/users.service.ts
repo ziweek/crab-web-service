@@ -28,11 +28,14 @@ export class UsersService {
   }
 
   async updateUser(id: number, createUserDto: CreateUserDto): Promise<void> {
-    await this.usersRepository.update(id, {
-      name: createUserDto.name,
-      phone: createUserDto.phone,
-      email: createUserDto.email,
-      password: createUserDto.password,
-    });
+    const existedUser = this.usersRepository.findOne({ where: { id: id } });
+    if (existedUser) {
+      await this.usersRepository.update(id, {
+        name: createUserDto.name,
+        phone: createUserDto.phone,
+        email: createUserDto.email,
+        password: createUserDto.password,
+      });
+    }
   }
 }
