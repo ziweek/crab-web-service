@@ -62,7 +62,8 @@ function MapComponent(props: object) {
       >
         <GoogleMap
           zoom={14}
-          center={center}
+          center={{ lat: 37.52, lng: 127 }}
+          // center={center}
           clickableIcons={false}
           options={mOptions}
           mapContainerClassName="map-container"
