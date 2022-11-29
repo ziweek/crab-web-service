@@ -14,9 +14,6 @@ const Modal: NextPage = (props) => {
   };
   const router = useRouter();
 
-  // useEffect(() => {
-  //   console.log(mainPost);
-  // }, [mainPost]);
   return (
     <S.ModalContainer>
       <S.BarWrapper onClick={sendSetOpenModal} onTouchEnd={sendSetOpenModal}>

@@ -30,6 +30,7 @@ export const ModalContainer = styled.div`
   max-width: 430px;
   background-color: white;
   animation: ${modal} 0.5s;
+  z-index: 1;
 `;
 export const ModalWrapper = styled.div`
   width: 100%;

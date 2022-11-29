@@ -8,7 +8,7 @@ import * as S from "styles/main/style";
 import Map from "components/common/map";
 import { useRecoilState } from "recoil";
 import { mainPostState } from "components/states";
-
+import Navbar from "components/layout/navbar/navbar";
 const Main: NextPage = () => {
   const src =
     "https://cdn.siasat.com/wp-content/uploads/2020/04/Instagram-.jpg";
@@ -62,6 +62,7 @@ const Main: NextPage = () => {
           posts={posts}
         ></Modal>
       )}
+      <Navbar></Navbar>
     </S.Container>
   );
 };

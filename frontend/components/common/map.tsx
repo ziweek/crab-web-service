@@ -22,6 +22,8 @@ function MapComponent(props: object) {
   const [markerLocations, setMarkerLocations] = useState(props.region);
   console.log("test", props.region);
   const mOptions = {
+    // mapId: "56e14c25c7f74ba3",
+    mapId: "ecdb6cde0b3bda6",
     panControl: false,
     zoomControl: false,
     mapTypeControl: false,
@@ -64,6 +66,7 @@ function MapComponent(props: object) {
           clickableIcons={false}
           options={mOptions}
           mapContainerClassName="map-container"
+
           // ref={(map) =>
           //   map && map.panTo({ lat: 25.0112183, lng: 121.52067570000001 })
           // }
