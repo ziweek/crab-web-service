@@ -1,5 +1,13 @@
+import { Authority } from 'src/auth/entity/authority.entity';
+import { Friendship } from 'src/friendships/entity/friendship.entity';
 import { Post } from 'src/posts/entity/post.entity';
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  ManyToOne,
+} from 'typeorm';
 
 @Entity()
 export class User {
@@ -20,4 +28,19 @@ export class User {
 
   @OneToMany(() => Post, (post) => post.author, { nullable: true })
   posts: Post[];
+
+  @ManyToOne(() => Authority, (authority) => authority.id, { eager: true })
+  authority: Authority;
+
+  @OneToMany(() => Friendship, (friendship) => friendship.requestedFriends, {
+    nullable: true,
+    eager: true,
+  })
+  requestedFriendship: Post[];
+
+  @OneToMany(() => Friendship, (friendship) => friendship.responsedFriends, {
+    nullable: true,
+    eager: true,
+  })
+  responsedFriendship: Post[];
 }
