@@ -1,6 +1,5 @@
 import {
   GoogleMap,
-  useGoogleMap,
   LoadScriptNext,
   MarkerClusterer,
   // MarkerF,
@@ -45,7 +44,8 @@ function MapComponent(props: object) {
     radius: 1000,
   };
   console.log("location", location.coordinates);
-  const [center, setCenter] = useState(location.coordinates);
+  const [center, setCenter] = useState({ lat: 37.52, lng: 127 });
+  // const [center, setCenter] = useState(location.coordinates);
   useEffect(() => {
     setCenter(location.coordinates);
   }, [location]);
@@ -62,8 +62,8 @@ function MapComponent(props: object) {
       >
         <GoogleMap
           zoom={14}
-          center={{ lat: 37.52, lng: 127 }}
-          // center={center}
+          // center={{ lat: 37.52, lng: 127 }}
+          center={center}
           clickableIcons={false}
           options={mOptions}
           mapContainerClassName="map-container"
