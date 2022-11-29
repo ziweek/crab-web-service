@@ -21,6 +21,9 @@ export class User {
   name: string;
 
   @Column()
+  profileImg: string;
+
+  @Column()
   phone: number;
 
   @Column()

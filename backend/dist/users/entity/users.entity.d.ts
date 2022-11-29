@@ -3,6 +3,7 @@ import { Post } from 'src/posts/entity/post.entity';
 export declare class User {
     id: number;
     name: string;
+    profileImg: string;
     phone: number;
     email: string;
     password: string;

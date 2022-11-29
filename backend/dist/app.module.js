@@ -22,6 +22,7 @@ const comment_entity_1 = require("./comments/entity/comment.entity");
 const authority_entity_1 = require("./auth/entity/authority.entity");
 const friendships_module_1 = require("./friendships/friendships.module");
 const friendship_entity_1 = require("./friendships/entity/friendship.entity");
+const scanning_module_1 = require("./scanning/scanning.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -45,6 +46,7 @@ AppModule = __decorate([
             posts_module_1.PostsModule,
             comments_module_1.CommentsModule,
             friendships_module_1.FriendshipsModule,
+            scanning_module_1.ScanningModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
