@@ -122,9 +122,16 @@ export const Btn = styled.div`
   margin-top: 2rem;
   color: white;
   background: #222;
+  cursor: pointer;
   &:hover {
     /* margin-top: calc(2rem - 2px); */
     margin-left: 2px;
     box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.1);
   }
+`;
+export const Error = styled.div`
+  font-size: 1.6rem;
+  color: red;
+  font-weight: 500;
+  margin-top: 1rem;
 `;

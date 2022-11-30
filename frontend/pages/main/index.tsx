@@ -9,6 +9,7 @@ import Map from "components/common/map";
 import { useRecoilState } from "recoil";
 import { mainPostState } from "components/states";
 import Navbar from "components/layout/navbar/navbar";
+import { getCookies } from "components/cookie";
 const Main: NextPage = () => {
   const src =
     "https://cdn.siasat.com/wp-content/uploads/2020/04/Instagram-.jpg";
