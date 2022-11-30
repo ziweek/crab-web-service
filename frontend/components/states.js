@@ -13,5 +13,9 @@ const userInfo = atom({
   key: "userInfo",
   default: "",
 });
+const currentRegion = atom({
+  key: "currentRegion",
+  default: "",
+});
 
-export { mainPostState, userToken, userInfo };
+export { mainPostState, userToken, userInfo, currentRegion };

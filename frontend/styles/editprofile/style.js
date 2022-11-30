@@ -18,9 +18,10 @@ export const HeaderContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  font-size: 2.4rem;
+  font-size: 1.8rem;
+  font-weight: 700;
   margin-top: 2rem;
-  & i {
+  & div {
     cursor: pointer;
   }
 `;
@@ -46,20 +47,33 @@ export const PicBox = styled.div`
     padding-bottom: 100%;
   } */
 `;
-export const Name = styled.div`
+export const Name = styled.input`
   font-size: 2rem;
   font-weight: 700;
+  text-align: center;
+  background-color: white;
+  border-style: none;
+  padding: 1rem;
+  border-bottom: 1px solid #222;
 `;
-export const ID = styled.div`
+export const ID = styled.input`
   font-size: 1.6rem;
   /* font-weight: 700; */
   color: #cccccc;
+  background-color: white;
+  border-style: none;
+  padding: 1rem;
+  border-bottom: 1px solid #222;
 `;
-export const Intro = styled.div`
+export const Intro = styled.input`
   font-size: 1.6rem;
   font-weight: 500;
   color: #cccccc;
   margin-top: 1.8rem;
+  background-color: white;
+  border-style: none;
+  padding: 1rem;
+  border-bottom: 1px solid #222;
 `;
 export const InfoContainer = styled.div`
   display: flex;

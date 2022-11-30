@@ -8,20 +8,22 @@ import {
 } from "@react-google-maps/api";
 import { useState, useEffect, useMemo } from "react";
 import { useRecoilState } from "recoil";
-import { mainPostState } from "components/states";
+import { mainPostState, currentRegion } from "components/states";
 import styled from "styled-components";
 import useGeoLocation from "hooks/useGeolocation";
 
 function MapComponent(props: any) {
   const location: any = useGeoLocation();
+  const [region, setRegion] = useRecoilState(currentRegion);
+
   const sendSetOpenModal = () => {
     props.getSetOpenModal(true);
   };
   const [mainPost, setMainPost] = useRecoilState(mainPostState);
   const [markerLocations, setMarkerLocations] = useState(props.region);
-  console.log("test", props.region);
+  // console.log("test", props.region, location);
   const mOptions = {
-    // mapId: "56e14c25c7f74ba3",
+    // mapId: "56e14c25c7f74ba3",(DarkMode)
     mapId: "ecdb6cde0b3bda6",
     panControl: false,
     zoomControl: false,
@@ -44,23 +46,22 @@ function MapComponent(props: any) {
     visible: true,
     radius: 1000,
   };
-  console.log("location", location);
+  // console.log("location", location);
   const [center, setCenter] = useState({ lat: 37.5867, lng: 126.9748 });
-  // const [center, setCenter] = useState(location.coordinates);
+  // const [center, setCenter] = useState(location);
   useEffect(() => {
     if (
       !location.error &&
       !(location.coordinates.lat === 0 && location.coordinates.lng === 0)
     ) {
+      console.log("set region");
       setCenter(location.coordinates);
+      setRegion(location.coordinates);
     }
   }, [location]);
   function createKey(location: any) {
     return location.lat + location.lng;
   }
-  // useEffect(() => {
-  //   console.log("useEffect, mainPost", mainPost);
-  // }, [mainPost]);
   return (
     <Wrapper>
       <LoadScriptNext
@@ -68,7 +69,6 @@ function MapComponent(props: any) {
       >
         <GoogleMap
           zoom={14}
-          // center={{ lat: 37.52, lng: 127 }}
           center={center}
           clickableIcons={false}
           options={mOptions}

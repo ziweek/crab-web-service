@@ -7,16 +7,22 @@ import { useRouter } from "next/router";
 import * as S from "styles/main/style";
 import Map from "components/common/map";
 import { useRecoilState } from "recoil";
-import { mainPostState, userToken, userInfo } from "components/states";
+import {
+  mainPostState,
+  userToken,
+  userInfo,
+  currentRegion,
+} from "components/states";
 import Navbar from "components/layout/navbar/navbar";
 import axios from "axios";
 import { getCookies } from "components/cookie";
 import Loading from "components/common/loading";
 const Main: NextPage = () => {
   const router = useRouter();
-  const location = useGeoLocation();
+  // const location: any = useGeoLocation();
   const [openModal, setOpenModal] = useState(false);
-  const [mainPost, setMainPost] = useRecoilState(mainPostState);
+  const [mainPost, setMainPost] = useRecoilState<any>(mainPostState);
+  const [region, setRegion] = useRecoilState<any>(currentRegion);
   const [posts, setPosts] = useState([
     {
       id: 0,
@@ -45,6 +51,20 @@ const Main: NextPage = () => {
   const getSetOpenModal = (data: any) => {
     setOpenModal(data);
   };
+
+  const getPosts = async () => {
+    console.log("getPosts start");
+    await axios
+      .get(`${process.env.BASE_URL}` + "/scanning/getNearPosts", region)
+      .then((response) => {
+        console.log("getPosts", response);
+        setPosts(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("인근에 볼 수 있는 피드가 없습니다");
+      });
+  };
   // ---------------------------유저인증--------------------
   const [token, setToken] = useRecoilState(userToken);
   const [user, setUser] = useRecoilState(userInfo);
@@ -64,21 +84,33 @@ const Main: NextPage = () => {
   };
   useEffect(() => {
     getUser();
-    console.log("유저", user);
+    // if (location.coordinates) {
+    //   setRegion(location.coordinates);
+    // }
+    console.log("region", JSON.stringify(region));
     // if (!user) {
     //   router.push("/signin");
     // }
   }, []);
+  useEffect(() => {
+    if (region) {
+      getPosts();
+    }
+    console.log("set");
+  }, [region]);
   useEffect(() => {
     console.log("recoil mainPost", mainPost);
   }, [mainPost]);
 
   return (
     <S.Container>
-      {/* {!user && <div>Loading...</div>} */}
       {user ? (
         <>
-          <Map getSetOpenModal={getSetOpenModal} region={posts}></Map>
+          <Map
+            location={region}
+            getSetOpenModal={getSetOpenModal}
+            region={posts}
+          ></Map>
           {/* {location.loaded
         ? JSON.stringify(location.coordinates)
         : "Location data not available yet."} */}
