@@ -27,8 +27,8 @@ let UsersController = class UsersController {
     findOneUser(param) {
         return this.userService.findOneUser(param.id);
     }
-    async createUser(createUserDto) {
-        this.userService.createUser(createUserDto);
+    createUser(createUserDto) {
+        return this.userService.createUser(createUserDto);
     }
     updateUser(param, createUserDto) {
         return this.userService.updateUser(param.id, createUserDto);
@@ -40,6 +40,47 @@ let UsersController = class UsersController {
 __decorate([
     (0, common_1.Get)(),
     (0, swagger_1.ApiOperation)({ summary: '전체 유저 조회하기' }),
+    (0, swagger_1.ApiCreatedResponse)({
+        description: '전체 유저 반환',
+        schema: {
+            example: [
+                {
+                    id: 1,
+                    name: 'test',
+                    nickname: null,
+                    text: null,
+                    profileImg: null,
+                    phone: 1012345678,
+                    email: 'test@amdin.com',
+                    region: null,
+                    password: '$2b$10$AqVvjdFb8nI2TxmRpLqEBOOczztK5UABnb7..bkOa0N.HeBGHdIzO',
+                    createAt: '2022-11-30T05:54:13.099Z',
+                    updateAt: '2022-11-30T05:54:13.099Z',
+                    deleteAt: null,
+                    authority: null,
+                    requestedFriendship: [],
+                    responsedFriendship: [],
+                },
+                {
+                    id: 2,
+                    name: 'test',
+                    nickname: null,
+                    text: null,
+                    profileImg: null,
+                    phone: 1012345678,
+                    email: 'test2@amdin.com',
+                    region: null,
+                    password: '$2b$10$yPPJxWm86jo/2.jRQqr1xONOnzusThKsnRzyXi/bOga5KFXmXAiBW',
+                    createAt: '2022-11-30T05:59:32.865Z',
+                    updateAt: '2022-11-30T05:59:32.865Z',
+                    deleteAt: null,
+                    authority: null,
+                    requestedFriendship: [],
+                    responsedFriendship: [],
+                },
+            ],
+        },
+    }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
@@ -47,6 +88,25 @@ __decorate([
 __decorate([
     (0, common_1.Get)(':id'),
     (0, swagger_1.ApiOperation)({ summary: '유저 하나 조회하기' }),
+    (0, swagger_1.ApiCreatedResponse)({
+        description: '생성된 유저 반환',
+        schema: {
+            example: {
+                name: 'test',
+                phone: '01012345678',
+                email: 'admin@amdin.com',
+                password: 'test',
+                nickname: null,
+                text: null,
+                profileImg: null,
+                region: null,
+                deleteAt: null,
+                id: 3,
+                createAt: '2022-11-30T06:06:02.020Z',
+                updateAt: '2022-11-30T06:06:02.020Z',
+            },
+        },
+    }),
     __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -55,14 +115,52 @@ __decorate([
 __decorate([
     (0, common_1.Post)(),
     (0, swagger_1.ApiOperation)({ summary: '유저 생성하기' }),
+    (0, swagger_1.ApiCreatedResponse)({
+        description: '생성된 유저 반환',
+        schema: {
+            example: {
+                name: 'test',
+                phone: '01012345678',
+                email: 'admin@amdin.com',
+                password: 'test',
+                nickname: null,
+                text: null,
+                profileImg: null,
+                region: null,
+                deleteAt: null,
+                id: 3,
+                createAt: '2022-11-30T06:06:02.020Z',
+                updateAt: '2022-11-30T06:06:02.020Z',
+            },
+        },
+    }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [createUserDto_1.CreateUserDto]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", void 0)
 ], UsersController.prototype, "createUser", null);
 __decorate([
     (0, common_1.Patch)(':id'),
     (0, swagger_1.ApiOperation)({ summary: '유저 수정하기' }),
+    (0, swagger_1.ApiCreatedResponse)({
+        description: '수정된 유저 반환',
+        schema: {
+            example: {
+                name: 'test',
+                phone: '01012345678',
+                email: 'admin@amdin.com',
+                password: 'test',
+                nickname: null,
+                text: null,
+                profileImg: null,
+                region: null,
+                deleteAt: null,
+                id: 3,
+                createAt: '2022-11-30T06:06:02.020Z',
+                updateAt: '2022-11-30T06:06:02.020Z',
+            },
+        },
+    }),
     __param(0, (0, common_1.Param)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -72,6 +170,12 @@ __decorate([
 __decorate([
     (0, common_1.Delete)(':id'),
     (0, swagger_1.ApiOperation)({ summary: '유저 삭제하기' }),
+    (0, swagger_1.ApiCreatedResponse)({
+        description: '반환 없음',
+        schema: {
+            example: {},
+        },
+    }),
     __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),

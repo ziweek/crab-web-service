@@ -9,12 +9,11 @@ import { User } from './entity/users.entity';
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private usersRepository: Repository<User>,
-  ) // private readonly authService: AuthService,
-  {}
+    private usersRepository: Repository<User>, // private readonly authService: AuthService,
+  ) {}
 
-  async createUser(createUserDto: CreateUserDto): Promise<void> {
-    this.usersRepository.save(createUserDto);
+  async createUser(createUserDto: CreateUserDto): Promise<User> {
+    return this.usersRepository.save(createUserDto);
   }
 
   async findAllUsers(): Promise<User[]> {

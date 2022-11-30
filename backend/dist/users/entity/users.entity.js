@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
+const swagger_1 = require("@nestjs/swagger");
 const authority_entity_1 = require("../../auth/entity/authority.entity");
 const friendship_entity_1 = require("../../friendships/entity/friendship.entity");
 const post_entity_1 = require("../../posts/entity/post.entity");
@@ -22,34 +23,74 @@ __decorate([
 ], User.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
+    (0, swagger_1.ApiProperty)({
+        example: '김지욱',
+        description: '이름',
+        required: true,
+    }),
     __metadata("design:type", String)
 ], User.prototype, "name", void 0);
 __decorate([
     (0, typeorm_1.Column)({ default: null }),
+    (0, swagger_1.ApiProperty)({
+        example: '닉네임',
+        description: 'zi.we_ek',
+        required: false,
+    }),
     __metadata("design:type", String)
 ], User.prototype, "nickname", void 0);
 __decorate([
     (0, typeorm_1.Column)({ default: null }),
+    (0, swagger_1.ApiProperty)({
+        example: 'Hi, there. I am Jiuk',
+        description: '자기소개',
+        required: false,
+    }),
     __metadata("design:type", String)
 ], User.prototype, "text", void 0);
 __decorate([
     (0, typeorm_1.Column)({ default: null }),
+    (0, swagger_1.ApiProperty)({
+        example: '{"lng":123,"lat":37}',
+        description: '지역 JSON',
+        required: false,
+    }),
     __metadata("design:type", String)
 ], User.prototype, "profileImg", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
+    (0, swagger_1.ApiProperty)({
+        example: '{"lng":123,"lat":37}',
+        description: '지역 JSON',
+        required: true,
+    }),
     __metadata("design:type", Number)
 ], User.prototype, "phone", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
+    (0, swagger_1.ApiProperty)({
+        example: '{"lng":123,"lat":37}',
+        description: '지역 JSON',
+        required: true,
+    }),
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'json', nullable: true }),
+    (0, swagger_1.ApiProperty)({
+        example: '{"lng":123,"lat":37}',
+        description: '지역 JSON',
+        required: true,
+    }),
     __metadata("design:type", Object)
 ], User.prototype, "region", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
+    (0, swagger_1.ApiProperty)({
+        example: '{"lng":123,"lat":37}',
+        description: '지역 JSON',
+        required: true,
+    }),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([

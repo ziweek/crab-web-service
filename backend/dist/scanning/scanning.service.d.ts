@@ -7,7 +7,7 @@ export declare class ScanningService {
     private userRepository;
     private postRepository;
     constructor(userRepository: Repository<User>, postRepository: Repository<Post>);
-    calculateDistance(): Promise<void>;
+    getDistance: (region1: any, region2: any) => number;
     getNearPosts(getNearPostsDto: GetNearPostsDto): Promise<any>;
     getNearUsers(getNearFriendsDto: GetNearFriendsDto): Promise<any>;
 }

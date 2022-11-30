@@ -22,7 +22,7 @@ let UsersService = class UsersService {
         this.usersRepository = usersRepository;
     }
     async createUser(createUserDto) {
-        this.usersRepository.save(createUserDto);
+        return this.usersRepository.save(createUserDto);
     }
     async findAllUsers() {
         return await this.usersRepository.find();

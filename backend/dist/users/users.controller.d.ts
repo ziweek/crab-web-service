@@ -5,7 +5,7 @@ export declare class UsersController {
     constructor(userService: UsersService);
     findAllUsers(): Promise<any[]>;
     findOneUser(param: any): Promise<import("./entity/users.entity").User>;
-    createUser(createUserDto: CreateUserDto): Promise<void>;
+    createUser(createUserDto: CreateUserDto): Promise<import("./entity/users.entity").User>;
     updateUser(param: any, createUserDto: CreateUserDto): Promise<void>;
     deleteUser(param: any): void;
 }

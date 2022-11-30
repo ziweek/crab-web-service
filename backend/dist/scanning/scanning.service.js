@@ -22,9 +22,30 @@ let ScanningService = class ScanningService {
     constructor(userRepository, postRepository) {
         this.userRepository = userRepository;
         this.postRepository = postRepository;
-    }
-    async calculateDistance() {
-        return;
+        this.getDistance = (region1, region2) => {
+            const lat1 = region1.lat;
+            const lon1 = region1.lng;
+            const lat2 = region2.lat;
+            const lon2 = region2.lng;
+            if (lat1 == lat2 && lon1 == lon2)
+                return 0;
+            var radLat1 = (Math.PI * lat1) / 180;
+            var radLat2 = (Math.PI * lat2) / 180;
+            var theta = lon1 - lon2;
+            var radTheta = (Math.PI * theta) / 180;
+            var dist = Math.sin(radLat1) * Math.sin(radLat2) +
+                Math.cos(radLat1) * Math.cos(radLat2) * Math.cos(radTheta);
+            if (dist > 1)
+                dist = 1;
+            dist = Math.acos(dist);
+            dist = (dist * 180) / Math.PI;
+            dist = dist * 60 * 1.1515 * 1.609344 * 1000;
+            if (dist < 100)
+                dist = Math.round(dist / 10) * 10;
+            else
+                dist = Math.round(dist / 100) * 100;
+            return dist;
+        };
     }
     async getNearPosts(getNearPostsDto) {
         console.log(getNearPostsDto.region);
@@ -32,10 +53,9 @@ let ScanningService = class ScanningService {
         const target = await this.postRepository.find();
         target.forEach((e) => {
             console.log(getNearPostsDto.region);
-            const latDif = e.region['lat'] - getNearPostsDto.region['lat'];
-            const lngDif = e.region['lng'] - getNearPostsDto.region['lng'];
-            const distance = Math.sqrt(latDif * latDif + lngDif * lngDif);
-            if (distance < 5) {
+            const distance = this.getDistance(getNearPostsDto.region, e.region);
+            console.log(distance);
+            if (distance < 1000) {
                 container.push(e);
             }
         });
