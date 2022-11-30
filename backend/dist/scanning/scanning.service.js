@@ -48,11 +48,9 @@ let ScanningService = class ScanningService {
         };
     }
     async getNearPosts(getNearPostsDto) {
-        console.log(getNearPostsDto.region);
         const container = [];
         const target = await this.postRepository.find();
         target.forEach((e) => {
-            console.log(getNearPostsDto.region);
             const distance = this.getDistance(getNearPostsDto.region, e.region);
             console.log(distance);
             if (distance < 1000) {
@@ -62,15 +60,11 @@ let ScanningService = class ScanningService {
         return container;
     }
     async getNearUsers(getNearFriendsDto) {
-        console.log(getNearFriendsDto.region);
         const container = [];
-        const target = await this.postRepository.find();
+        const target = await this.userRepository.find();
         target.forEach((e) => {
-            console.log(getNearFriendsDto.region);
-            const latDif = e.region['lat'] - getNearFriendsDto.region['lat'];
-            const lngDif = e.region['lng'] - getNearFriendsDto.region['lng'];
-            const distance = Math.sqrt(latDif * latDif + lngDif * lngDif);
-            if (distance < 5) {
+            const distance = this.getDistance(getNearFriendsDto.region, e.region);
+            if (distance < 1000) {
                 container.push(e);
             }
         });

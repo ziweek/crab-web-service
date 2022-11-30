@@ -10,6 +10,7 @@ export declare class User {
     email: string;
     region: JSON;
     password: string;
+    friendIds: number[];
     posts: Post[];
     authority: Authority;
     requestedFriendship: Post[];
