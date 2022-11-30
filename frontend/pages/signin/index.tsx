@@ -63,7 +63,7 @@ const SignIn: NextPage = () => {
         </S.SignUpInputWrapper>
         {err && <S.Error>이메일 또는 비밀번호가 올바르지 않습니다</S.Error>}
         <S.SocialContainer>
-          <S.SocialWrapper>
+          {/* <S.SocialWrapper>
             <i className="bi bi-google"></i>
           </S.SocialWrapper>
           <S.SocialWrapper>
@@ -71,8 +71,15 @@ const SignIn: NextPage = () => {
           </S.SocialWrapper>
           <S.SocialWrapper>
             <i className="bi bi-apple"></i>
-          </S.SocialWrapper>
+          </S.SocialWrapper> */}
         </S.SocialContainer>
+        <S.Text
+          onClick={() => {
+            router.push("signup");
+          }}
+        >
+          아직 계정이 없으신가요?
+        </S.Text>
         <S.Btn onClick={postUser}> Sign In</S.Btn>
       </S.SignUpContainer>
     </S.Container>

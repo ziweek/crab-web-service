@@ -18,7 +18,7 @@ export const Container = styled.div`
   align-items: center;
   min-height: 100vh;
   position: relative;
-  background: linear-gradient(167.98deg, #ffad78 0%, #ff8678 100%);
+  /* background: linear-gradient(167.98deg, #ffad78 0%, #ff8678 100%); */
 `;
 export const Main = styled.div`
   font-size: 3rem;

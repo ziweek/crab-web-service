@@ -58,6 +58,12 @@ export const SignUpInput = styled.input`
 
 export const Text = styled.div`
   font-size: 1.6rem;
+  line-height: 150%;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(0, 0, 0, 0);
+  &:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 1);
+  }
 `;
 export const Title = styled.div`
   font-size: 3.2rem;

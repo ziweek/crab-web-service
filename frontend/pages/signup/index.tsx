@@ -24,6 +24,7 @@ const SignUp: NextPage = () => {
           secure: true,
           sameSite: "none",
         });
+        router.push("main");
       })
       .catch(function (error) {
         console.log(error);
@@ -77,8 +78,8 @@ const SignUp: NextPage = () => {
             onChange={onChangeAccount}
           ></S.SignUpInput>
         </S.SignUpInputWrapper>
-        {/* <S.SocialContainer>
-          <S.SocialWrapper>
+        <S.SocialContainer>
+          {/* <S.SocialWrapper>
             <i className="bi bi-google"></i>
           </S.SocialWrapper>
           <S.SocialWrapper>
@@ -86,8 +87,15 @@ const SignUp: NextPage = () => {
           </S.SocialWrapper>
           <S.SocialWrapper>
             <i className="bi bi-apple"></i>
-          </S.SocialWrapper>
-        </S.SocialContainer> */}
+          </S.SocialWrapper> */}
+        </S.SocialContainer>
+        <S.Text
+          onClick={() => {
+            router.push("signin");
+          }}
+        >
+          이미 계정이 있으신가요?
+        </S.Text>
         <S.Btn onClick={postUser}>Sign Up</S.Btn>
       </S.SignUpContainer>
     </S.Container>

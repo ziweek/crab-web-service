@@ -7,17 +7,16 @@ import { useRouter } from "next/router";
 import * as S from "styles/main/style";
 import Map from "components/common/map";
 import { useRecoilState } from "recoil";
-import { mainPostState } from "components/states";
+import { mainPostState, userToken, userInfo } from "components/states";
 import Navbar from "components/layout/navbar/navbar";
+import axios from "axios";
 import { getCookies } from "components/cookie";
+import Loading from "components/common/loading";
 const Main: NextPage = () => {
-  const src =
-    "https://cdn.siasat.com/wp-content/uploads/2020/04/Instagram-.jpg";
   const router = useRouter();
   const location = useGeoLocation();
   const [openModal, setOpenModal] = useState(false);
   const [mainPost, setMainPost] = useRecoilState(mainPostState);
-
   const [posts, setPosts] = useState([
     {
       id: 0,
@@ -43,25 +42,56 @@ const Main: NextPage = () => {
       tag: "testTag",
     },
   ]);
-  const title = "지금 주변 친구들";
   const getSetOpenModal = (data: any) => {
     setOpenModal(data);
   };
+  // ---------------------------유저인증--------------------
+  const [token, setToken] = useRecoilState(userToken);
+  const [user, setUser] = useRecoilState(userInfo);
+  const getUser = async () => {
+    console.log("getuser start", token);
+    await axios
+      .get(`${process.env.BASE_URL}` + "/auth/authenticate", {
+        headers: { Authorization: "Bearer " + token },
+      })
+      .then((response) => {
+        console.log("getUser", response);
+        setUser(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    getUser();
+    console.log("유저", user);
+    // if (!user) {
+    //   router.push("/signin");
+    // }
+  }, []);
   useEffect(() => {
     console.log("recoil mainPost", mainPost);
   }, [mainPost]);
+
   return (
     <S.Container>
-      <Map getSetOpenModal={getSetOpenModal} region={posts}></Map>
-      {/* {location.loaded
+      {/* {!user && <div>Loading...</div>} */}
+      {user ? (
+        <>
+          <Map getSetOpenModal={getSetOpenModal} region={posts}></Map>
+          {/* {location.loaded
         ? JSON.stringify(location.coordinates)
         : "Location data not available yet."} */}
-      {openModal && (
-        <Modal
-          getSetOpenModal={getSetOpenModal}
-          mainPost={mainPost}
-          posts={posts}
-        ></Modal>
+          {openModal && (
+            <Modal
+              getSetOpenModal={getSetOpenModal}
+              mainPost={mainPost}
+              posts={posts}
+            ></Modal>
+          )}
+        </>
+      ) : (
+        <Loading></Loading>
       )}
       <Navbar tab={"main"}></Navbar>
     </S.Container>
