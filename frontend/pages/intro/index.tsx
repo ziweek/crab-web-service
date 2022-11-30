@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import type { NextPage } from "next";
-import Image from "next/image";
+// import Image from "next/image";
 import Logo from "asset/image/logo.png";
 import { useRouter } from "next/router";
 import * as S from "styles/intro/style";
@@ -9,13 +9,10 @@ const Intro: NextPage = () => {
   const move = () => {
     router.push("/main");
   };
-  setTimeout(move, 1500);
-  const [pageIdx, setPageIdx] = useState(0);
+  setTimeout(move, 3000);
   return (
     <S.Container>
       <S.Logo src={Logo.src} />
-
-      {/* <S.Title> Krab </S.Title> */}
     </S.Container>
   );
 };
