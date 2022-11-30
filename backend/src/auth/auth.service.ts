@@ -63,7 +63,6 @@ export class AuthService {
     if (!existedUser || !validatePassword) {
       throw new UnauthorizedException();
     }
-
     const payload: Payload = { email: validateAccountDto.email };
     return {
       accessToken: this.jwtService.sign(payload),

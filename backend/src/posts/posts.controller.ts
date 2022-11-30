@@ -17,29 +17,31 @@ export class PostsController {
   constructor(private postsService: PostsService) {}
 
   @Get()
-  async findAllUPosts(): Promise<any[]> {
-    // return ['findAllUsers'];
+  findAllPosts() {
     return this.postsService.findAllPosts();
   }
 
   @Get(':id')
-  async findOnePost(@Param() param): Promise<any[]> {
-    return ['findOneUser', `${param.id}`];
+  findOnePost(@Param() param) {
+    return this.postsService.findOnePost(param.id);
+    // return ['findOneUser', `${param.id}`];
   }
 
   @Post()
-  async createPost(@Body() createPostDto: CreatePostDto) {
+  createPost(@Body() createPostDto: CreatePostDto) {
     // return ['createUser', `${createUserDto}`];
     this.postsService.createPost(createPostDto);
   }
 
   @Patch(':id')
-  async updatePost(@Param() param): Promise<any[]> {
-    return ['updatePost', `${param.id}`];
+  updatePost(@Param() param, @Body() createPostDto: CreatePostDto) {
+    // return ['updatePost', `${param.id}`];
+    this.postsService.updatePost(param.id, createPostDto);
   }
 
   @Delete(':id')
-  async deletePost(@Param() param): Promise<any[]> {
-    return ['deletePost', `${param.id}`];
+  deletePost(@Param() param) {
+    this.postsService.deletePost(param.id);
+    // return ['deletePost', `${param.id}`];
   }
 }

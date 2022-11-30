@@ -21,7 +21,7 @@ export class AuthController {
   registerAccount(
     @Req() req: Request,
     @Body() registerAccountDto: RegisterAccountDto,
-  ): Promise<void> {
+  ) {
     return this.authService.registerNewAccount(registerAccountDto);
   }
 

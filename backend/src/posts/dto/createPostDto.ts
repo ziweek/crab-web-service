@@ -3,6 +3,6 @@ export class CreatePostDto {
   content: string;
   images: string;
 
-  region: string;
+  region: JSON;
   hidden: boolean;
 }

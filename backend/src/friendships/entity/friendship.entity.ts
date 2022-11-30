@@ -2,9 +2,10 @@ import { User } from 'src/users/entity/users.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
-  Column,
-  OneToMany,
   ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
+  DeleteDateColumn,
 } from 'typeorm';
 
 @Entity()
@@ -21,4 +22,13 @@ export class Friendship {
     nullable: true,
   })
   responsedFriends: User[];
+
+  @CreateDateColumn()
+  createAt: Date;
+
+  @UpdateDateColumn()
+  updateAt: Date;
+
+  @DeleteDateColumn()
+  deleteAt: Date | null;
 }

@@ -32,6 +32,7 @@ export class PostsService {
     await this.postsRepository.update(id, {
       title: createPostDto.title,
       content: createPostDto.content,
+      images: createPostDto.images,
       region: createPostDto.region,
       hidden: createPostDto.hidden,
     });

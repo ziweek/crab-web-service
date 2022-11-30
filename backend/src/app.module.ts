@@ -13,6 +13,8 @@ import { Comment } from './comments/entity/comment.entity';
 import { Authority } from './auth/entity/authority.entity';
 import { FriendshipsModule } from './friendships/friendships.module';
 import { Friendship } from './friendships/entity/friendship.entity';
+import { ScanningModule } from './scanning/scanning.module';
+import { EventsModule } from './events/events.module';
 
 @Module({
   imports: [
@@ -36,6 +38,8 @@ import { Friendship } from './friendships/entity/friendship.entity';
     PostsModule,
     CommentsModule,
     FriendshipsModule,
+    ScanningModule,
+    EventsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

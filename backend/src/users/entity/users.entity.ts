@@ -7,6 +7,9 @@ import {
   Column,
   OneToMany,
   ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
+  DeleteDateColumn,
 } from 'typeorm';
 
 @Entity()
@@ -17,11 +20,23 @@ export class User {
   @Column()
   name: string;
 
+  @Column({ default: null })
+  nickname: string;
+
+  @Column({ default: null })
+  text: string;
+
+  @Column({ default: null })
+  profileImg: string;
+
   @Column()
   phone: number;
 
   @Column()
   email: string;
+
+  @Column({ type: 'json', nullable: true })
+  region: JSON;
 
   @Column()
   password: string;
@@ -43,4 +58,13 @@ export class User {
     eager: true,
   })
   responsedFriendship: Post[];
+
+  @CreateDateColumn()
+  createAt: Date;
+
+  @UpdateDateColumn()
+  updateAt: Date;
+
+  @DeleteDateColumn()
+  deleteAt: Date | null;
 }
