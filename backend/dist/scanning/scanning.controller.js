@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ScanningController = void 0;
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
 const getNearFriendsDto_1 = require("./dto/getNearFriendsDto");
 const getNearPostsDto_1 = require("./dto/getNearPostsDto");
 const scanning_service_1 = require("./scanning.service");
@@ -44,6 +45,7 @@ __decorate([
 ], ScanningController.prototype, "getNearFriends", null);
 ScanningController = __decorate([
     (0, common_1.Controller)('scanning'),
+    (0, swagger_1.ApiTags)('Scanning API'),
     __metadata("design:paramtypes", [scanning_service_1.ScanningService])
 ], ScanningController);
 exports.ScanningController = ScanningController;
