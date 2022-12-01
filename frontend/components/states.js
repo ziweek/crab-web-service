@@ -1,5 +1,6 @@
 import { atom } from "recoil";
 import { getCookies } from "components/cookie";
+
 const mainPostState = atom({
   key: "mainPost",
   default: "",
@@ -7,7 +8,7 @@ const mainPostState = atom({
 
 const userToken = atom({
   key: "userToken",
-  default: localStorage.getItem("token"),
+  default: "",
 });
 const userInfo = atom({
   key: "userInfo",

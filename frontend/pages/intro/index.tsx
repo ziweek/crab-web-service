@@ -10,6 +10,10 @@ import axios from "axios";
 const Intro: NextPage = () => {
   const [token, setToken] = useRecoilState(userToken);
   const [user, setUser] = useRecoilState(userInfo);
+  if (typeof window !== "undefined") {
+    const item: any = localStorage.getItem("token");
+    setToken(item);
+  }
   const getUser = async () => {
     console.log("getuser start", token);
     await axios

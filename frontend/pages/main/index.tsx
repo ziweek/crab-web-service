@@ -68,6 +68,10 @@ const Main: NextPage = () => {
   // ---------------------------유저인증--------------------
   const [token, setToken] = useRecoilState(userToken);
   const [user, setUser] = useRecoilState(userInfo);
+  if (typeof window !== "undefined") {
+    const item: any = localStorage.getItem("token");
+    setToken(item);
+  }
   const getUser = async () => {
     console.log("getuser start", token);
     await axios

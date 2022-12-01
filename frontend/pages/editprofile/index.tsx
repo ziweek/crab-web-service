@@ -15,6 +15,10 @@ const EditProfile: NextPage = () => {
   const [user, setUser] = useRecoilState<any>(userInfo);
   const [data, setData] = useState(user);
   // console.log(user, "data");
+  if (typeof window !== "undefined") {
+    const item: any = localStorage.getItem("token");
+    setToken(item);
+  }
   const getUser = async () => {
     console.log("getuser start", token);
     await axios
