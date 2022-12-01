@@ -19,11 +19,7 @@ const SignIn: NextPage = () => {
       .post(`${process.env.BASE_URL}` + "/auth/login", account)
       .then(function (response) {
         console.log(response);
-        setCookies("token", response.data.accessToken, {
-          path: "/",
-          secure: true,
-          sameSite: "none",
-        });
+        localStorage.setItem("token", response.data.accessToken);
         setErr(false);
         router.push("/main");
       })

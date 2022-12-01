@@ -7,7 +7,7 @@ const mainPostState = atom({
 
 const userToken = atom({
   key: "userToken",
-  default: getCookies("token"),
+  default: localStorage.getItem("token"),
 });
 const userInfo = atom({
   key: "userInfo",

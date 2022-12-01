@@ -19,11 +19,7 @@ const SignUp: NextPage = () => {
       .post(`${process.env.BASE_URL}` + "/auth/register", account)
       .then(function (response) {
         console.log(response);
-        setCookies("token", response.data.accessToken, {
-          path: "/",
-          secure: true,
-          sameSite: "none",
-        });
+        localStorage.setItem("token", response.data.accessToken);
         router.push("main");
       })
       .catch(function (error) {
