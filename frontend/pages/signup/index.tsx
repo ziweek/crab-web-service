@@ -8,6 +8,7 @@ import axios from "axios";
 import { setCookies } from "components/cookie";
 const SignUp: NextPage = () => {
   const router = useRouter();
+  const [err, setErr] = useState(false);
   const [account, setAccount] = useState({
     name: "",
     phone: "",
@@ -27,7 +28,6 @@ const SignUp: NextPage = () => {
       });
   };
   const onChangeAccount = (e: any) => {
-    // console.log("이거", account);
     setAccount({
       ...account,
       [e.target.name]: e.target.value,
@@ -74,6 +74,12 @@ const SignUp: NextPage = () => {
             onChange={onChangeAccount}
           ></S.SignUpInput>
         </S.SignUpInputWrapper>
+        {err && (
+          <S.Error>
+            이미 존재하는 계정이거나 정보가 형식에 맞지 않습니다
+          </S.Error>
+        )}
+
         <S.SocialContainer>
           {/* <S.SocialWrapper>
             <i className="bi bi-google"></i>

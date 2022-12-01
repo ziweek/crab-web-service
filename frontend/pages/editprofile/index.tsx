@@ -68,41 +68,38 @@ const EditProfile: NextPage = () => {
       {data ? (
         <>
           <S.HeaderContainer>
-            <div></div>
-            <div onClick={SendEditData}>적용하기 </div>
+            <div>프로필 수정</div>
+            <div
+              onClick={() => {
+                localStorage.removeItem("token");
+                localStorage.removeItem("recoil-persist");
+                router.push("/signin");
+              }}
+            >
+              로그아웃
+            </div>
           </S.HeaderContainer>
           <S.PicContainer>
             <S.PicBox>
               <img src={data.profileImg} />
             </S.PicBox>
-            <S.Name
-              type="text"
-              name="name"
-              value={data.name}
-              onChange={onChangeData}
-            />
-            <S.ID
-              type="text"
-              name="nickname"
-              value={data.nickname}
-              onChange={onChangeData}
-            ></S.ID>
-            <S.Intro
-              name="text"
-              value={data.text}
-              onChange={onChangeData}
-            ></S.Intro>
           </S.PicContainer>
-          <S.InfoContainer>
-            <S.InfoWrapper>
-              <div>42</div>
-              <div>피드</div>
-            </S.InfoWrapper>
-            <S.InfoWrapper>
-              <div>213</div>
-              <div>친구</div>
-            </S.InfoWrapper>
-          </S.InfoContainer>
+          <S.SmallTitle>이름</S.SmallTitle>
+          <S.EditInput
+            type="text"
+            name="name"
+            value={data.name}
+            onChange={onChangeData}
+          />
+          {/* <S.EditInput
+            type="text"
+            name="nickname"
+            value={data.nickname}
+            onChange={onChangeData}
+          /> */}
+          <S.SmallTitle>소개</S.SmallTitle>
+          <S.EditInput name="text" value={data.text} onChange={onChangeData} />
+          <S.SignOutBtn onClick={SendEditData}>적용하기</S.SignOutBtn>
         </>
       ) : (
         <Loading></Loading>

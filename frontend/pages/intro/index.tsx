@@ -7,36 +7,16 @@ import * as S from "styles/intro/style";
 import { useRecoilState } from "recoil";
 import { userToken, userInfo } from "components/states";
 import axios from "axios";
+import useIsLogin from "hooks/useIsLogin";
 const Intro: NextPage = () => {
-  const [token, setToken] = useRecoilState(userToken);
-  const [user, setUser] = useRecoilState(userInfo);
-  if (typeof window !== "undefined") {
-    const item: any = localStorage.getItem("token");
-    setToken(item);
-  }
-  const getUser = async () => {
-    console.log("getuser start", token);
-    await axios
-      .get(`${process.env.BASE_URL}` + "/auth/authenticate", {
-        headers: { Authorization: "Bearer " + token },
-      })
-      .then((response) => {
-        console.log("getUser", response);
-        setUser(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-  useEffect(() => {
-    getUser();
-  }, []);
+  const user = useIsLogin();
   const router = useRouter();
   const move = () => {
     if (!user) {
       router.push("signin");
-    } else {
-      router.push("/");
+    }
+    if (user) {
+      router.push("main");
     }
   };
   setTimeout(move, 3000);

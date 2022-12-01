@@ -18,10 +18,12 @@ export const HeaderContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   font-size: 1.8rem;
   font-weight: 700;
   margin-top: 2rem;
-  & div {
+  & div:last-child {
+    font-size: 1.4rem;
     cursor: pointer;
   }
 `;
@@ -181,4 +183,35 @@ export const NextBtn = styled(PrevBtn)`
   &::after {
     transform-origin: 100% 50%;
   }
+`;
+export const SignOutBtn = styled.div`
+  width: 80%;
+  height: 4rem;
+  background-color: #d3d3d3;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4rem;
+  cursor: pointer;
+  border: 1px solid #eee;
+  box-shadow: 2px 4px 2px rgba(0, 0, 0, 0.25);
+  &:hover {
+    background-color: #eee;
+  }
+`;
+export const EditInput = styled.input`
+  width: 100%;
+  background-color: white;
+  border-style: none;
+  padding: 1rem;
+  border-bottom: 1px solid #222;
+  font-size: 1.6rem;
+  padding-left: 0;
+  padding-right: 0;
+  margin-bottom: 2rem;
+`;
+export const SmallTitle = styled.div`
+  font-size: 1.4rem;
+  width: 100%; ;
 `;

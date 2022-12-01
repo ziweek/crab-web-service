@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import type { NextPage } from "next";
 import Image from "next/image";
 import useGeoLocation from "hooks/useGeolocation";
+import useIsLogin from "hooks/useIsLogin";
 import Modal from "components/common/modal";
 import { useRouter } from "next/router";
 import * as S from "styles/main/style";
@@ -15,10 +16,10 @@ import {
 } from "components/states";
 import Navbar from "components/layout/navbar/navbar";
 import axios from "axios";
-import { getCookies } from "components/cookie";
 import Loading from "components/common/loading";
 const Main: NextPage = () => {
   const router = useRouter();
+  const isLogin = useIsLogin();
   // const location: any = useGeoLocation();
   const [openModal, setOpenModal] = useState(false);
   const [mainPost, setMainPost] = useRecoilState<any>(mainPostState);
@@ -62,40 +63,9 @@ const Main: NextPage = () => {
       })
       .catch((error) => {
         console.log(error);
-        alert("인근에 볼 수 있는 피드가 없습니다");
+        // alert("인근에 볼 수 있는 피드가 없습니다");
       });
   };
-  // ---------------------------유저인증--------------------
-  const [token, setToken] = useRecoilState(userToken);
-  const [user, setUser] = useRecoilState(userInfo);
-  if (typeof window !== "undefined") {
-    const item: any = localStorage.getItem("token");
-    setToken(item);
-  }
-  const getUser = async () => {
-    console.log("getuser start", token);
-    await axios
-      .get(`${process.env.BASE_URL}` + "/auth/authenticate", {
-        headers: { Authorization: "Bearer " + token },
-      })
-      .then((response) => {
-        console.log("getUser", response);
-        setUser(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-  useEffect(() => {
-    getUser();
-    // if (location.coordinates) {
-    //   setRegion(location.coordinates);
-    // }
-    console.log("region", JSON.stringify(region));
-    // if (!user) {
-    //   router.push("/signin");
-    // }
-  }, []);
   useEffect(() => {
     if (region) {
       getPosts();
@@ -108,16 +78,13 @@ const Main: NextPage = () => {
 
   return (
     <S.Container>
-      {user ? (
+      {isLogin ? (
         <>
           <Map
             location={region}
             getSetOpenModal={getSetOpenModal}
             region={posts}
           ></Map>
-          {/* {location.loaded
-        ? JSON.stringify(location.coordinates)
-        : "Location data not available yet."} */}
           {openModal && (
             <Modal
               getSetOpenModal={getSetOpenModal}
