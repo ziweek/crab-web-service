@@ -84,7 +84,7 @@ const Container = styled.div`
   color: #222222;
 `;
 
-const GlobalStyle = ({ children }) => {
+const GlobalStyle = ({ children }: any) => {
   return (
     <>
       <GlobalStyleWrapper />

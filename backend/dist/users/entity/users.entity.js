@@ -94,6 +94,10 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
+    (0, typeorm_1.Column)('simple-array'),
+    __metadata("design:type", Array)
+], User.prototype, "friendIds", void 0);
+__decorate([
     (0, typeorm_1.OneToMany)(() => post_entity_1.Post, (post) => post.author, { nullable: true }),
     __metadata("design:type", Array)
 ], User.prototype, "posts", void 0);

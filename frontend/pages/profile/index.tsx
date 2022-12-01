@@ -75,7 +75,9 @@ const Profile: NextPage = () => {
         <Loading></Loading>
       )}
 
-      <Navbar tab={"profile"}></Navbar>
+      <Navbar
+      // tab={"profile"}
+      ></Navbar>
     </S.Container>
   );
 };

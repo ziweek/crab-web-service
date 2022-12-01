@@ -125,7 +125,9 @@ const Main: NextPage = () => {
       ) : (
         <Loading></Loading>
       )}
-      <Navbar tab={"main"}></Navbar>
+      <Navbar
+      // tab={"main"}
+      ></Navbar>
     </S.Container>
   );
 };

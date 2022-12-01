@@ -7,12 +7,12 @@ import { useRouter } from "next/router";
 import * as S from "styles/components/common/navbar";
 const Navbar: NextPage = (props: any) => {
   const router = useRouter();
-  const [tab, setTab] = useState(props.tab);
+  const [tab, setTab] = useState<string>(props.tab);
   return (
     <S.NavbarContainer>
       <S.IconWrapper
         id={"main"}
-        tab={tab}
+        // tab={tab}
         onClick={() => {
           router.push("main");
         }}
@@ -21,14 +21,16 @@ const Navbar: NextPage = (props: any) => {
       </S.IconWrapper>
       <S.IconWrapper
         id={"search"}
-        tab={tab}
+        // tab={tab}
         onClick={() => {
           router.push("search");
         }}
       >
         <i className="bi bi-search"></i>
       </S.IconWrapper>
-      <S.IconWrapper tab={tab}></S.IconWrapper>
+      <S.IconWrapper
+      // tab={tab}
+      ></S.IconWrapper>
       <S.WriteIconWrapper
         // id={"newPost"}
         // tab={tab}
@@ -40,7 +42,7 @@ const Navbar: NextPage = (props: any) => {
       </S.WriteIconWrapper>
       <S.IconWrapper
         id={"chatlist"}
-        tab={tab}
+        // tab={tab}
         onClick={() => {
           router.push("chatlist");
         }}
@@ -50,7 +52,7 @@ const Navbar: NextPage = (props: any) => {
       {/* <Link href="profile"> */}
       <S.IconWrapper
         id={"profile"}
-        tab={tab}
+        // tab={tab}
         onClick={() => {
           router.push("profile");
         }}

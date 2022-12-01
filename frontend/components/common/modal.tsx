@@ -4,8 +4,7 @@ import Image from "next/image";
 import Logo from "asset/image/logo.png";
 import { useRouter } from "next/router";
 import * as S from "styles/components/common/modal";
-import { Sign } from "crypto";
-const Modal: NextPage = (props: any) => {
+const Modal = (props: any) => {
   const [mainPost, setMainPost] = useState(props.mainPost);
   const [posts, setPosts] = useState(props.posts);
   const sendSetOpenModal = () => {
