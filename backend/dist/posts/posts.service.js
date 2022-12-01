@@ -22,7 +22,7 @@ let PostsService = class PostsService {
         this.postsRepository = postsRepository;
     }
     async createPost(createPostDto) {
-        this.postsRepository.save(createPostDto);
+        return await this.postsRepository.save(createPostDto);
     }
     async findAllPosts() {
         return await this.postsRepository.find();

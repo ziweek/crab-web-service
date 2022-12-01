@@ -11,9 +11,9 @@ export class PostsService {
     private postsRepository: Repository<Post>,
   ) {}
 
-  async createPost(createPostDto: CreatePostDto): Promise<void> {
+  async createPost(createPostDto: CreatePostDto): Promise<Post> {
     // author 추가해야함.
-    this.postsRepository.save(createPostDto);
+    return await this.postsRepository.save(createPostDto);
   }
 
   async findAllPosts(): Promise<Post[]> {

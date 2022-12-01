@@ -4,7 +4,7 @@ import { Post } from './entity/post.entity';
 export declare class PostsService {
     private postsRepository;
     constructor(postsRepository: Repository<Post>);
-    createPost(createPostDto: CreatePostDto): Promise<void>;
+    createPost(createPostDto: CreatePostDto): Promise<Post>;
     findAllPosts(): Promise<Post[]>;
     findOnePost(id: number): Promise<Post>;
     deletePost(id: number): Promise<void>;
