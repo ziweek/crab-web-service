@@ -1,3 +1,4 @@
+import { AddFriendDto } from './dto/addFriendDto';
 import { CreateUserDto } from './dto/createUserDto';
 import { UsersService } from './users.service';
 export declare class UsersController {
@@ -8,4 +9,5 @@ export declare class UsersController {
     createUser(createUserDto: CreateUserDto): Promise<import("./entity/users.entity").User>;
     updateUser(param: any, createUserDto: CreateUserDto): Promise<void>;
     deleteUser(param: any): void;
+    setFriend(param: any, addFriendDto: AddFriendDto): void;
 }

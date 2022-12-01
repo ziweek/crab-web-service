@@ -14,13 +14,20 @@ const typeorm_1 = require("@nestjs/typeorm");
 const users_entity_1 = require("./entity/users.entity");
 const post_entity_1 = require("../posts/entity/post.entity");
 const comment_entity_1 = require("../comments/entity/comment.entity");
+const friendships_module_1 = require("../friendships/friendships.module");
+const friendships_service_1 = require("../friendships/friendships.service");
+const friendship_entity_1 = require("../friendships/entity/friendship.entity");
 let UsersModule = class UsersModule {
 };
 UsersModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([users_entity_1.User, post_entity_1.Post, comment_entity_1.Comment])],
+        imports: [
+            typeorm_1.TypeOrmModule.forFeature([users_entity_1.User, post_entity_1.Post, comment_entity_1.Comment, friendship_entity_1.Friendship]),
+            friendships_module_1.FriendshipsModule,
+        ],
+        exports: [typeorm_1.TypeOrmModule],
         controllers: [users_controller_1.UsersController],
-        providers: [users_service_1.UsersService],
+        providers: [users_service_1.UsersService, friendships_service_1.FriendshipsService],
     })
 ], UsersModule);
 exports.UsersModule = UsersModule;

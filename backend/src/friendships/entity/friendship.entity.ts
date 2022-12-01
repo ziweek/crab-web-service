@@ -6,6 +6,9 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  JoinColumn,
+  OneToMany,
+  Column,
 } from 'typeorm';
 
 @Entity()
@@ -13,13 +16,24 @@ export class Friendship {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @JoinColumn()
+  user: User;
+
+  // @Column('Array', { default: [] })
+  // requestedFriendIds: number[];
+
+  // @Column('Array', { default: [] })
+  // acceptedFriends: number[];
+
   @ManyToOne(() => User, (user) => user.requestedFriendship, {
     nullable: true,
+    // eager: true,
   })
   requestedFriends: User[];
 
   @ManyToOne(() => User, (user) => user.acceptedFriendship, {
     nullable: true,
+    // eager: true,
   })
   acceptedFriends: User[];
 

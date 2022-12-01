@@ -8,17 +8,53 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FriendshipsController = void 0;
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
+const createFriendshipDto_1 = require("./dto/createFriendshipDto");
 const friendships_service_1 = require("./friendships.service");
 let FriendshipsController = class FriendshipsController {
     constructor(friendshipsService) {
         this.friendshipsService = friendshipsService;
     }
+    async findAllFriendship() {
+        return this.friendshipsService.findAllFriendship();
+    }
+    findOneFriendship(param) {
+        return this.friendshipsService.findOneFriendship(param.id);
+    }
+    async createOneFriendship(createFriendshipDto) {
+        this.friendshipsService.createOneFriendship(createFriendshipDto);
+    }
 };
+__decorate([
+    (0, common_1.Get)(),
+    (0, swagger_1.ApiOperation)({ summary: 'aa' }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], FriendshipsController.prototype, "findAllFriendship", null);
+__decorate([
+    (0, common_1.Get)(':id'),
+    __param(0, (0, common_1.Param)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], FriendshipsController.prototype, "findOneFriendship", null);
+__decorate([
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [createFriendshipDto_1.CreateFriendshipDto]),
+    __metadata("design:returntype", Promise)
+], FriendshipsController.prototype, "createOneFriendship", null);
 FriendshipsController = __decorate([
     (0, common_1.Controller)('friendships'),
+    (0, swagger_1.ApiTags)('Friendship API'),
     __metadata("design:paramtypes", [friendships_service_1.FriendshipsService])
 ], FriendshipsController);
 exports.FriendshipsController = FriendshipsController;
