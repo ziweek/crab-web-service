@@ -39,12 +39,22 @@ let CommentsController = class CommentsController {
 };
 __decorate([
     (0, common_1.Get)(),
+    (0, swagger_1.ApiOperation)({ summary: '전체 댓글 조회하기' }),
+    (0, swagger_1.ApiCreatedResponse)({
+        description: '전체 댓글 반환',
+        schema: {},
+    }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], CommentsController.prototype, "findAllComments", null);
 __decorate([
     (0, common_1.Get)(':id'),
+    (0, swagger_1.ApiOperation)({ summary: '댓글 하나 조회하기' }),
+    (0, swagger_1.ApiCreatedResponse)({
+        description: '댓글 하나 반환',
+        schema: {},
+    }),
     __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -52,6 +62,11 @@ __decorate([
 ], CommentsController.prototype, "findOneComment", null);
 __decorate([
     (0, common_1.Post)(),
+    (0, swagger_1.ApiOperation)({ summary: '댓글 작성하기' }),
+    (0, swagger_1.ApiCreatedResponse)({
+        description: '댓글 작성하기',
+        schema: {},
+    }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [createCommentDto_1.CreateCommentDto]),
@@ -59,6 +74,11 @@ __decorate([
 ], CommentsController.prototype, "createComment", null);
 __decorate([
     (0, common_1.Patch)(':id'),
+    (0, swagger_1.ApiOperation)({ summary: '댓글 수정하기' }),
+    (0, swagger_1.ApiCreatedResponse)({
+        description: '댓글 수정하기',
+        schema: {},
+    }),
     __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -66,6 +86,11 @@ __decorate([
 ], CommentsController.prototype, "updateComment", null);
 __decorate([
     (0, common_1.Delete)(':id'),
+    (0, swagger_1.ApiOperation)({ summary: '댓글 삭제하기' }),
+    (0, swagger_1.ApiCreatedResponse)({
+        description: '댓글 삭제하기',
+        schema: {},
+    }),
     __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),

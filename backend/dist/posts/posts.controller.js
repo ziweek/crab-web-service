@@ -28,23 +28,87 @@ let PostsController = class PostsController {
         return this.postsService.findOnePost(param.id);
     }
     createPost(createPostDto) {
-        this.postsService.createPost(createPostDto);
+        return this.postsService.createPost(createPostDto);
     }
     updatePost(param, createPostDto) {
         this.postsService.updatePost(param.id, createPostDto);
     }
     deletePost(param) {
         this.postsService.deletePost(param.id);
+        return ['deletePost', `${param.id}`];
     }
 };
 __decorate([
     (0, common_1.Get)(),
+    (0, swagger_1.ApiOperation)({ summary: '전체 포스트 조회하기' }),
+    (0, swagger_1.ApiCreatedResponse)({
+        description: '전체 포스트 반환',
+        schema: {
+            example: [
+                {
+                    id: 3,
+                    title: 'test',
+                    content: '01012345678',
+                    images: 'admin@amdin.co,kr',
+                    region: {
+                        lat: 37.5885098,
+                        lng: 127.0337661,
+                    },
+                    hidden: true,
+                    createAt: '2022-12-01T05:20:17.442Z',
+                    updateAt: '2022-12-01T05:20:17.442Z',
+                    deleteAt: null,
+                    author: null,
+                    comments: [],
+                },
+                {
+                    id: 4,
+                    title: 'test',
+                    content: '01012345678',
+                    images: 'admin@amdin.co,kr',
+                    region: {
+                        lat: 37.5885098,
+                        lng: 127.0337661,
+                    },
+                    hidden: true,
+                    createAt: '2022-12-01T05:22:35.520Z',
+                    updateAt: '2022-12-01T05:22:35.520Z',
+                    deleteAt: null,
+                    author: null,
+                    comments: [],
+                },
+            ],
+        },
+    }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], PostsController.prototype, "findAllPosts", null);
 __decorate([
     (0, common_1.Get)(':id'),
+    (0, swagger_1.ApiParam)({ name: 'id', example: 1, required: true }),
+    (0, swagger_1.ApiOperation)({ summary: '포스트 하나 조회하기' }),
+    (0, swagger_1.ApiCreatedResponse)({
+        description: '포스트 하나 반환',
+        schema: {
+            example: {
+                id: 4,
+                title: 'test',
+                content: '01012345678',
+                images: 'admin@amdin.co,kr',
+                region: {
+                    lat: 37.5885098,
+                    lng: 127.0337661,
+                },
+                hidden: true,
+                createAt: '2022-12-01T05:22:35.520Z',
+                updateAt: '2022-12-01T05:22:35.520Z',
+                deleteAt: null,
+                author: null,
+                comments: [],
+            },
+        },
+    }),
     __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -52,6 +116,11 @@ __decorate([
 ], PostsController.prototype, "findOnePost", null);
 __decorate([
     (0, common_1.Post)(),
+    (0, swagger_1.ApiOperation)({ summary: '포스트 생성하기' }),
+    (0, swagger_1.ApiCreatedResponse)({
+        description: '포스트 생성',
+        schema: {},
+    }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [createPostDto_1.CreatePostDto]),
@@ -59,6 +128,28 @@ __decorate([
 ], PostsController.prototype, "createPost", null);
 __decorate([
     (0, common_1.Patch)(':id'),
+    (0, swagger_1.ApiOperation)({ summary: '포스트 수정하기' }),
+    (0, swagger_1.ApiCreatedResponse)({
+        description: '포스트 수정',
+        schema: {
+            example: {
+                id: 4,
+                title: 'test',
+                content: '01012345678',
+                images: 'admin@amdin.co,kr',
+                region: {
+                    lat: 37.5885098,
+                    lng: 127.0337661,
+                },
+                hidden: true,
+                createAt: '2022-12-01T05:22:35.520Z',
+                updateAt: '2022-12-01T05:22:35.520Z',
+                deleteAt: null,
+                author: null,
+                comments: [],
+            },
+        },
+    }),
     __param(0, (0, common_1.Param)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -67,6 +158,13 @@ __decorate([
 ], PostsController.prototype, "updatePost", null);
 __decorate([
     (0, common_1.Delete)(':id'),
+    (0, swagger_1.ApiOperation)({ summary: '포스트 삭제하기' }),
+    (0, swagger_1.ApiCreatedResponse)({
+        description: '포스트 삭제',
+        schema: {
+            example: ['deletePost', '3'],
+        },
+    }),
     __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
