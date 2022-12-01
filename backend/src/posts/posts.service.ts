@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/users/entity/users.entity';
 import { Repository } from 'typeorm';
 import { CreatePostDto } from './dto/createPostDto';
 import { Post } from './entity/post.entity';
@@ -9,11 +10,19 @@ export class PostsService {
   constructor(
     @InjectRepository(Post)
     private postsRepository: Repository<Post>,
+
+    @InjectRepository(User)
+    private usersRepository: Repository<User>,
   ) {}
 
   async createPost(createPostDto: CreatePostDto): Promise<Post> {
     // author 추가해야함.
-    return await this.postsRepository.save(createPostDto);
+    const author = await this.usersRepository.findOne({
+      where: { id: createPostDto.authorId },
+    });
+    const targetPost = await this.postsRepository.save(createPostDto);
+    targetPost.author = author;
+    return await this.postsRepository.save(targetPost);
   }
 
   async findAllPosts(): Promise<Post[]> {

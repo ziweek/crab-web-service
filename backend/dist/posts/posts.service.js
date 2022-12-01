@@ -15,14 +15,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PostsService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
+const users_entity_1 = require("../users/entity/users.entity");
 const typeorm_2 = require("typeorm");
 const post_entity_1 = require("./entity/post.entity");
 let PostsService = class PostsService {
-    constructor(postsRepository) {
+    constructor(postsRepository, usersRepository) {
         this.postsRepository = postsRepository;
+        this.usersRepository = usersRepository;
     }
     async createPost(createPostDto) {
-        return await this.postsRepository.save(createPostDto);
+        const author = await this.usersRepository.findOne({
+            where: { id: createPostDto.authorId },
+        });
+        const targetPost = await this.postsRepository.save(createPostDto);
+        targetPost.author = author;
+        return await this.postsRepository.save(targetPost);
     }
     async findAllPosts() {
         return await this.postsRepository.find();
@@ -46,7 +53,9 @@ let PostsService = class PostsService {
 PostsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(post_entity_1.Post)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __param(1, (0, typeorm_1.InjectRepository)(users_entity_1.User)),
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository])
 ], PostsService);
 exports.PostsService = PostsService;
 //# sourceMappingURL=posts.service.js.map

@@ -3,4 +3,8 @@ export declare class CreateUserDto {
     phone: number;
     email: string;
     password: string;
+    nickname: string;
+    text: string;
+    profileImg: string;
+    region: JSON;
 }

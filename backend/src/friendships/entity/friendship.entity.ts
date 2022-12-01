@@ -18,10 +18,10 @@ export class Friendship {
   })
   requestedFriends: User[];
 
-  @ManyToOne(() => User, (user) => user.responsedFriendship, {
+  @ManyToOne(() => User, (user) => user.acceptedFriendship, {
     nullable: true,
   })
-  responsedFriends: User[];
+  acceptedFriends: User[];
 
   @CreateDateColumn()
   createAt: Date;

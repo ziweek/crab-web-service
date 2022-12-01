@@ -31,6 +31,33 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "name", void 0);
 __decorate([
+    (0, typeorm_1.Column)(),
+    (0, swagger_1.ApiProperty)({
+        example: '{"lng":123,"lat":37}',
+        description: '지역 JSON',
+        required: true,
+    }),
+    __metadata("design:type", Number)
+], User.prototype, "phone", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    (0, swagger_1.ApiProperty)({
+        example: '{"lng":123,"lat":37}',
+        description: '지역 JSON',
+        required: true,
+    }),
+    __metadata("design:type", String)
+], User.prototype, "email", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    (0, swagger_1.ApiProperty)({
+        example: '{"lng":123,"lat":37}',
+        description: '지역 JSON',
+        required: true,
+    }),
+    __metadata("design:type", String)
+], User.prototype, "password", void 0);
+__decorate([
     (0, typeorm_1.Column)({ default: null }),
     (0, swagger_1.ApiProperty)({
         example: '닉네임',
@@ -58,24 +85,6 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "profileImg", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    (0, swagger_1.ApiProperty)({
-        example: '{"lng":123,"lat":37}',
-        description: '지역 JSON',
-        required: true,
-    }),
-    __metadata("design:type", Number)
-], User.prototype, "phone", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    (0, swagger_1.ApiProperty)({
-        example: '{"lng":123,"lat":37}',
-        description: '지역 JSON',
-        required: true,
-    }),
-    __metadata("design:type", String)
-], User.prototype, "email", void 0);
-__decorate([
     (0, typeorm_1.Column)({ type: 'json', nullable: true }),
     (0, swagger_1.ApiProperty)({
         example: '{"lng":123,"lat":37}',
@@ -84,19 +93,6 @@ __decorate([
     }),
     __metadata("design:type", Object)
 ], User.prototype, "region", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    (0, swagger_1.ApiProperty)({
-        example: '{"lng":123,"lat":37}',
-        description: '지역 JSON',
-        required: true,
-    }),
-    __metadata("design:type", String)
-], User.prototype, "password", void 0);
-__decorate([
-    (0, typeorm_1.Column)('simple-array'),
-    __metadata("design:type", Array)
-], User.prototype, "friendIds", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => post_entity_1.Post, (post) => post.author, { nullable: true }),
     __metadata("design:type", Array)
@@ -113,12 +109,17 @@ __decorate([
     __metadata("design:type", Array)
 ], User.prototype, "requestedFriendship", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => friendship_entity_1.Friendship, (friendship) => friendship.responsedFriends, {
+    (0, typeorm_1.OneToMany)(() => friendship_entity_1.Friendship, (friendship) => friendship.acceptedFriends, {
         nullable: true,
         eager: true,
     }),
     __metadata("design:type", Array)
-], User.prototype, "responsedFriendship", void 0);
+], User.prototype, "acceptedFriendship", void 0);
+__decorate([
+    (0, typeorm_1.OneToOne)(() => friendship_entity_1.Friendship, { eager: true }),
+    (0, typeorm_1.JoinColumn)(),
+    __metadata("design:type", friendship_entity_1.Friendship)
+], User.prototype, "friendship", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)

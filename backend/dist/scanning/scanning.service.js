@@ -64,7 +64,7 @@ let ScanningService = class ScanningService {
         const target = await this.userRepository.find();
         target.forEach((e) => {
             const distance = this.getDistance(getNearFriendsDto.region, e.region);
-            if (distance < 1000) {
+            if (distance < 500) {
                 container.push(e);
             }
         });

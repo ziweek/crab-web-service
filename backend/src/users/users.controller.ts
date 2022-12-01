@@ -8,6 +8,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { AddFriendDto } from './dto/addFriendDto';
 import { CreateUserDto } from './dto/createUserDto';
 import { UsersService } from './users.service';
 
@@ -154,4 +155,16 @@ export class UsersController {
   deleteUser(@Param() param) {
     this.userService.deleteUser(param.id);
   }
+
+  // @Patch('setFriend/:id')
+  // @ApiOperation({ summary: '친구 추가하기' })
+  // @ApiCreatedResponse({
+  //   description: '반환 없음',w
+  //   schema: {
+  //     example: {},
+  //   },
+  // })
+  // setFriend(@Param() param, @Body() addFriendDto: AddFriendDto) {
+  //   this.userService.setFriend(param.id, addFriendDto);
+  // }
 }

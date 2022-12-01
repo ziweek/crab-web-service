@@ -9,6 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FriendshipsModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
+const users_entity_1 = require("../users/entity/users.entity");
 const friendship_entity_1 = require("./entity/friendship.entity");
 const friendships_controller_1 = require("./friendships.controller");
 const friendships_service_1 = require("./friendships.service");
@@ -16,7 +17,7 @@ let FriendshipsModule = class FriendshipsModule {
 };
 FriendshipsModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([friendship_entity_1.Friendship])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([friendship_entity_1.Friendship, users_entity_1.User])],
         exports: [typeorm_1.TypeOrmModule],
         controllers: [friendships_controller_1.FriendshipsController],
         providers: [friendships_service_1.FriendshipsService],

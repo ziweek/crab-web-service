@@ -1,9 +1,11 @@
+import { User } from 'src/users/entity/users.entity';
 import { Repository } from 'typeorm';
 import { CreatePostDto } from './dto/createPostDto';
 import { Post } from './entity/post.entity';
 export declare class PostsService {
     private postsRepository;
-    constructor(postsRepository: Repository<Post>);
+    private usersRepository;
+    constructor(postsRepository: Repository<Post>, usersRepository: Repository<User>);
     createPost(createPostDto: CreatePostDto): Promise<Post>;
     findAllPosts(): Promise<Post[]>;
     findOnePost(id: number): Promise<Post>;

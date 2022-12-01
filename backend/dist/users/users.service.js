@@ -41,6 +41,10 @@ let UsersService = class UsersService {
                 phone: createUserDto.phone,
                 email: createUserDto.email,
                 password: createUserDto.password,
+                nickname: createUserDto.nickname,
+                text: createUserDto.text,
+                profileImg: createUserDto.profileImg,
+                region: createUserDto.region,
             });
         }
     }

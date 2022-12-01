@@ -28,4 +28,32 @@ export class CreateUserDto {
     required: true,
   })
   password: string;
+
+  @ApiProperty({
+    example: '닉네임',
+    description: 'zi.we_ek',
+    required: false,
+  })
+  nickname: string;
+
+  @ApiProperty({
+    example: 'Hi, there. I am Jiuk',
+    description: '자기소개',
+    required: false,
+  })
+  text: string;
+
+  @ApiProperty({
+    example: 'img',
+    description: '프로필사진 URL',
+    required: false,
+  })
+  profileImg: string;
+
+  @ApiProperty({
+    example: '{"lng":123,"lat":37}',
+    description: '지역 JSON',
+    required: true,
+  })
+  region: JSON;
 }

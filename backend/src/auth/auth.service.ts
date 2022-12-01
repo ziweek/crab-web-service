@@ -49,7 +49,10 @@ export class AuthService {
       registerAccountDto,
     );
     const newAccount = await this.userRepository.save(registerAccountDtoHashed);
-    return newAccount;
+    const payload: Payload = { email: registerAccountDto.email };
+    return {
+      accessToken: this.jwtService.sign(payload),
+    };
   }
 
   async validateAccount(validateAccountDto: ValidateAccountDto): Promise<any> {
