@@ -156,15 +156,15 @@ export class UsersController {
     this.userService.deleteUser(param.id);
   }
 
-  @Patch('setFriend/:id')
-  @ApiOperation({ summary: '친구 추가하기' })
-  @ApiCreatedResponse({
-    description: '반환 없음',
-    schema: {
-      example: {},
-    },
-  })
-  setFriend(@Param() param, @Body() addFriendDto: AddFriendDto) {
-    this.userService.setFriend(param.id, addFriendDto);
-  }
+  // @Patch('setFriend/:id')
+  // @ApiOperation({ summary: '친구 추가하기' })
+  // @ApiCreatedResponse({
+  //   description: '반환 없음',w
+  //   schema: {
+  //     example: {},
+  //   },
+  // })
+  // setFriend(@Param() param, @Body() addFriendDto: AddFriendDto) {
+  //   this.userService.setFriend(param.id, addFriendDto);
+  // }
 }

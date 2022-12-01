@@ -47,11 +47,35 @@ __decorate([
 ], CreateUserDto.prototype, "password", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
-        example: [],
-        description: '친구 리스트',
+        example: '닉네임',
+        description: 'zi.we_ek',
+        required: false,
+    }),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "nickname", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        example: 'Hi, there. I am Jiuk',
+        description: '자기소개',
+        required: false,
+    }),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "text", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        example: 'img',
+        description: '프로필사진 URL',
+        required: false,
+    }),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "profileImg", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        example: '{"lng":123,"lat":37}',
+        description: '지역 JSON',
         required: true,
     }),
-    __metadata("design:type", Array)
-], CreateUserDto.prototype, "friends", void 0);
+    __metadata("design:type", Object)
+], CreateUserDto.prototype, "region", void 0);
 exports.CreateUserDto = CreateUserDto;
 //# sourceMappingURL=createUserDto.js.map

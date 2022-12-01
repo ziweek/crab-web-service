@@ -11,6 +11,8 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
 
 @Entity()
@@ -25,6 +27,30 @@ export class User {
     required: true,
   })
   name: string;
+
+  @Column()
+  @ApiProperty({
+    example: '{"lng":123,"lat":37}',
+    description: '지역 JSON',
+    required: true,
+  })
+  phone: number;
+
+  @Column()
+  @ApiProperty({
+    example: '{"lng":123,"lat":37}',
+    description: '지역 JSON',
+    required: true,
+  })
+  email: string;
+
+  @Column()
+  @ApiProperty({
+    example: '{"lng":123,"lat":37}',
+    description: '지역 JSON',
+    required: true,
+  })
+  password: string;
 
   @Column({ default: null })
   @ApiProperty({
@@ -50,22 +76,6 @@ export class User {
   })
   profileImg: string;
 
-  @Column()
-  @ApiProperty({
-    example: '{"lng":123,"lat":37}',
-    description: '지역 JSON',
-    required: true,
-  })
-  phone: number;
-
-  @Column()
-  @ApiProperty({
-    example: '{"lng":123,"lat":37}',
-    description: '지역 JSON',
-    required: true,
-  })
-  email: string;
-
   @Column({ type: 'json', nullable: true })
   @ApiProperty({
     example: '{"lng":123,"lat":37}',
@@ -74,16 +84,8 @@ export class User {
   })
   region: JSON;
 
-  @Column()
-  @ApiProperty({
-    example: '{"lng":123,"lat":37}',
-    description: '지역 JSON',
-    required: true,
-  })
-  password: string;
-
-  @Column('simple-array', { nullable: true })
-  friends: number[];
+  // @Column('simple-array', { nullable: true })
+  // friends: number[];
 
   @OneToMany(() => Post, (post) => post.author, { nullable: true })
   posts: Post[];
@@ -97,11 +99,15 @@ export class User {
   })
   requestedFriendship: Post[];
 
-  @OneToMany(() => Friendship, (friendship) => friendship.responsedFriends, {
+  @OneToMany(() => Friendship, (friendship) => friendship.acceptedFriends, {
     nullable: true,
     eager: true,
   })
-  responsedFriendship: Post[];
+  acceptedFriendship: Post[];
+
+  @OneToOne(() => Friendship, { eager: true })
+  @JoinColumn()
+  friendship: Friendship;
 
   @CreateDateColumn()
   createAt: Date;

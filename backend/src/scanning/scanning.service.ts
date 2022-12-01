@@ -68,7 +68,7 @@ export class ScanningService {
       // const lngDif = e.region['lng'] - getNearFriendsDto.region['lng'];
       const distance = this.getDistance(getNearFriendsDto.region, e.region);
       // console.log(distance);
-      if (distance < 1000) {
+      if (distance < 500) {
         container.push(e);
       }
       //   console.log(container);

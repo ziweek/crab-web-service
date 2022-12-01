@@ -3,5 +3,8 @@ export declare class CreateUserDto {
     phone: number;
     email: string;
     password: string;
-    friends: number[];
+    nickname: string;
+    text: string;
+    profileImg: string;
+    region: JSON;
 }

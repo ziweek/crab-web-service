@@ -25,11 +25,11 @@ __decorate([
     __metadata("design:type", Array)
 ], Friendship.prototype, "requestedFriends", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => users_entity_1.User, (user) => user.responsedFriendship, {
+    (0, typeorm_1.ManyToOne)(() => users_entity_1.User, (user) => user.acceptedFriendship, {
         nullable: true,
     }),
     __metadata("design:type", Array)
-], Friendship.prototype, "responsedFriends", void 0);
+], Friendship.prototype, "acceptedFriends", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)

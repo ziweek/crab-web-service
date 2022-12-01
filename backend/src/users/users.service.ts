@@ -37,22 +37,26 @@ export class UsersService {
         phone: createUserDto.phone,
         email: createUserDto.email,
         password: createUserDto.password,
+        nickname: createUserDto.nickname,
+        text: createUserDto.text,
+        profileImg: createUserDto.profileImg,
+        region: createUserDto.region,
       });
     }
   }
 
-  async setFriend(id: number, addFriendDto: AddFriendDto): Promise<User> {
-    const reqUser = await this.usersRepository.findOne({
-      where: { id: id },
-    });
-    console.log(reqUser.friends);
-    reqUser.friends[reqUser.friends.length] = addFriendDto.resId;
-    await this.usersRepository.save(reqUser);
-    const resUser = await this.usersRepository.findOne({
-      where: { id: addFriendDto.resId },
-    });
-    resUser.friends[resUser.friends.length] = addFriendDto.resId;
-    await this.usersRepository.save(resUser);
-    return reqUser;
-  }
+  // async setFriend(id: number, addFriendDto: AddFriendDto): Promise<User> {
+  //   const reqUser = await this.usersRepository.findOne({
+  //     where: { id: id },
+  //   });
+  //   console.log(reqUser.friends);
+  //   reqUser.friends[reqUser.friends.length] = addFriendDto.resId;
+  //   await this.usersRepository.save(reqUser);
+  //   const resUser = await this.usersRepository.findOne({
+  //     where: { id: addFriendDto.resId },
+  //   });
+  //   resUser.friends[resUser.friends.length] = addFriendDto.resId;
+  //   await this.usersRepository.save(resUser);
+  //   return reqUser;
+  // }
 }

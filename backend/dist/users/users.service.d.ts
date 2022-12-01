@@ -1,5 +1,4 @@
 import { Repository } from 'typeorm';
-import { AddFriendDto } from './dto/addFriendDto';
 import { CreateUserDto } from './dto/createUserDto';
 import { User } from './entity/users.entity';
 export declare class UsersService {
@@ -10,5 +9,4 @@ export declare class UsersService {
     findOneUser(id: number): Promise<User>;
     deleteUser(id: number): Promise<void>;
     updateUser(id: number, createUserDto: CreateUserDto): Promise<void>;
-    setFriend(id: number, addFriendDto: AddFriendDto): Promise<User>;
 }
