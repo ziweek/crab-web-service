@@ -45,5 +45,13 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], RegisterAccountDto.prototype, "password", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        example: [],
+        description: '친구 리스트',
+        required: true,
+    }),
+    __metadata("design:type", Array)
+], RegisterAccountDto.prototype, "friends", void 0);
 exports.RegisterAccountDto = RegisterAccountDto;
 //# sourceMappingURL=registerAccountDto.js.map

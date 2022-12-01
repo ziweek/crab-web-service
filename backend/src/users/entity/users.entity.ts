@@ -82,8 +82,8 @@ export class User {
   })
   password: string;
 
-  @Column('simple-array')
-  friendIds: number[];
+  @Column('simple-array', { nullable: true })
+  friends: number[];
 
   @OneToMany(() => Post, (post) => post.author, { nullable: true })
   posts: Post[];

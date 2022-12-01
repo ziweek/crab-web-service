@@ -28,4 +28,11 @@ export class CreateUserDto {
     required: true,
   })
   password: string;
+
+  @ApiProperty({
+    example: [],
+    description: '친구 리스트',
+    required: true,
+  })
+  friends: number[];
 }

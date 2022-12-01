@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
+const addFriendDto_1 = require("./dto/addFriendDto");
 const createUserDto_1 = require("./dto/createUserDto");
 const users_service_1 = require("./users.service");
 let UsersController = class UsersController {
@@ -35,6 +36,9 @@ let UsersController = class UsersController {
     }
     deleteUser(param) {
         this.userService.deleteUser(param.id);
+    }
+    setFriend(param, addFriendDto) {
+        this.userService.setFriend(param.id, addFriendDto);
     }
 };
 __decorate([
@@ -181,6 +185,21 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "deleteUser", null);
+__decorate([
+    (0, common_1.Patch)('setFriend/:id'),
+    (0, swagger_1.ApiOperation)({ summary: '친구 추가하기' }),
+    (0, swagger_1.ApiCreatedResponse)({
+        description: '반환 없음',
+        schema: {
+            example: {},
+        },
+    }),
+    __param(0, (0, common_1.Param)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, addFriendDto_1.AddFriendDto]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "setFriend", null);
 UsersController = __decorate([
     (0, common_1.Controller)('users'),
     (0, swagger_1.ApiTags)('User API'),

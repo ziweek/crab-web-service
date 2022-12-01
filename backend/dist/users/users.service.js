@@ -44,6 +44,20 @@ let UsersService = class UsersService {
             });
         }
     }
+    async setFriend(id, addFriendDto) {
+        const reqUser = await this.usersRepository.findOne({
+            where: { id: id },
+        });
+        console.log(reqUser.friends);
+        reqUser.friends[reqUser.friends.length] = addFriendDto.resId;
+        await this.usersRepository.save(reqUser);
+        const resUser = await this.usersRepository.findOne({
+            where: { id: addFriendDto.resId },
+        });
+        resUser.friends[resUser.friends.length] = addFriendDto.resId;
+        await this.usersRepository.save(resUser);
+        return reqUser;
+    }
 };
 UsersService = __decorate([
     (0, common_1.Injectable)(),

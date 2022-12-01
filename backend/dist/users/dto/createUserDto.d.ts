@@ -3,4 +3,5 @@ export declare class CreateUserDto {
     phone: number;
     email: string;
     password: string;
+    friends: number[];
 }

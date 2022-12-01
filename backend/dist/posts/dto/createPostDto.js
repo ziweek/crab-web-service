@@ -15,6 +15,14 @@ class CreatePostDto {
 }
 __decorate([
     (0, swagger_1.ApiProperty)({
+        example: '1',
+        description: '작성자',
+        required: true,
+    }),
+    __metadata("design:type", Number)
+], CreatePostDto.prototype, "authorId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
         example: '오늘 고양이 밥 준 썰푼다.',
         description: '제목',
         required: true,

@@ -2,6 +2,13 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class CreatePostDto {
   @ApiProperty({
+    example: '1',
+    description: '작성자',
+    required: true,
+  })
+  authorId: number;
+
+  @ApiProperty({
     example: '오늘 고양이 밥 준 썰푼다.',
     description: '제목',
     required: true,

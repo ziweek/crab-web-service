@@ -45,5 +45,13 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "password", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        example: [],
+        description: '친구 리스트',
+        required: true,
+    }),
+    __metadata("design:type", Array)
+], CreateUserDto.prototype, "friends", void 0);
 exports.CreateUserDto = CreateUserDto;
 //# sourceMappingURL=createUserDto.js.map
