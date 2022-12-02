@@ -102,24 +102,22 @@ __decorate([
     __metadata("design:type", authority_entity_1.Authority)
 ], User.prototype, "authority", void 0);
 __decorate([
+    (0, typeorm_1.OneToOne)(() => friendship_entity_1.Friendship, (friendship) => friendship.id, { eager: true }),
+    (0, typeorm_1.JoinColumn)(),
+    __metadata("design:type", friendship_entity_1.Friendship)
+], User.prototype, "friendship", void 0);
+__decorate([
     (0, typeorm_1.OneToMany)(() => friendship_entity_1.Friendship, (friendship) => friendship.requestedFriends, {
         nullable: true,
-        eager: true,
     }),
-    __metadata("design:type", Array)
+    __metadata("design:type", friendship_entity_1.Friendship)
 ], User.prototype, "requestedFriendship", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => friendship_entity_1.Friendship, (friendship) => friendship.acceptedFriends, {
         nullable: true,
-        eager: true,
     }),
-    __metadata("design:type", Array)
-], User.prototype, "acceptedFriendship", void 0);
-__decorate([
-    (0, typeorm_1.OneToOne)(() => friendship_entity_1.Friendship, { eager: true }),
-    (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", friendship_entity_1.Friendship)
-], User.prototype, "friendship", void 0);
+], User.prototype, "acceptedFriendship", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)

@@ -15,14 +15,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
+const createFriendshipDto_1 = require("../friendships/dto/createFriendshipDto");
+const friendship_entity_1 = require("../friendships/entity/friendship.entity");
+const friendships_service_1 = require("../friendships/friendships.service");
 const typeorm_2 = require("typeorm");
 const users_entity_1 = require("./entity/users.entity");
 let UsersService = class UsersService {
-    constructor(usersRepository) {
+    constructor(friendshipsService, usersRepository, friendshipsRepository) {
+        this.friendshipsService = friendshipsService;
         this.usersRepository = usersRepository;
+        this.friendshipsRepository = friendshipsRepository;
     }
     async createUser(createUserDto) {
-        return this.usersRepository.save(createUserDto);
+        const savedUser = await this.usersRepository.save(createUserDto);
+        const emptyCreateFriendshipDto = new createFriendshipDto_1.CreateFriendshipDto();
+        emptyCreateFriendshipDto.acceptedFriends = [];
+        emptyCreateFriendshipDto.requestedFriends = [];
+        const savedFriendship = await this.friendshipsService.createOneFriendship(emptyCreateFriendshipDto);
+        savedUser.friendship = savedFriendship;
+        return await this.usersRepository.save(createUserDto);
     }
     async findAllUsers() {
         return await this.usersRepository.find();
@@ -48,11 +59,30 @@ let UsersService = class UsersService {
             });
         }
     }
+    async requestFriendship(id, addFriendDto) {
+        const existedUser = await this.usersRepository.findOne({
+            where: { id: id },
+        });
+        const friendshipId = existedUser.friendship.id;
+        const existedFriendship = await this.friendshipsRepository.findOne({
+            where: { id: friendshipId },
+        });
+        const targetUser = await this.usersRepository.findOne({
+            where: { id: addFriendDto.targetId },
+        });
+        existedFriendship.requestedFriends[existedFriendship.requestedFriends.length] = targetUser;
+        await this.usersRepository.save(existedFriendship);
+        existedUser.friendship = existedFriendship;
+        return await this.usersRepository.save(existedUser);
+    }
 };
 UsersService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_1.InjectRepository)(users_entity_1.User)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __param(1, (0, typeorm_1.InjectRepository)(users_entity_1.User)),
+    __param(2, (0, typeorm_1.InjectRepository)(friendship_entity_1.Friendship)),
+    __metadata("design:paramtypes", [friendships_service_1.FriendshipsService,
+        typeorm_2.Repository,
+        typeorm_2.Repository])
 ], UsersService);
 exports.UsersService = UsersService;
 //# sourceMappingURL=users.service.js.map

@@ -6,5 +6,5 @@ export class AddFriendDto {
     description: '신청 받는 id',
     required: true,
   })
-  resId: number;
+  targetId: number;
 }

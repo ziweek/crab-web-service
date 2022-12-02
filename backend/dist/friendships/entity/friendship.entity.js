@@ -19,6 +19,10 @@ __decorate([
     __metadata("design:type", Number)
 ], Friendship.prototype, "id", void 0);
 __decorate([
+    (0, typeorm_1.JoinColumn)(),
+    __metadata("design:type", users_entity_1.User)
+], Friendship.prototype, "user", void 0);
+__decorate([
     (0, typeorm_1.ManyToOne)(() => users_entity_1.User, (user) => user.requestedFriendship, {
         nullable: true,
     }),

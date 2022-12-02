@@ -24,16 +24,11 @@ export class FriendshipsService {
     return await this.friendshipsRepository.findOne({ where: { id: id } });
   }
 
-  //   async createOneFriendship(
-  //     createFriendshipDto: CreateFriendshipDto,
-  //   ): Promise<any> {
-  //     const targetUser = await this.usersRepository.findOne({
-  //       where: { id: createFriendshipDto.id },
-  //     });
-  //     targetUser.friendship;
-  //     await this.usersRepository.save(targetUser);
-  //     await this.friendshipsRepository.save(createFriendshipDto);
-  //   }
+  async createOneFriendship(
+    createFriendshipDto: CreateFriendshipDto,
+  ): Promise<Friendship> {
+    return await this.friendshipsRepository.save(createFriendshipDto);
+  }
 
   //   async updataOneFriendship(
   //     id: number,
@@ -44,6 +39,6 @@ export class FriendshipsService {
   //       createFriendshipDto.acceptedFriends;
   //     updatedCreateFriendshipDto.requestedFriends =
   //       createFriendshipDto.requestedFriends;
-  // return await this.friendshipsRepository.save(updatedCreateFriendshipDto);
+  //     return await this.friendshipsRepository.save(updatedCreateFriendshipDto);
   //   }
 }

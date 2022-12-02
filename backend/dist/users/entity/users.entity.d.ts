@@ -13,9 +13,9 @@ export declare class User {
     region: JSON;
     posts: Post[];
     authority: Authority;
-    requestedFriendship: Post[];
-    acceptedFriendship: Post[];
     friendship: Friendship;
+    requestedFriendship: Friendship;
+    acceptedFriendship: Friendship;
     createAt: Date;
     updateAt: Date;
     deleteAt: Date | null;

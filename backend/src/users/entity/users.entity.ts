@@ -84,30 +84,25 @@ export class User {
   })
   region: JSON;
 
-  // @Column('simple-array', { nullable: true })
-  // friends: number[];
-
   @OneToMany(() => Post, (post) => post.author, { nullable: true })
   posts: Post[];
 
   @ManyToOne(() => Authority, (authority) => authority.id, { eager: true })
   authority: Authority;
 
+  @OneToOne(() => Friendship, (friendship) => friendship.id, { eager: true })
+  @JoinColumn()
+  friendship: Friendship;
+
   @OneToMany(() => Friendship, (friendship) => friendship.requestedFriends, {
     nullable: true,
-    eager: true,
   })
-  requestedFriendship: Post[];
+  requestedFriendship: Friendship;
 
   @OneToMany(() => Friendship, (friendship) => friendship.acceptedFriends, {
     nullable: true,
-    eager: true,
   })
-  acceptedFriendship: Post[];
-
-  @OneToOne(() => Friendship, { eager: true })
-  @JoinColumn()
-  friendship: Friendship;
+  acceptedFriendship: Friendship;
 
   @CreateDateColumn()
   createAt: Date;

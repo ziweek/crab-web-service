@@ -49,7 +49,7 @@ export class ScanningService {
       // console.log(getNearPostsDto.region);
       const distance = this.getDistance(getNearPostsDto.region, e.region);
       console.log(distance);
-      if (distance < 1000) {
+      if (distance < 500) {
         container.push(e);
       }
     });
