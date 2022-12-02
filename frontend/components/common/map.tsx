@@ -54,7 +54,6 @@ function MapComponent(props: any) {
       !location.error &&
       !(location.coordinates.lat === 0 && location.coordinates.lng === 0)
     ) {
-      console.log("set region");
       setCenter(location.coordinates);
       setRegion(location.coordinates);
     }
@@ -83,23 +82,26 @@ function MapComponent(props: any) {
             // required
             options={cOptions}
           />
-          <MarkerClusterer>
-            {(clusterer) =>
-              markerLocations.map((location: any) => (
-                <Marker
-                  key={createKey(location.region)}
-                  position={location.region}
-                  clusterer={clusterer}
-                  onClick={() => {
-                    setMainPost(location);
-                    sendSetOpenModal();
-                    // .panTo(center);
-                    // this.map.panTo(center);
-                  }}
-                />
-              ))
-            }
-          </MarkerClusterer>
+          {location && (
+            <MarkerClusterer>
+              {(clusterer) =>
+                markerLocations.map((location: any) => (
+                  <Marker
+                    key={createKey(location.region)}
+                    position={location.region}
+                    clusterer={clusterer}
+                    onClick={() => {
+                      setMainPost(location);
+                      sendSetOpenModal();
+                      // .panTo(center);
+                      // this.map.panTo(center);
+                    }}
+                  />
+                ))
+              }
+            </MarkerClusterer>
+          )}
+
           <Marker
             position={center}
             // icon={{ url: "/images/icons/map_marker.svg", scale: 5 }}

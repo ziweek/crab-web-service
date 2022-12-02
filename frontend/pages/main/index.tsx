@@ -17,13 +17,17 @@ import {
 import Navbar from "components/layout/navbar/navbar";
 import axios from "axios";
 import Loading from "components/common/loading";
+// import useUpdateRegion from "hooks/useUpdateRegion";
 const Main: NextPage = () => {
   const router = useRouter();
   const isLogin = useIsLogin();
+
+  // console.log(updateRegion);
   // const location: any = useGeoLocation();
   const [openModal, setOpenModal] = useState(false);
   const [mainPost, setMainPost] = useRecoilState<any>(mainPostState);
   const [region, setRegion] = useRecoilState<any>(currentRegion);
+  // const updateRegion = useUpdateRegion();
   const [posts, setPosts] = useState([
     {
       id: 0,
@@ -53,8 +57,23 @@ const Main: NextPage = () => {
     setOpenModal(data);
   };
 
+  const updateRegion = async () => {
+    // console.log("getPosts start");
+    await axios
+      .patch(`${process.env.BASE_URL}` + "/users/" + `${isLogin.id}`, {
+        region: region,
+      })
+      .then((response) => {
+        console.log("sendRegion", response);
+        // console.log(isLogin);
+        // setUser(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const getPosts = async () => {
-    console.log("getPosts start");
+    // console.log("getPosts start");
     await axios
       .get(`${process.env.BASE_URL}` + "/scanning/getNearPosts", region)
       .then((response) => {
@@ -63,18 +82,15 @@ const Main: NextPage = () => {
       })
       .catch((error) => {
         console.log(error);
-        // alert("인근에 볼 수 있는 피드가 없습니다");
       });
   };
   useEffect(() => {
     if (region) {
+      console.log("currentRegion", region);
       getPosts();
+      updateRegion();
     }
-    console.log("set");
   }, [region]);
-  useEffect(() => {
-    console.log("recoil mainPost", mainPost);
-  }, [mainPost]);
 
   return (
     <S.Container>

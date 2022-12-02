@@ -7,42 +7,12 @@ import axios from "axios";
 import { useRecoilState } from "recoil";
 import { userToken, userInfo } from "components/states";
 import Loading from "components/common/loading";
+import useIsLogin from "hooks/useIsLogin";
 const EditProfile: NextPage = () => {
   const router = useRouter();
+  const userData = useIsLogin();
+  const [data, setData] = useState(userData);
 
-  // ---------------------------유저인증--------------------
-  const [token, setToken] = useRecoilState(userToken);
-  const [user, setUser] = useRecoilState<any>(userInfo);
-  const [data, setData] = useState(user);
-  // console.log(user, "data");
-  if (typeof window !== "undefined") {
-    const item: any = localStorage.getItem("token");
-    setToken(item);
-  }
-  const getUser = async () => {
-    console.log("getuser start", token);
-    await axios
-      .get(`${process.env.BASE_URL}` + "/auth/authenticate", {
-        headers: { Authorization: "Bearer " + token },
-      })
-      .then((response) => {
-        console.log("getUser", response);
-        setUser(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-  useEffect(() => {
-    getUser();
-    console.log("유저", user);
-    // if (!user) {
-    //   router.push("/signin");
-    // }
-  }, []);
-  useEffect(() => {
-    setData(user);
-  }, [user]);
   const onChangeData = (e: any) => {
     setData({
       ...data,
@@ -52,10 +22,9 @@ const EditProfile: NextPage = () => {
   };
   const SendEditData = async () => {
     await axios
-      .patch(`${process.env.BASE_URL}` + "/users/" + `${user.id}`, data)
+      .patch(`${process.env.BASE_URL}` + "/users/" + `${userData.id}`, data)
       .then((response) => {
         console.log("sendEditData", response);
-        setUser(response.data);
         router.push("profile");
       })
       .catch((error) => {
