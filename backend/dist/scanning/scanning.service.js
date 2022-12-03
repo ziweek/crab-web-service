@@ -53,7 +53,7 @@ let ScanningService = class ScanningService {
         target.forEach((e) => {
             const distance = this.getDistance(getNearPostsDto.region, e.region);
             console.log(distance);
-            if (distance < 1000) {
+            if (distance < 500) {
                 container.push(e);
             }
         });
