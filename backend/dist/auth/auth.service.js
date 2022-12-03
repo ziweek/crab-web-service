@@ -19,14 +19,9 @@ const bcrypt = require("bcrypt");
 const users_entity_1 = require("../users/entity/users.entity");
 const typeorm_2 = require("typeorm");
 const jwt_1 = require("@nestjs/jwt");
-const friendship_entity_1 = require("../friendships/entity/friendship.entity");
-const friendships_service_1 = require("../friendships/friendships.service");
-const createFriendshipDto_1 = require("../friendships/dto/createFriendshipDto");
 let AuthService = class AuthService {
-    constructor(userRepository, friendshipRepository, friendshipsService, jwtService) {
+    constructor(userRepository, jwtService) {
         this.userRepository = userRepository;
-        this.friendshipRepository = friendshipRepository;
-        this.friendshipsService = friendshipsService;
         this.jwtService = jwtService;
     }
     async transformPassword(registerAccountDto) {
@@ -41,21 +36,7 @@ let AuthService = class AuthService {
             throw new common_1.HttpException('Forbidden', common_1.HttpStatus.FORBIDDEN);
         }
         const registerAccountDtoHashed = await this.transformPassword(registerAccountDto);
-        const emptyCreateFriendshipDto = new createFriendshipDto_1.CreateFriendshipDto();
-        emptyCreateFriendshipDto.requestedFriends = [];
-        emptyCreateFriendshipDto.acceptedFriends = [];
-        const createdFriendship = await this.friendshipsService.createOneFriendship(emptyCreateFriendshipDto);
         await this.userRepository.save(registerAccountDtoHashed);
-        const savedUser = await this.userRepository.findOne({
-            where: { email: registerAccountDto.email },
-        });
-        const savedFriendship = await this.friendshipRepository.findOne({
-            where: { id: createdFriendship.id },
-        });
-        savedUser.friendship = savedFriendship;
-        savedFriendship.user = savedUser;
-        await this.userRepository.save(savedUser);
-        await this.userRepository.save(savedFriendship);
         const payload = { email: registerAccountDto.email };
         return {
             accessToken: this.jwtService.sign(payload),
@@ -83,10 +64,7 @@ let AuthService = class AuthService {
 AuthService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(users_entity_1.User)),
-    __param(1, (0, typeorm_1.InjectRepository)(friendship_entity_1.Friendship)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
-        typeorm_2.Repository,
-        friendships_service_1.FriendshipsService,
         jwt_1.JwtService])
 ], AuthService);
 exports.AuthService = AuthService;

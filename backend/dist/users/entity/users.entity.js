@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const authority_entity_1 = require("../../auth/entity/authority.entity");
-const friendship_entity_1 = require("../../friendships/entity/friendship.entity");
 const post_entity_1 = require("../../posts/entity/post.entity");
 const typeorm_1 = require("typeorm");
 let User = class User {
@@ -102,22 +101,17 @@ __decorate([
     __metadata("design:type", authority_entity_1.Authority)
 ], User.prototype, "authority", void 0);
 __decorate([
-    (0, typeorm_1.OneToOne)(() => friendship_entity_1.Friendship, (friendship) => friendship.id, { eager: true }),
-    (0, typeorm_1.JoinColumn)(),
-    __metadata("design:type", friendship_entity_1.Friendship)
-], User.prototype, "friendship", void 0);
+    (0, typeorm_1.Column)('simple-array'),
+    __metadata("design:type", Array)
+], User.prototype, "requesteingFriendIds", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => friendship_entity_1.Friendship, (friendship) => friendship.requestedFriends, {
-        nullable: true,
-    }),
-    __metadata("design:type", friendship_entity_1.Friendship)
-], User.prototype, "requestedFriendship", void 0);
+    (0, typeorm_1.Column)('simple-array'),
+    __metadata("design:type", Array)
+], User.prototype, "requestedFriendIds", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => friendship_entity_1.Friendship, (friendship) => friendship.acceptedFriends, {
-        nullable: true,
-    }),
-    __metadata("design:type", friendship_entity_1.Friendship)
-], User.prototype, "acceptedFriendship", void 0);
+    (0, typeorm_1.Column)('simple-array'),
+    __metadata("design:type", Array)
+], User.prototype, "acceptedFriendIds", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)

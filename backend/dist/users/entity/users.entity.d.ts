@@ -1,5 +1,4 @@
 import { Authority } from 'src/auth/entity/authority.entity';
-import { Friendship } from 'src/friendships/entity/friendship.entity';
 import { Post } from 'src/posts/entity/post.entity';
 export declare class User {
     id: number;
@@ -13,9 +12,9 @@ export declare class User {
     region: JSON;
     posts: Post[];
     authority: Authority;
-    friendship: Friendship;
-    requestedFriendship: Friendship;
-    acceptedFriendship: Friendship;
+    requesteingFriendIds: number[];
+    requestedFriendIds: number[];
+    acceptedFriendIds: number[];
     createAt: Date;
     updateAt: Date;
     deleteAt: Date | null;

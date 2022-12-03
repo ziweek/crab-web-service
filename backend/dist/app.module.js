@@ -20,8 +20,6 @@ const post_entity_1 = require("./posts/entity/post.entity");
 const comments_module_1 = require("./comments/comments.module");
 const comment_entity_1 = require("./comments/entity/comment.entity");
 const authority_entity_1 = require("./auth/entity/authority.entity");
-const friendships_module_1 = require("./friendships/friendships.module");
-const friendship_entity_1 = require("./friendships/entity/friendship.entity");
 const scanning_module_1 = require("./scanning/scanning.module");
 const events_module_1 = require("./events/events.module");
 let AppModule = class AppModule {
@@ -39,14 +37,13 @@ AppModule = __decorate([
                 username: process.env.DB_USERNAME,
                 password: process.env.DB_PASSWORD,
                 database: process.env.DB_NAME,
-                entities: [users_entity_1.User, post_entity_1.Post, comment_entity_1.Comment, authority_entity_1.Authority, friendship_entity_1.Friendship],
+                entities: [users_entity_1.User, post_entity_1.Post, comment_entity_1.Comment, authority_entity_1.Authority],
                 synchronize: true,
             }),
             users_module_1.UsersModule,
             auth_module_1.AuthModule,
             posts_module_1.PostsModule,
             comments_module_1.CommentsModule,
-            friendships_module_1.FriendshipsModule,
             scanning_module_1.ScanningModule,
             events_module_1.EventsModule,
         ],

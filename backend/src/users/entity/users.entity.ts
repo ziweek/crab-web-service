@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Authority } from 'src/auth/entity/authority.entity';
-import { Friendship } from 'src/friendships/entity/friendship.entity';
 import { Post } from 'src/posts/entity/post.entity';
 import {
   Entity,
@@ -90,19 +89,28 @@ export class User {
   @ManyToOne(() => Authority, (authority) => authority.id, { eager: true })
   authority: Authority;
 
-  @OneToOne(() => Friendship, (friendship) => friendship.id, { eager: true })
-  @JoinColumn()
-  friendship: Friendship;
+  // @OneToOne(() => Friendship, (friendship) => friendship.id, { eager: true })
+  // @JoinColumn()
+  // friendship: Friendship;
 
-  @OneToMany(() => Friendship, (friendship) => friendship.requestedFriends, {
-    nullable: true,
-  })
-  requestedFriendship: Friendship;
+  // @OneToMany(() => Friendship, (friendship) => friendship.requestedFriends, {
+  //   nullable: true,
+  // })
+  // requestedFriendship: Friendship;
 
-  @OneToMany(() => Friendship, (friendship) => friendship.acceptedFriends, {
-    nullable: true,
-  })
-  acceptedFriendship: Friendship;
+  // @OneToMany(() => Friendship, (friendship) => friendship.acceptedFriends, {
+  //   nullable: true,
+  // })
+  // acceptedFriendship: Friendship;
+
+  @Column('simple-array')
+  requesteingFriendIds: number[];
+
+  @Column('simple-array')
+  requestedFriendIds: number[];
+
+  @Column('simple-array')
+  acceptedFriendIds: number[];
 
   @CreateDateColumn()
   createAt: Date;

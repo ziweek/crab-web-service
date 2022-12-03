@@ -1,5 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Friendship } from 'src/friendships/entity/friendship.entity';
 
 export class RegisterAccountDto {
   @ApiProperty({
@@ -40,15 +39,24 @@ export class RegisterAccountDto {
   @ApiProperty({
     example: [],
     description: '친구 리스트',
-    required: true,
-    default: [],
+    // required: true,
+    // default: [],
   })
-  friends: number[];
+  requesteingFriendIds: number[];
 
   @ApiProperty({
     example: [],
     description: '친구 리스트',
-    required: true,
+    // required: true,
+    // default: [],
   })
-  friendship: Friendship;
+  requestedFriendIds: number[];
+
+  @ApiProperty({
+    example: [],
+    description: '친구 리스트',
+    // required: true,
+    // default: [],
+  })
+  acceptedFriendIds: number[];
 }

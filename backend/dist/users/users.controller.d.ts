@@ -1,5 +1,7 @@
-import { AddFriendDto } from './dto/addFriendDto';
+import { AcceptFriendshipDto } from './dto/acceptFriendshipDto';
 import { CreateUserDto } from './dto/createUserDto';
+import { RejectFriendshipDto } from './dto/rejectFriendshipDto';
+import { RequestFriendshipDto } from './dto/requestFriendshipDto';
 import { UsersService } from './users.service';
 export declare class UsersController {
     private userService;
@@ -9,5 +11,8 @@ export declare class UsersController {
     createUser(createUserDto: CreateUserDto): Promise<import("./entity/users.entity").User>;
     updateUser(param: any, createUserDto: CreateUserDto): Promise<void>;
     deleteUser(param: any): void;
-    setFriend(param: any, addFriendDto: AddFriendDto): void;
+    requestFriendship(param: any, requestFriendshipDto: RequestFriendshipDto): Promise<any>;
+    acceptFriendship(param: any, acceptFriendshipDto: AcceptFriendshipDto): Promise<any>;
+    rejectFriendship(param: any, rejectFriendshipDto: RejectFriendshipDto): Promise<any>;
+    deleteFriendship(param: any, rejectFriendshipDto: RejectFriendshipDto): Promise<any>;
 }

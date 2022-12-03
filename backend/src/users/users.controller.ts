@@ -8,9 +8,10 @@ import {
   Post,
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CreateFriendshipDto } from 'src/friendships/dto/createFriendshipDto';
-import { AddFriendDto } from './dto/addFriendDto';
+import { AcceptFriendshipDto } from './dto/acceptFriendshipDto';
 import { CreateUserDto } from './dto/createUserDto';
+import { RejectFriendshipDto } from './dto/rejectFriendshipDto';
+import { RequestFriendshipDto } from './dto/requestFriendshipDto';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -157,7 +158,7 @@ export class UsersController {
     this.userService.deleteUser(param.id);
   }
 
-  @Patch('requestFriend/:id')
+  @Patch('requestFriendship/:id')
   @ApiOperation({ summary: '친구 신청하기' })
   @ApiCreatedResponse({
     description: '반환 없음',
@@ -165,7 +166,55 @@ export class UsersController {
       example: {},
     },
   })
-  setFriend(@Param() param, @Body() addFriendDto: AddFriendDto) {
-    this.userService.requestFriendship(param.id, addFriendDto);
+  requestFriendship(
+    @Param() param,
+    @Body() requestFriendshipDto: RequestFriendshipDto,
+  ) {
+    return this.userService.requestFriendship(param.id, requestFriendshipDto);
+  }
+
+  @Patch('acceptFriendship/:id')
+  @ApiOperation({ summary: '친구 신청하기' })
+  @ApiCreatedResponse({
+    description: '반환 없음',
+    schema: {
+      example: {},
+    },
+  })
+  acceptFriendship(
+    @Param() param,
+    @Body() acceptFriendshipDto: AcceptFriendshipDto,
+  ) {
+    return this.userService.acceptFriendship(param.id, acceptFriendshipDto);
+  }
+
+  @Patch('rejectFriendship/:id')
+  @ApiOperation({ summary: '친구 신청하기' })
+  @ApiCreatedResponse({
+    description: '반환 없음',
+    schema: {
+      example: {},
+    },
+  })
+  rejectFriendship(
+    @Param() param,
+    @Body() rejectFriendshipDto: RejectFriendshipDto,
+  ) {
+    return this.userService.rejectFriendship(param.id, rejectFriendshipDto);
+  }
+
+  @Patch('deleteFriendship/:id')
+  @ApiOperation({ summary: '친구 신청하기' })
+  @ApiCreatedResponse({
+    description: '반환 없음',
+    schema: {
+      example: {},
+    },
+  })
+  deleteFriendship(
+    @Param() param,
+    @Body() rejectFriendshipDto: RejectFriendshipDto,
+  ) {
+    return this.userService.deleteFriendship(param.id, rejectFriendshipDto);
   }
 }

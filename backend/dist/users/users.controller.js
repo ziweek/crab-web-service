@@ -15,8 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
-const addFriendDto_1 = require("./dto/addFriendDto");
+const acceptFriendshipDto_1 = require("./dto/acceptFriendshipDto");
 const createUserDto_1 = require("./dto/createUserDto");
+const rejectFriendshipDto_1 = require("./dto/rejectFriendshipDto");
+const requestFriendshipDto_1 = require("./dto/requestFriendshipDto");
 const users_service_1 = require("./users.service");
 let UsersController = class UsersController {
     constructor(userService) {
@@ -37,8 +39,17 @@ let UsersController = class UsersController {
     deleteUser(param) {
         this.userService.deleteUser(param.id);
     }
-    setFriend(param, addFriendDto) {
-        this.userService.requestFriendship(param.id, addFriendDto);
+    requestFriendship(param, requestFriendshipDto) {
+        return this.userService.requestFriendship(param.id, requestFriendshipDto);
+    }
+    acceptFriendship(param, acceptFriendshipDto) {
+        return this.userService.acceptFriendship(param.id, acceptFriendshipDto);
+    }
+    rejectFriendship(param, rejectFriendshipDto) {
+        return this.userService.rejectFriendship(param.id, rejectFriendshipDto);
+    }
+    deleteFriendship(param, rejectFriendshipDto) {
+        return this.userService.deleteFriendship(param.id, rejectFriendshipDto);
     }
 };
 __decorate([
@@ -186,7 +197,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "deleteUser", null);
 __decorate([
-    (0, common_1.Patch)('requestFriend/:id'),
+    (0, common_1.Patch)('requestFriendship/:id'),
     (0, swagger_1.ApiOperation)({ summary: '친구 신청하기' }),
     (0, swagger_1.ApiCreatedResponse)({
         description: '반환 없음',
@@ -197,9 +208,54 @@ __decorate([
     __param(0, (0, common_1.Param)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, addFriendDto_1.AddFriendDto]),
+    __metadata("design:paramtypes", [Object, requestFriendshipDto_1.RequestFriendshipDto]),
     __metadata("design:returntype", void 0)
-], UsersController.prototype, "setFriend", null);
+], UsersController.prototype, "requestFriendship", null);
+__decorate([
+    (0, common_1.Patch)('acceptFriendship/:id'),
+    (0, swagger_1.ApiOperation)({ summary: '친구 신청하기' }),
+    (0, swagger_1.ApiCreatedResponse)({
+        description: '반환 없음',
+        schema: {
+            example: {},
+        },
+    }),
+    __param(0, (0, common_1.Param)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, acceptFriendshipDto_1.AcceptFriendshipDto]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "acceptFriendship", null);
+__decorate([
+    (0, common_1.Patch)('rejectFriendship/:id'),
+    (0, swagger_1.ApiOperation)({ summary: '친구 신청하기' }),
+    (0, swagger_1.ApiCreatedResponse)({
+        description: '반환 없음',
+        schema: {
+            example: {},
+        },
+    }),
+    __param(0, (0, common_1.Param)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, rejectFriendshipDto_1.RejectFriendshipDto]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "rejectFriendship", null);
+__decorate([
+    (0, common_1.Patch)('deleteFriendship/:id'),
+    (0, swagger_1.ApiOperation)({ summary: '친구 신청하기' }),
+    (0, swagger_1.ApiCreatedResponse)({
+        description: '반환 없음',
+        schema: {
+            example: {},
+        },
+    }),
+    __param(0, (0, common_1.Param)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, rejectFriendshipDto_1.RejectFriendshipDto]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "deleteFriendship", null);
 UsersController = __decorate([
     (0, common_1.Controller)('users'),
     (0, swagger_1.ApiTags)('User API'),

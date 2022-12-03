@@ -23,15 +23,6 @@ let FriendshipsService = class FriendshipsService {
         this.friendshipsRepository = friendshipsRepository;
         this.usersRepository = usersRepository;
     }
-    async findAllFriendship() {
-        return await this.friendshipsRepository.find();
-    }
-    async findOneFriendship(id) {
-        return await this.friendshipsRepository.findOne({ where: { id: id } });
-    }
-    async createOneFriendship(createFriendshipDto) {
-        return await this.friendshipsRepository.save(createFriendshipDto);
-    }
 };
 FriendshipsService = __decorate([
     (0, common_1.Injectable)(),

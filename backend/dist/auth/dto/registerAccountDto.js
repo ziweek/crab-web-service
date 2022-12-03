@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RegisterAccountDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
-const friendship_entity_1 = require("../../friendships/entity/friendship.entity");
 class RegisterAccountDto {
 }
 __decorate([
@@ -58,18 +57,22 @@ __decorate([
     (0, swagger_1.ApiProperty)({
         example: [],
         description: '친구 리스트',
-        required: true,
-        default: [],
     }),
     __metadata("design:type", Array)
-], RegisterAccountDto.prototype, "friends", void 0);
+], RegisterAccountDto.prototype, "requesteingFriendIds", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: [],
         description: '친구 리스트',
-        required: true,
     }),
-    __metadata("design:type", friendship_entity_1.Friendship)
-], RegisterAccountDto.prototype, "friendship", void 0);
+    __metadata("design:type", Array)
+], RegisterAccountDto.prototype, "requestedFriendIds", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        example: [],
+        description: '친구 리스트',
+    }),
+    __metadata("design:type", Array)
+], RegisterAccountDto.prototype, "acceptedFriendIds", void 0);
 exports.RegisterAccountDto = RegisterAccountDto;
 //# sourceMappingURL=registerAccountDto.js.map

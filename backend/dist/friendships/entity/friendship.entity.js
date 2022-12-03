@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Friendship = void 0;
-const users_entity_1 = require("../../users/entity/users.entity");
 const typeorm_1 = require("typeorm");
 let Friendship = class Friendship {
 };
@@ -18,22 +17,6 @@ __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
 ], Friendship.prototype, "id", void 0);
-__decorate([
-    (0, typeorm_1.JoinColumn)(),
-    __metadata("design:type", users_entity_1.User)
-], Friendship.prototype, "user", void 0);
-__decorate([
-    (0, typeorm_1.ManyToOne)(() => users_entity_1.User, (user) => user.requestedFriendship, {
-        nullable: true,
-    }),
-    __metadata("design:type", Array)
-], Friendship.prototype, "requestedFriends", void 0);
-__decorate([
-    (0, typeorm_1.ManyToOne)(() => users_entity_1.User, (user) => user.acceptedFriendship, {
-        nullable: true,
-    }),
-    __metadata("design:type", Array)
-], Friendship.prototype, "acceptedFriends", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)

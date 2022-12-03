@@ -13,20 +13,12 @@ import { ValidateAccountDto } from './dto/validateAccountDto';
 import { Authority } from './entity/authority.entity';
 import { JwtService } from '@nestjs/jwt';
 import { Payload } from './security/payload.interface';
-import { Friendship } from 'src/friendships/entity/friendship.entity';
-import { FriendshipsService } from 'src/friendships/friendships.service';
-import { CreateFriendshipDto } from 'src/friendships/dto/createFriendshipDto';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
-
-    @InjectRepository(Friendship)
-    private friendshipRepository: Repository<Friendship>,
-
-    private readonly friendshipsService: FriendshipsService,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -52,24 +44,26 @@ export class AuthService {
     const registerAccountDtoHashed = await this.transformPassword(
       registerAccountDto,
     );
-    const emptyCreateFriendshipDto = new CreateFriendshipDto();
-    emptyCreateFriendshipDto.requestedFriends = [];
-    emptyCreateFriendshipDto.acceptedFriends = [];
-    const createdFriendship = await this.friendshipsService.createOneFriendship(
-      emptyCreateFriendshipDto,
-    );
+    // registerAccountDtoHashed.requestedFriends
+    // const emptyCreateFriendshipDto = new CreateFriendshipDto();
+    // registerAccountDtoHashed.requesteingFriendIds = [];
+    // registerAccountDtoHashed.requestedFriendIds = [];
+    // registerAccountDtoHashed.acceptedFriendIds = [];
+    // const createdFriendship = await this.friendshipsService.createOneFriendship(
+    //   emptyCreateFriendshipDto,
+    // );
     await this.userRepository.save(registerAccountDtoHashed);
 
-    const savedUser = await this.userRepository.findOne({
-      where: { email: registerAccountDto.email },
-    });
-    const savedFriendship = await this.friendshipRepository.findOne({
-      where: { id: createdFriendship.id },
-    });
-    savedUser.friendship = savedFriendship;
-    savedFriendship.user = savedUser;
-    await this.userRepository.save(savedUser);
-    await this.userRepository.save(savedFriendship);
+    // const savedUser = await this.userRepository.findOne({
+    //   where: { email: registerAccountDto.email },
+    // });
+    // const savedFriendship = await this.friendshipRepository.findOne({
+    //   where: { id: createdFriendship.id },
+    // });
+    // savedUser.friendship = savedFriendship;
+    // savedFriendship.user = savedUser;
+    // await this.userRepository.save(savedUser);
+    // await this.userRepository.save(savedFriendship);
 
     const payload: Payload = { email: registerAccountDto.email };
     return {
