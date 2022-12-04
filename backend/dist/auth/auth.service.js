@@ -36,6 +36,9 @@ let AuthService = class AuthService {
             throw new common_1.HttpException('Forbidden', common_1.HttpStatus.FORBIDDEN);
         }
         const registerAccountDtoHashed = await this.transformPassword(registerAccountDto);
+        registerAccountDtoHashed.requesteingFriendIds = [];
+        registerAccountDtoHashed.requestedFriendIds = [];
+        registerAccountDtoHashed.acceptedFriendIds = [];
         await this.userRepository.save(registerAccountDtoHashed);
         const payload = { email: registerAccountDto.email };
         return {

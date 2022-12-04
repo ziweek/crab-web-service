@@ -9,18 +9,17 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { UsersModule } from 'src/users/users.module';
 import { UsersService } from 'src/users/users.service';
+import { jwtConstants } from './constants';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, Authority]),
     JwtModule.register({
-      secret: 'SECRET_KEY',
+      secret: jwtConstants.secret,
       signOptions: { expiresIn: '300s' },
     }),
     PassportModule,
     UsersModule,
   ],
-  exports: [TypeOrmModule],
   providers: [AuthService, JwtStrategy, UsersService],
   controllers: [AuthController],
 })

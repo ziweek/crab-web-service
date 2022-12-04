@@ -10,7 +10,6 @@ import { User } from 'src/users/entity/users.entity';
 import { Repository } from 'typeorm';
 import { RegisterAccountDto } from './dto/registerAccountDto';
 import { ValidateAccountDto } from './dto/validateAccountDto';
-import { Authority } from './entity/authority.entity';
 import { JwtService } from '@nestjs/jwt';
 import { Payload } from './security/payload.interface';
 
@@ -46,9 +45,9 @@ export class AuthService {
     );
     // registerAccountDtoHashed.requestedFriends
     // const emptyCreateFriendshipDto = new CreateFriendshipDto();
-    // registerAccountDtoHashed.requesteingFriendIds = [];
-    // registerAccountDtoHashed.requestedFriendIds = [];
-    // registerAccountDtoHashed.acceptedFriendIds = [];
+    registerAccountDtoHashed.requesteingFriendIds = [];
+    registerAccountDtoHashed.requestedFriendIds = [];
+    registerAccountDtoHashed.acceptedFriendIds = [];
     // const createdFriendship = await this.friendshipsService.createOneFriendship(
     //   emptyCreateFriendshipDto,
     // );

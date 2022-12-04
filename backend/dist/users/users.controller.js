@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
+const auth_guard_1 = require("../auth/security/auth.guard");
 const acceptFriendshipDto_1 = require("./dto/acceptFriendshipDto");
 const createUserDto_1 = require("./dto/createUserDto");
 const rejectFriendshipDto_1 = require("./dto/rejectFriendshipDto");
@@ -27,33 +28,31 @@ let UsersController = class UsersController {
     async findAllUsers() {
         return this.userService.findAllUsers();
     }
-    findOneUser(param) {
-        return this.userService.findOneUser(param.id);
+    findOneUser(req) {
+        console.log(req.user);
+        return this.userService.findOneUser(req.user.id);
     }
-    createUser(createUserDto) {
-        return this.userService.createUser(createUserDto);
+    updateUser(req, createUserDto) {
+        return this.userService.updateUser(req.user.id, createUserDto);
     }
-    updateUser(param, createUserDto) {
-        return this.userService.updateUser(param.id, createUserDto);
+    deleteUser(req) {
+        this.userService.deleteUser(req.user.id);
     }
-    deleteUser(param) {
-        this.userService.deleteUser(param.id);
+    requestFriendship(req, requestFriendshipDto) {
+        return this.userService.requestFriendship(req.user.id, requestFriendshipDto);
     }
-    requestFriendship(param, requestFriendshipDto) {
-        return this.userService.requestFriendship(param.id, requestFriendshipDto);
+    acceptFriendship(req, acceptFriendshipDto) {
+        return this.userService.acceptFriendship(req.user.id, acceptFriendshipDto);
     }
-    acceptFriendship(param, acceptFriendshipDto) {
-        return this.userService.acceptFriendship(param.id, acceptFriendshipDto);
+    rejectFriendship(req, rejectFriendshipDto) {
+        return this.userService.rejectFriendship(req.user.id, rejectFriendshipDto);
     }
-    rejectFriendship(param, rejectFriendshipDto) {
-        return this.userService.rejectFriendship(param.id, rejectFriendshipDto);
-    }
-    deleteFriendship(param, rejectFriendshipDto) {
-        return this.userService.deleteFriendship(param.id, rejectFriendshipDto);
+    deleteFriendship(req, rejectFriendshipDto) {
+        return this.userService.deleteFriendship(req.user.id, rejectFriendshipDto);
     }
 };
 __decorate([
-    (0, common_1.Get)(),
+    (0, common_1.Get)('/all'),
     (0, swagger_1.ApiOperation)({ summary: '전체 유저 조회하기' }),
     (0, swagger_1.ApiCreatedResponse)({
         description: '전체 유저 반환',
@@ -101,8 +100,9 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "findAllUsers", null);
 __decorate([
-    (0, common_1.Get)(':id'),
-    (0, swagger_1.ApiOperation)({ summary: '유저 하나 조회하기' }),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, common_1.Get)(),
+    (0, swagger_1.ApiOperation)({ summary: '유저 조회하기' }),
     (0, swagger_1.ApiCreatedResponse)({
         description: '생성된 유저 반환',
         schema: {
@@ -122,40 +122,14 @@ __decorate([
             },
         },
     }),
-    __param(0, (0, common_1.Param)()),
+    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "findOneUser", null);
 __decorate([
-    (0, common_1.Post)(),
-    (0, swagger_1.ApiOperation)({ summary: '유저 생성하기' }),
-    (0, swagger_1.ApiCreatedResponse)({
-        description: '생성된 유저 반환',
-        schema: {
-            example: {
-                name: 'test',
-                phone: '01012345678',
-                email: 'admin@amdin.com',
-                password: 'test',
-                nickname: null,
-                text: null,
-                profileImg: null,
-                region: null,
-                deleteAt: null,
-                id: 3,
-                createAt: '2022-11-30T06:06:02.020Z',
-                updateAt: '2022-11-30T06:06:02.020Z',
-            },
-        },
-    }),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [createUserDto_1.CreateUserDto]),
-    __metadata("design:returntype", void 0)
-], UsersController.prototype, "createUser", null);
-__decorate([
-    (0, common_1.Patch)(':id'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, common_1.Patch)(),
     (0, swagger_1.ApiOperation)({ summary: '유저 수정하기' }),
     (0, swagger_1.ApiCreatedResponse)({
         description: '수정된 유저 반환',
@@ -176,14 +150,15 @@ __decorate([
             },
         },
     }),
-    __param(0, (0, common_1.Param)()),
+    __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, createUserDto_1.CreateUserDto]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "updateUser", null);
 __decorate([
-    (0, common_1.Delete)(':id'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, common_1.Delete)(),
     (0, swagger_1.ApiOperation)({ summary: '유저 삭제하기' }),
     (0, swagger_1.ApiCreatedResponse)({
         description: '반환 없음',
@@ -191,57 +166,61 @@ __decorate([
             example: {},
         },
     }),
-    __param(0, (0, common_1.Param)()),
+    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "deleteUser", null);
 __decorate([
-    (0, common_1.Patch)('requestFriendship/:id'),
-    (0, swagger_1.ApiOperation)({ summary: '친구 신청하기' }),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, common_1.Patch)('requestFriendship'),
+    (0, swagger_1.ApiOperation)({ summary: '친구신청 요청하기' }),
     (0, swagger_1.ApiCreatedResponse)({
         description: '반환 없음',
         schema: {
             example: {},
         },
     }),
-    __param(0, (0, common_1.Param)()),
+    __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, requestFriendshipDto_1.RequestFriendshipDto]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "requestFriendship", null);
 __decorate([
-    (0, common_1.Patch)('acceptFriendship/:id'),
-    (0, swagger_1.ApiOperation)({ summary: '친구 신청하기' }),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, common_1.Patch)('acceptFriendship'),
+    (0, swagger_1.ApiOperation)({ summary: '친구신청 수락하기' }),
     (0, swagger_1.ApiCreatedResponse)({
         description: '반환 없음',
         schema: {
             example: {},
         },
     }),
-    __param(0, (0, common_1.Param)()),
+    __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, acceptFriendshipDto_1.AcceptFriendshipDto]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "acceptFriendship", null);
 __decorate([
-    (0, common_1.Patch)('rejectFriendship/:id'),
-    (0, swagger_1.ApiOperation)({ summary: '친구 신청하기' }),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, common_1.Patch)('rejectFriendship'),
+    (0, swagger_1.ApiOperation)({ summary: '친구신청 거절하기' }),
     (0, swagger_1.ApiCreatedResponse)({
         description: '반환 없음',
         schema: {
             example: {},
         },
     }),
-    __param(0, (0, common_1.Param)()),
+    __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, rejectFriendshipDto_1.RejectFriendshipDto]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "rejectFriendship", null);
 __decorate([
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     (0, common_1.Patch)('deleteFriendship/:id'),
     (0, swagger_1.ApiOperation)({ summary: '친구 신청하기' }),
     (0, swagger_1.ApiCreatedResponse)({
@@ -250,7 +229,7 @@ __decorate([
             example: {},
         },
     }),
-    __param(0, (0, common_1.Param)()),
+    __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, rejectFriendshipDto_1.RejectFriendshipDto]),

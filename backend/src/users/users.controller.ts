@@ -6,8 +6,11 @@ import {
   Param,
   Patch,
   Post,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from 'src/auth/security/auth.guard';
 import { AcceptFriendshipDto } from './dto/acceptFriendshipDto';
 import { CreateUserDto } from './dto/createUserDto';
 import { RejectFriendshipDto } from './dto/rejectFriendshipDto';
@@ -19,7 +22,8 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor(private userService: UsersService) {}
 
-  @Get()
+  // @UseGuards(AuthGuard)
+  @Get('/all')
   @ApiOperation({ summary: '전체 유저 조회하기' })
   @ApiCreatedResponse({
     description: '전체 유저 반환',
@@ -69,8 +73,9 @@ export class UsersController {
     return this.userService.findAllUsers();
   }
 
-  @Get(':id')
-  @ApiOperation({ summary: '유저 하나 조회하기' })
+  @UseGuards(AuthGuard)
+  @Get()
+  @ApiOperation({ summary: '유저 조회하기' })
   @ApiCreatedResponse({
     description: '생성된 유저 반환',
     schema: {
@@ -90,38 +95,39 @@ export class UsersController {
       },
     },
   })
-  findOneUser(@Param() param) {
-    // console.log(param.id);
-    return this.userService.findOneUser(param.id);
+  findOneUser(@Req() req) {
+    console.log(req.user);
+    return this.userService.findOneUser(req.user.id);
     // return ['findOneUser', `${param.id}`];
   }
 
-  @Post()
-  @ApiOperation({ summary: '유저 생성하기' })
-  @ApiCreatedResponse({
-    description: '생성된 유저 반환',
-    schema: {
-      example: {
-        name: 'test',
-        phone: '01012345678',
-        email: 'admin@amdin.com',
-        password: 'test',
-        nickname: null,
-        text: null,
-        profileImg: null,
-        region: null,
-        deleteAt: null,
-        id: 3,
-        createAt: '2022-11-30T06:06:02.020Z',
-        updateAt: '2022-11-30T06:06:02.020Z',
-      },
-    },
-  })
-  createUser(@Body() createUserDto: CreateUserDto) {
-    return this.userService.createUser(createUserDto);
-  }
+  // @Post()
+  // @ApiOperation({ summary: '유저 생성하기' })
+  // @ApiCreatedResponse({
+  //   description: '생성된 유저 반환',
+  //   schema: {
+  //     example: {
+  //       name: 'test',
+  //       phone: '01012345678',
+  //       email: 'admin@amdin.com',
+  //       password: 'test',
+  //       nickname: null,
+  //       text: null,
+  //       profileImg: null,
+  //       region: null,
+  //       deleteAt: null,
+  //       id: 3,
+  //       createAt: '2022-11-30T06:06:02.020Z',
+  //       updateAt: '2022-11-30T06:06:02.020Z',
+  //     },
+  //   },
+  // })
+  // createUser(@Body() createUserDto: CreateUserDto) {
+  //   return this.userService.createUser(createUserDto);
+  // }
 
-  @Patch(':id')
+  @UseGuards(AuthGuard)
+  @Patch()
   @ApiOperation({ summary: '유저 수정하기' })
   @ApiCreatedResponse({
     description: '수정된 유저 반환',
@@ -142,11 +148,12 @@ export class UsersController {
       },
     },
   })
-  updateUser(@Param() param, @Body() createUserDto: CreateUserDto) {
-    return this.userService.updateUser(param.id, createUserDto);
+  updateUser(@Req() req, @Body() createUserDto: CreateUserDto) {
+    return this.userService.updateUser(req.user.id, createUserDto);
   }
 
-  @Delete(':id')
+  @UseGuards(AuthGuard)
+  @Delete()
   @ApiOperation({ summary: '유저 삭제하기' })
   @ApiCreatedResponse({
     description: '반환 없음',
@@ -154,12 +161,13 @@ export class UsersController {
       example: {},
     },
   })
-  deleteUser(@Param() param) {
-    this.userService.deleteUser(param.id);
+  deleteUser(@Req() req) {
+    this.userService.deleteUser(req.user.id);
   }
 
-  @Patch('requestFriendship/:id')
-  @ApiOperation({ summary: '친구 신청하기' })
+  @UseGuards(AuthGuard)
+  @Patch('requestFriendship')
+  @ApiOperation({ summary: '친구신청 요청하기' })
   @ApiCreatedResponse({
     description: '반환 없음',
     schema: {
@@ -167,14 +175,18 @@ export class UsersController {
     },
   })
   requestFriendship(
-    @Param() param,
+    @Req() req,
     @Body() requestFriendshipDto: RequestFriendshipDto,
   ) {
-    return this.userService.requestFriendship(param.id, requestFriendshipDto);
+    return this.userService.requestFriendship(
+      req.user.id,
+      requestFriendshipDto,
+    );
   }
 
-  @Patch('acceptFriendship/:id')
-  @ApiOperation({ summary: '친구 신청하기' })
+  @UseGuards(AuthGuard)
+  @Patch('acceptFriendship')
+  @ApiOperation({ summary: '친구신청 수락하기' })
   @ApiCreatedResponse({
     description: '반환 없음',
     schema: {
@@ -182,14 +194,15 @@ export class UsersController {
     },
   })
   acceptFriendship(
-    @Param() param,
+    @Req() req,
     @Body() acceptFriendshipDto: AcceptFriendshipDto,
   ) {
-    return this.userService.acceptFriendship(param.id, acceptFriendshipDto);
+    return this.userService.acceptFriendship(req.user.id, acceptFriendshipDto);
   }
 
-  @Patch('rejectFriendship/:id')
-  @ApiOperation({ summary: '친구 신청하기' })
+  @UseGuards(AuthGuard)
+  @Patch('rejectFriendship')
+  @ApiOperation({ summary: '친구신청 거절하기' })
   @ApiCreatedResponse({
     description: '반환 없음',
     schema: {
@@ -197,12 +210,13 @@ export class UsersController {
     },
   })
   rejectFriendship(
-    @Param() param,
+    @Req() req,
     @Body() rejectFriendshipDto: RejectFriendshipDto,
   ) {
-    return this.userService.rejectFriendship(param.id, rejectFriendshipDto);
+    return this.userService.rejectFriendship(req.user.id, rejectFriendshipDto);
   }
 
+  @UseGuards(AuthGuard)
   @Patch('deleteFriendship/:id')
   @ApiOperation({ summary: '친구 신청하기' })
   @ApiCreatedResponse({
@@ -212,9 +226,9 @@ export class UsersController {
     },
   })
   deleteFriendship(
-    @Param() param,
+    @Req() req,
     @Body() rejectFriendshipDto: RejectFriendshipDto,
   ) {
-    return this.userService.deleteFriendship(param.id, rejectFriendshipDto);
+    return this.userService.deleteFriendship(req.user.id, rejectFriendshipDto);
   }
 }
