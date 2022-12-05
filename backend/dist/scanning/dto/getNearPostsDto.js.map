@@ -1,1 +1,0 @@
-{"version":3,"file":"getNearPostsDto.js","sourceRoot":"","sources":["../../../src/scanning/dto/getNearPostsDto.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA,6CAA8C;AAE9C,MAAa,eAAe;CAO3B;AANC;IAAC,IAAA,qBAAW,EAAC;QACX,OAAO,EAAE,sBAAsB;QAC/B,WAAW,EAAE,SAAS;QACtB,QAAQ,EAAE,IAAI;KACf,CAAC;;+CACa;AANjB,0CAOC"}
