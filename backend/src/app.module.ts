@@ -13,6 +13,8 @@ import { Comment } from './comments/entity/comment.entity';
 import { Authority } from './auth/entity/authority.entity';
 import { ScanningModule } from './scanning/scanning.module';
 import { EventsModule } from './events/events.module';
+import { MlModule } from './ml/ml.module';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -37,6 +39,8 @@ import { EventsModule } from './events/events.module';
     CommentsModule,
     ScanningModule,
     EventsModule,
+    MlModule,
+    HttpModule,
   ],
   controllers: [AppController],
   providers: [AppService],

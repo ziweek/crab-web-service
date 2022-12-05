@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreatePostDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
+const users_entity_1 = require("../../users/entity/users.entity");
 class CreatePostDto {
 }
 __decorate([
@@ -19,8 +20,8 @@ __decorate([
         description: '작성자',
         required: true,
     }),
-    __metadata("design:type", Number)
-], CreatePostDto.prototype, "authorId", void 0);
+    __metadata("design:type", users_entity_1.User)
+], CreatePostDto.prototype, "author", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: '오늘 고양이 밥 준 썰푼다.',

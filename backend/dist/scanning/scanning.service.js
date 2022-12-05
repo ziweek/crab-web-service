@@ -47,26 +47,64 @@ let ScanningService = class ScanningService {
             return dist;
         };
     }
-    async getNearPosts(getNearPostsDto) {
+    async getNearPosts(req) {
+        const loadedPosts = await this.postRepository.find({
+            where: { author: { id: (0, typeorm_2.In)(req.user.acceptedFriendIds) } },
+        });
         const container = [];
-        const target = await this.postRepository.find();
-        target.forEach((e) => {
-            const distance = this.getDistance(getNearPostsDto.region, e.region);
-            console.log(distance);
-            if (distance < 500) {
-                container.push(e);
-            }
+        loadedPosts.forEach((e, i) => {
+            const distance = this.getDistance(req.body.region, e.region);
+            const element = { index: i, distance: distance, post: e };
+            container.push(element);
+        });
+        container.sort((a, b) => {
+            return a.distance - b.distance;
         });
         return container;
     }
-    async getNearUsers(getNearFriendsDto) {
+    async getNearUsers(req) {
+        const loadedUsers = await this.userRepository.find({
+            where: { isActive: true },
+        });
         const container = [];
-        const target = await this.userRepository.find();
-        target.forEach((e) => {
-            const distance = this.getDistance(getNearFriendsDto.region, e.region);
-            if (distance < 500) {
-                container.push(e);
-            }
+        loadedUsers.forEach((e, i) => {
+            const distance = this.getDistance(req.body.region, e.region);
+            const element = { index: i, distance: distance, post: e };
+            container.push(element);
+        });
+        container.sort((a, b) => {
+            return a.distance - b.distance;
+        });
+        return container;
+    }
+    async getNearNonFriends(req) {
+        const loadedUsers = await this.userRepository.find({
+            where: { isActive: true, id: (0, typeorm_2.Not)(req.user.acceptedFriendIds) },
+        });
+        console.log(loadedUsers);
+        const container = [];
+        loadedUsers.forEach((e, i) => {
+            const distance = this.getDistance(req.body.region, e.region);
+            const element = { index: i, distance: distance, post: e };
+            container.push(element);
+        });
+        container.sort((a, b) => {
+            return a.distance - b.distance;
+        });
+        return container;
+    }
+    async getNearFriends(req) {
+        const loadedUsers = await this.userRepository.find({
+            where: { isActive: true, id: (0, typeorm_2.In)(req.user.acceptedFriendIds) },
+        });
+        const container = [];
+        loadedUsers.forEach((e, i) => {
+            const distance = this.getDistance(req.body.region, e.region);
+            const element = { index: i, distance: distance, post: e };
+            container.push(element);
+        });
+        container.sort((a, b) => {
+            return a.distance - b.distance;
         });
         return container;
     }

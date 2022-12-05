@@ -68,7 +68,7 @@ export class UsersController {
       ],
     },
   })
-  async findAllUsers(): Promise<any[]> {
+  findAllUsers() {
     // return ['findAllUsers'];
     return this.userService.findAllUsers();
   }
@@ -96,7 +96,7 @@ export class UsersController {
     },
   })
   findOneUser(@Req() req) {
-    console.log(req.user);
+    // console.log(req.user);
     return this.userService.findOneUser(req.user.id);
     // return ['findOneUser', `${param.id}`];
   }
@@ -162,7 +162,7 @@ export class UsersController {
     },
   })
   deleteUser(@Req() req) {
-    this.userService.deleteUser(req.user.id);
+    return this.userService.deleteUser(req.user.id);
   }
 
   @UseGuards(AuthGuard)
@@ -217,7 +217,7 @@ export class UsersController {
   }
 
   @UseGuards(AuthGuard)
-  @Patch('deleteFriendship/:id')
+  @Patch('deleteFriendship')
   @ApiOperation({ summary: '친구 신청하기' })
   @ApiCreatedResponse({
     description: '반환 없음',

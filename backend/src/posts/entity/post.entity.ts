@@ -42,8 +42,14 @@ export class Post {
   @DeleteDateColumn()
   deleteAt: Date | null;
 
-  @OneToOne(() => User, { nullable: true, eager: true })
-  @JoinColumn()
+  // @OneToOne(() => User, { nullable: true, eager: true })
+  // @JoinColumn()
+  // author: User;
+
+  @ManyToOne(() => User, (user) => user.posts, {
+    eager: true,
+    onDelete: 'SET NULL',
+  })
   author: User;
 
   @OneToMany(() => Comment, (comment) => comment.post, {

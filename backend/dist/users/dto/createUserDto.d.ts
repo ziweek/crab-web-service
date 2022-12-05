@@ -6,5 +6,6 @@ export declare class CreateUserDto {
     nickname: string;
     text: string;
     profileImg: string;
+    isActive: boolean;
     region: JSON;
 }

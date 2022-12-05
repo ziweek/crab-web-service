@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const authority_entity_1 = require("../../auth/entity/authority.entity");
+const comment_entity_1 = require("../../comments/entity/comment.entity");
 const post_entity_1 = require("../../posts/entity/post.entity");
 const typeorm_1 = require("typeorm");
 let User = class User {
@@ -84,6 +85,15 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "profileImg", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ default: false }),
+    (0, swagger_1.ApiProperty)({
+        example: 'false',
+        description: '버튼 활성화 여부',
+        required: true,
+    }),
+    __metadata("design:type", Boolean)
+], User.prototype, "isActive", void 0);
+__decorate([
     (0, typeorm_1.Column)({ type: 'json', nullable: true }),
     (0, swagger_1.ApiProperty)({
         example: '{"lng":123,"lat":37}',
@@ -96,6 +106,10 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => post_entity_1.Post, (post) => post.author, { nullable: true }),
     __metadata("design:type", Array)
 ], User.prototype, "posts", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => comment_entity_1.Comment, (comment) => comment.commenter, { nullable: true }),
+    __metadata("design:type", Array)
+], User.prototype, "comments", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => authority_entity_1.Authority, (authority) => authority.id, { eager: true }),
     __metadata("design:type", authority_entity_1.Authority)

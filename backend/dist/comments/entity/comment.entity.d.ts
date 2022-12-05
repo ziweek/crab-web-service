@@ -4,8 +4,7 @@ export declare class Comment {
     id: number;
     content: string;
     region: JSON;
-    hidden: boolean;
-    author: User;
+    commenter: User;
     post: Post;
     createAt: Date;
     updateAt: Date;

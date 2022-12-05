@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Post } from 'src/posts/entity/post.entity';
 import { Repository } from 'typeorm';
 import { CreateCommentDto } from './dto/createCommentDto';
 import { Comment } from './entity/comment.entity';
@@ -9,34 +10,62 @@ export class CommentsService {
   constructor(
     @InjectRepository(Comment)
     private commentsRepository: Repository<Comment>,
+
+    @InjectRepository(Post)
+    private postsRepository: Repository<Post>,
   ) {}
 
-  async createComment(createCommentDto: CreateCommentDto): Promise<void> {
-    // OneToOne - User
-    // ManyToOne - Post
-    this.commentsRepository.save(createCommentDto);
+  async createComment(createCommentDto: CreateCommentDto): Promise<Comment> {
+    return this.commentsRepository.save(createCommentDto);
   }
 
   async findAllComments(): Promise<Comment[]> {
     return await this.commentsRepository.find();
   }
 
-  async findOneComment(id: number): Promise<Comment> {
-    return await this.commentsRepository.findOne({ where: { id: id } });
+  async findComments(postId: number): Promise<Comment[]> {
+    const existedPost = await this.postsRepository.findOne({
+      where: { id: postId },
+    });
+    if (existedPost) {
+      return existedPost.comments;
+    } else {
+      throw new Error('포스트가 존재하지 않았습니다.');
+    }
   }
 
-  async deleteComment(id: number): Promise<void> {
-    await this.commentsRepository.delete(id);
+  async deleteComment(commentId: number, commenterId: number): Promise<any> {
+    const existedComment = await this.commentsRepository.findOne({
+      where: { id: commentId, commenter: { id: commenterId } },
+    });
+    if (existedComment) {
+      await this.commentsRepository.delete(commentId);
+      return { result: true };
+    } else {
+      throw new Error('댓글이 존재하지 않았습니다.');
+      return { result: false };
+    }
   }
 
   async updateComment(
-    id: number,
+    commentId: number,
+    commenterId: number,
     createCommentDto: CreateCommentDto,
-  ): Promise<void> {
-    await this.commentsRepository.update(id, {
-      content: createCommentDto.content,
-      region: createCommentDto.region,
-      hidden: createCommentDto.hidden,
+  ): Promise<any> {
+    const existedComment = await this.commentsRepository.findOne({
+      where: { id: commentId, commenter: { id: commenterId } },
     });
+    if (existedComment) {
+      await this.commentsRepository.update(commentId, {
+        content: createCommentDto.content,
+        region: createCommentDto.region,
+      });
+      return await this.commentsRepository.findOne({
+        where: { id: commentId },
+      });
+    } else {
+      throw new Error('댓글이 존재하지 않았습니다.');
+      return { result: false };
+    }
   }
 }

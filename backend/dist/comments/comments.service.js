@@ -15,36 +15,69 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CommentsService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
+const post_entity_1 = require("../posts/entity/post.entity");
 const typeorm_2 = require("typeorm");
 const comment_entity_1 = require("./entity/comment.entity");
 let CommentsService = class CommentsService {
-    constructor(commentsRepository) {
+    constructor(commentsRepository, postsRepository) {
         this.commentsRepository = commentsRepository;
+        this.postsRepository = postsRepository;
     }
     async createComment(createCommentDto) {
-        this.commentsRepository.save(createCommentDto);
+        return this.commentsRepository.save(createCommentDto);
     }
     async findAllComments() {
         return await this.commentsRepository.find();
     }
-    async findOneComment(id) {
-        return await this.commentsRepository.findOne({ where: { id: id } });
-    }
-    async deleteComment(id) {
-        await this.commentsRepository.delete(id);
-    }
-    async updateComment(id, createCommentDto) {
-        await this.commentsRepository.update(id, {
-            content: createCommentDto.content,
-            region: createCommentDto.region,
-            hidden: createCommentDto.hidden,
+    async findComments(postId) {
+        const existedPost = await this.postsRepository.findOne({
+            where: { id: postId },
         });
+        if (existedPost) {
+            return existedPost.comments;
+        }
+        else {
+            throw new Error('포스트가 존재하지 않았습니다.');
+        }
+    }
+    async deleteComment(commentId, commenterId) {
+        const existedComment = await this.commentsRepository.findOne({
+            where: { id: commentId, commenter: { id: commenterId } },
+        });
+        if (existedComment) {
+            await this.commentsRepository.delete(commentId);
+            return { result: true };
+        }
+        else {
+            throw new Error('댓글이 존재하지 않았습니다.');
+            return { result: false };
+        }
+    }
+    async updateComment(commentId, commenterId, createCommentDto) {
+        const existedComment = await this.commentsRepository.findOne({
+            where: { id: commentId, commenter: { id: commenterId } },
+        });
+        if (existedComment) {
+            await this.commentsRepository.update(commentId, {
+                content: createCommentDto.content,
+                region: createCommentDto.region,
+            });
+            return await this.commentsRepository.findOne({
+                where: { id: commentId },
+            });
+        }
+        else {
+            throw new Error('댓글이 존재하지 않았습니다.');
+            return { result: false };
+        }
     }
 };
 CommentsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(comment_entity_1.Comment)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __param(1, (0, typeorm_1.InjectRepository)(post_entity_1.Post)),
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository])
 ], CommentsService);
 exports.CommentsService = CommentsService;
 //# sourceMappingURL=comments.service.js.map

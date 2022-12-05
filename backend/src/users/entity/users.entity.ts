@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Authority } from 'src/auth/entity/authority.entity';
+import { Comment } from 'src/comments/entity/comment.entity';
 import { Post } from 'src/posts/entity/post.entity';
 import {
   Entity,
@@ -75,6 +76,14 @@ export class User {
   })
   profileImg: string;
 
+  @Column({ default: false })
+  @ApiProperty({
+    example: 'false',
+    description: '버튼 활성화 여부',
+    required: true,
+  })
+  isActive: boolean;
+
   @Column({ type: 'json', nullable: true })
   @ApiProperty({
     example: '{"lng":123,"lat":37}',
@@ -85,6 +94,9 @@ export class User {
 
   @OneToMany(() => Post, (post) => post.author, { nullable: true })
   posts: Post[];
+
+  @OneToMany(() => Comment, (comment) => comment.commenter, { nullable: true })
+  comments: Comment[];
 
   @ManyToOne(() => Authority, (authority) => authority.id, { eager: true })
   authority: Authority;

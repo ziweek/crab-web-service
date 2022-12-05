@@ -6,6 +6,8 @@ import {
   Param,
   Patch,
   Post,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiCreatedResponse,
@@ -13,6 +15,7 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
+import { AuthGuard } from 'src/auth/security/auth.guard';
 import { CreatePostDto } from './dto/createPostDto';
 import { PostsService } from './posts.service';
 
@@ -21,7 +24,7 @@ import { PostsService } from './posts.service';
 export class PostsController {
   constructor(private postsService: PostsService) {}
 
-  @Get()
+  @Get('/all')
   @ApiOperation({ summary: '전체 포스트 조회하기' })
   @ApiCreatedResponse({
     description: '전체 포스트 반환',
@@ -66,9 +69,10 @@ export class PostsController {
     return this.postsService.findAllPosts();
   }
 
-  @Get(':id')
+  @UseGuards(AuthGuard)
+  @Get()
   @ApiParam({ name: 'id', example: 1, required: true })
-  @ApiOperation({ summary: '포스트 하나 조회하기' })
+  @ApiOperation({ summary: '포스트 조회하기' })
   @ApiCreatedResponse({
     description: '포스트 하나 반환',
     schema: {
@@ -90,11 +94,11 @@ export class PostsController {
       },
     },
   })
-  findOnePost(@Param() param) {
-    return this.postsService.findOnePost(param.id);
-    // return ['findOneUser', `${param.id}`];
+  findPosts(@Req() req) {
+    return this.postsService.findPosts(req.user);
   }
 
+  @UseGuards(AuthGuard)
   @Post()
   @ApiOperation({ summary: '포스트 생성하기' })
   @ApiCreatedResponse({
@@ -103,11 +107,13 @@ export class PostsController {
       // example:
     },
   })
-  createPost(@Body() createPostDto: CreatePostDto) {
+  createPost(@Req() req, @Body() createPostDto: CreatePostDto) {
+    createPostDto.author = req.user;
     return this.postsService.createPost(createPostDto);
   }
 
-  @Patch(':id')
+  @UseGuards(AuthGuard)
+  @Patch('/:id')
   @ApiOperation({ summary: '포스트 수정하기' })
   @ApiCreatedResponse({
     description: '포스트 수정',
@@ -130,12 +136,16 @@ export class PostsController {
       },
     },
   })
-  updatePost(@Param() param, @Body() createPostDto: CreatePostDto) {
-    // return ['updatePost', `${param.id}`];
-    this.postsService.updatePost(param.id, createPostDto);
+  updatePost(@Req() req) {
+    const postId = req.params.id;
+    const userId = req.user.id;
+    const createPostDto = req.body;
+    createPostDto.author = req.user;
+    return this.postsService.updatePost(postId, userId, createPostDto);
   }
 
-  @Delete(':id')
+  @UseGuards(AuthGuard)
+  @Delete('/:id')
   @ApiOperation({ summary: '포스트 삭제하기' })
   @ApiCreatedResponse({
     description: '포스트 삭제',
@@ -143,8 +153,9 @@ export class PostsController {
       example: ['deletePost', '3'],
     },
   })
-  deletePost(@Param() param) {
-    this.postsService.deletePost(param.id);
-    return ['deletePost', `${param.id}`];
+  deletePost(@Req() req) {
+    const postId = req.params.id;
+    const userId = req.user.id;
+    return this.postsService.deletePost(postId, userId);
   }
 }

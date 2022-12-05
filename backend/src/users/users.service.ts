@@ -36,11 +36,20 @@ export class UsersService {
     return await this.usersRepository.findOne({ where: { id: id } });
   }
 
-  async deleteUser(id: number): Promise<void> {
-    await this.usersRepository.delete(id);
+  async deleteUser(id: number): Promise<any> {
+    const existedUser = await this.usersRepository.findOne({
+      where: { id: id },
+    });
+    if (existedUser) {
+      await this.usersRepository.delete(id);
+      return { result: true };
+    } else {
+      throw new Error('유저가 존재하지 않았습니다.');
+      return { result: false };
+    }
   }
 
-  async updateUser(id: number, createUserDto: CreateUserDto): Promise<void> {
+  async updateUser(id: number, createUserDto: CreateUserDto): Promise<any> {
     const existedUser = this.usersRepository.findOne({ where: { id: id } });
     if (existedUser) {
       await this.usersRepository.update(id, {
@@ -51,8 +60,10 @@ export class UsersService {
         nickname: createUserDto.nickname,
         text: createUserDto.text,
         profileImg: createUserDto.profileImg,
+        isActive: createUserDto.isActive,
         region: createUserDto.region,
       });
+      return await this.usersRepository.findOne({ where: { id: id } });
     }
   }
 

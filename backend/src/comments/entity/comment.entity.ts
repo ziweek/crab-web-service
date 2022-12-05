@@ -23,14 +23,10 @@ export class Comment {
   @Column({ type: 'json' })
   region: JSON;
 
-  @Column()
-  hidden: boolean;
+  @ManyToOne(() => User, (user) => user.comments)
+  commenter: User;
 
-  @OneToOne(() => User)
-  @JoinColumn()
-  author: User;
-
-  @ManyToOne(() => Post, (post) => post.id, {
+  @ManyToOne(() => Post, (post) => post.comments, {
     onDelete: 'SET NULL',
   })
   post: Post;

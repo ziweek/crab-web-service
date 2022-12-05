@@ -11,8 +11,8 @@ export declare class UsersService {
     createUser(createUserDto: CreateUserDto): Promise<User>;
     findAllUsers(): Promise<User[]>;
     findOneUser(id: number): Promise<User>;
-    deleteUser(id: number): Promise<void>;
-    updateUser(id: number, createUserDto: CreateUserDto): Promise<void>;
+    deleteUser(id: number): Promise<any>;
+    updateUser(id: number, createUserDto: CreateUserDto): Promise<any>;
     requestFriendship(id: number, requestFriendshipDto: RequestFriendshipDto): Promise<any>;
     acceptFriendship(id: number, acceptFriendshipDto: AcceptFriendshipDto): Promise<any>;
     rejectFriendship(id: number, rejectFriendshipDto: RejectFriendshipDto): Promise<any>;

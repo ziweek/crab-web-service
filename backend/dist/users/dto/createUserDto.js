@@ -71,6 +71,14 @@ __decorate([
 ], CreateUserDto.prototype, "profileImg", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
+        example: 'false',
+        description: '버튼 활성화 여부',
+        required: true,
+    }),
+    __metadata("design:type", Boolean)
+], CreateUserDto.prototype, "isActive", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
         example: '{"lng":123,"lat":37}',
         description: '지역 JSON',
         required: true,

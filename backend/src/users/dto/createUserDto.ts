@@ -51,6 +51,13 @@ export class CreateUserDto {
   profileImg: string;
 
   @ApiProperty({
+    example: 'false',
+    description: '버튼 활성화 여부',
+    required: true,
+  })
+  isActive: boolean;
+
+  @ApiProperty({
     example: '{"lng":123,"lat":37}',
     description: '지역 JSON',
     required: true,

@@ -1,9 +1,9 @@
-import { GetNearFriendsDto } from './dto/getNearFriendsDto';
-import { GetNearPostsDto } from './dto/getNearPostsDto';
 import { ScanningService } from './scanning.service';
 export declare class ScanningController {
     private scanningService;
     constructor(scanningService: ScanningService);
-    getNearPosts(getNearPostsDto: GetNearPostsDto): Promise<any>;
-    getNearFriends(getNearFriends: GetNearFriendsDto): Promise<any>;
+    getNearPosts(req: any): Promise<any>;
+    getNearUsers(req: any): Promise<any>;
+    getNearNonFriends(req: any): Promise<any>;
+    getNearFriends(req: any): Promise<any>;
 }

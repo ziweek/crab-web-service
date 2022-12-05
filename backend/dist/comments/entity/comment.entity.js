@@ -28,16 +28,11 @@ __decorate([
     __metadata("design:type", Object)
 ], Comment.prototype, "region", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Boolean)
-], Comment.prototype, "hidden", void 0);
-__decorate([
-    (0, typeorm_1.OneToOne)(() => users_entity_1.User),
-    (0, typeorm_1.JoinColumn)(),
+    (0, typeorm_1.ManyToOne)(() => users_entity_1.User, (user) => user.comments),
     __metadata("design:type", users_entity_1.User)
-], Comment.prototype, "author", void 0);
+], Comment.prototype, "commenter", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => post_entity_1.Post, (post) => post.id, {
+    (0, typeorm_1.ManyToOne)(() => post_entity_1.Post, (post) => post.comments, {
         onDelete: 'SET NULL',
     }),
     __metadata("design:type", post_entity_1.Post)

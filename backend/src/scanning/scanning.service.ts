@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Post } from 'src/posts/entity/post.entity';
 import { User } from 'src/users/entity/users.entity';
-import { Repository } from 'typeorm';
+import { In, Not, Repository } from 'typeorm';
 import { GetNearFriendsDto } from './dto/getNearFriendsDto';
 import { GetNearPostsDto } from './dto/getNearPostsDto';
 
@@ -41,38 +41,81 @@ export class ScanningService {
     return dist;
   };
 
-  async getNearPosts(getNearPostsDto: GetNearPostsDto): Promise<any> {
-    // console.log(getNearPostsDto.region);
-    const container = [];
-    const target = await this.postRepository.find();
-    target.forEach((e) => {
-      // console.log(getNearPostsDto.region);
-      const distance = this.getDistance(getNearPostsDto.region, e.region);
-      console.log(distance);
-      if (distance < 500) {
-        container.push(e);
-      }
+  async getNearPosts(req): Promise<any> {
+    const loadedPosts = await this.postRepository.find({
+      where: { author: { id: In(req.user.acceptedFriendIds) } },
     });
+    // console.log(loadedPosts);
+    // console.log(req.body);
+    const container = [];
+    loadedPosts.forEach((e, i) => {
+      const distance = this.getDistance(req.body.region, e.region);
+      const element = { index: i, distance: distance, post: e };
+      container.push(element);
+    });
+    // console.log(container);
+    container.sort((a, b) => {
+      return a.distance - b.distance;
+    });
+    // console.log(container);
     return container;
   }
 
-  async getNearUsers(getNearFriendsDto: GetNearFriendsDto): Promise<any> {
-    // console.log(getNearFriendsDto.region);
-    const container = [];
-    const target = await this.userRepository.find();
-    // console.log(target);
-    target.forEach((e) => {
-      //   console.log(e.region);
-      // console.log(getNearFriendsDto.region);
-      // const latDif = e.region['lat'] - getNearFriendsDto.region['lat'];
-      // const lngDif = e.region['lng'] - getNearFriendsDto.region['lng'];
-      const distance = this.getDistance(getNearFriendsDto.region, e.region);
-      // console.log(distance);
-      if (distance < 500) {
-        container.push(e);
-      }
-      //   console.log(container);
+  async getNearUsers(req): Promise<any> {
+    const loadedUsers = await this.userRepository.find({
+      where: { isActive: true },
     });
+    // console.log(loadedUsers);
+    const container = [];
+    loadedUsers.forEach((e, i) => {
+      const distance = this.getDistance(req.body.region, e.region);
+      const element = { index: i, distance: distance, post: e };
+      container.push(element);
+    });
+    // console.log(container);
+    container.sort((a, b) => {
+      return a.distance - b.distance;
+    });
+    // console.log(container);
+    return container;
+  }
+
+  async getNearNonFriends(req): Promise<any> {
+    const loadedUsers = await this.userRepository.find({
+      where: { isActive: true, id: Not(req.user.acceptedFriendIds) },
+    });
+    console.log(loadedUsers);
+    const container = [];
+    loadedUsers.forEach((e, i) => {
+      const distance = this.getDistance(req.body.region, e.region);
+      const element = { index: i, distance: distance, post: e };
+      container.push(element);
+    });
+    // console.log(container);
+    container.sort((a, b) => {
+      return a.distance - b.distance;
+    });
+    // console.log(container);
+    return container;
+  }
+
+  async getNearFriends(req): Promise<any> {
+    // console.log(req.user.acceptedFriendIds);
+    const loadedUsers = await this.userRepository.find({
+      where: { isActive: true, id: In(req.user.acceptedFriendIds) },
+    });
+    // console.log(loadedUsers);
+    const container = [];
+    loadedUsers.forEach((e, i) => {
+      const distance = this.getDistance(req.body.region, e.region);
+      const element = { index: i, distance: distance, post: e };
+      container.push(element);
+    });
+    // console.log(container);
+    container.sort((a, b) => {
+      return a.distance - b.distance;
+    });
+    // console.log(container);
     return container;
   }
 }

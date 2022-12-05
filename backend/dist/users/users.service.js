@@ -31,7 +31,17 @@ let UsersService = class UsersService {
         return await this.usersRepository.findOne({ where: { id: id } });
     }
     async deleteUser(id) {
-        await this.usersRepository.delete(id);
+        const existedUser = await this.usersRepository.findOne({
+            where: { id: id },
+        });
+        if (existedUser) {
+            await this.usersRepository.delete(id);
+            return { result: true };
+        }
+        else {
+            throw new Error('유저가 존재하지 않았습니다.');
+            return { result: false };
+        }
     }
     async updateUser(id, createUserDto) {
         const existedUser = this.usersRepository.findOne({ where: { id: id } });
@@ -44,8 +54,10 @@ let UsersService = class UsersService {
                 nickname: createUserDto.nickname,
                 text: createUserDto.text,
                 profileImg: createUserDto.profileImg,
+                isActive: createUserDto.isActive,
                 region: createUserDto.region,
             });
+            return await this.usersRepository.findOne({ where: { id: id } });
         }
     }
     async requestFriendship(id, requestFriendshipDto) {

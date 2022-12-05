@@ -1,5 +1,6 @@
+import { User } from 'src/users/entity/users.entity';
 export declare class CreatePostDto {
-    authorId: number;
+    author: User;
     title: string;
     content: string;
     images: string;

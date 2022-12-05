@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PostsController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
+const auth_guard_1 = require("../auth/security/auth.guard");
 const createPostDto_1 = require("./dto/createPostDto");
 const posts_service_1 = require("./posts.service");
 let PostsController = class PostsController {
@@ -24,22 +25,28 @@ let PostsController = class PostsController {
     findAllPosts() {
         return this.postsService.findAllPosts();
     }
-    findOnePost(param) {
-        return this.postsService.findOnePost(param.id);
+    findPosts(req) {
+        return this.postsService.findPosts(req.user);
     }
-    createPost(createPostDto) {
+    createPost(req, createPostDto) {
+        createPostDto.author = req.user;
         return this.postsService.createPost(createPostDto);
     }
-    updatePost(param, createPostDto) {
-        this.postsService.updatePost(param.id, createPostDto);
+    updatePost(req) {
+        const postId = req.params.id;
+        const userId = req.user.id;
+        const createPostDto = req.body;
+        createPostDto.author = req.user;
+        return this.postsService.updatePost(postId, userId, createPostDto);
     }
-    deletePost(param) {
-        this.postsService.deletePost(param.id);
-        return ['deletePost', `${param.id}`];
+    deletePost(req) {
+        const postId = req.params.id;
+        const userId = req.user.id;
+        return this.postsService.deletePost(postId, userId);
     }
 };
 __decorate([
-    (0, common_1.Get)(),
+    (0, common_1.Get)('/all'),
     (0, swagger_1.ApiOperation)({ summary: '전체 포스트 조회하기' }),
     (0, swagger_1.ApiCreatedResponse)({
         description: '전체 포스트 반환',
@@ -85,9 +92,10 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], PostsController.prototype, "findAllPosts", null);
 __decorate([
-    (0, common_1.Get)(':id'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, common_1.Get)(),
     (0, swagger_1.ApiParam)({ name: 'id', example: 1, required: true }),
-    (0, swagger_1.ApiOperation)({ summary: '포스트 하나 조회하기' }),
+    (0, swagger_1.ApiOperation)({ summary: '포스트 조회하기' }),
     (0, swagger_1.ApiCreatedResponse)({
         description: '포스트 하나 반환',
         schema: {
@@ -109,25 +117,28 @@ __decorate([
             },
         },
     }),
-    __param(0, (0, common_1.Param)()),
+    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
-], PostsController.prototype, "findOnePost", null);
+], PostsController.prototype, "findPosts", null);
 __decorate([
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     (0, common_1.Post)(),
     (0, swagger_1.ApiOperation)({ summary: '포스트 생성하기' }),
     (0, swagger_1.ApiCreatedResponse)({
         description: '포스트 생성',
         schema: {},
     }),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [createPostDto_1.CreatePostDto]),
+    __metadata("design:paramtypes", [Object, createPostDto_1.CreatePostDto]),
     __metadata("design:returntype", void 0)
 ], PostsController.prototype, "createPost", null);
 __decorate([
-    (0, common_1.Patch)(':id'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, common_1.Patch)('/:id'),
     (0, swagger_1.ApiOperation)({ summary: '포스트 수정하기' }),
     (0, swagger_1.ApiCreatedResponse)({
         description: '포스트 수정',
@@ -150,14 +161,14 @@ __decorate([
             },
         },
     }),
-    __param(0, (0, common_1.Param)()),
-    __param(1, (0, common_1.Body)()),
+    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, createPostDto_1.CreatePostDto]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], PostsController.prototype, "updatePost", null);
 __decorate([
-    (0, common_1.Delete)(':id'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, common_1.Delete)('/:id'),
     (0, swagger_1.ApiOperation)({ summary: '포스트 삭제하기' }),
     (0, swagger_1.ApiCreatedResponse)({
         description: '포스트 삭제',
@@ -165,7 +176,7 @@ __decorate([
             example: ['deletePost', '3'],
         },
     }),
-    __param(0, (0, common_1.Param)()),
+    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)

@@ -52,8 +52,10 @@ __decorate([
     __metadata("design:type", Date)
 ], Post.prototype, "deleteAt", void 0);
 __decorate([
-    (0, typeorm_1.OneToOne)(() => users_entity_1.User, { nullable: true, eager: true }),
-    (0, typeorm_1.JoinColumn)(),
+    (0, typeorm_1.ManyToOne)(() => users_entity_1.User, (user) => user.posts, {
+        eager: true,
+        onDelete: 'SET NULL',
+    }),
     __metadata("design:type", users_entity_1.User)
 ], Post.prototype, "author", void 0);
 __decorate([

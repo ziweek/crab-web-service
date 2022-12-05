@@ -1,12 +1,14 @@
+import { Post } from 'src/posts/entity/post.entity';
 import { Repository } from 'typeorm';
 import { CreateCommentDto } from './dto/createCommentDto';
 import { Comment } from './entity/comment.entity';
 export declare class CommentsService {
     private commentsRepository;
-    constructor(commentsRepository: Repository<Comment>);
-    createComment(createCommentDto: CreateCommentDto): Promise<void>;
+    private postsRepository;
+    constructor(commentsRepository: Repository<Comment>, postsRepository: Repository<Post>);
+    createComment(createCommentDto: CreateCommentDto): Promise<Comment>;
     findAllComments(): Promise<Comment[]>;
-    findOneComment(id: number): Promise<Comment>;
-    deleteComment(id: number): Promise<void>;
-    updateComment(id: number, createCommentDto: CreateCommentDto): Promise<void>;
+    findComments(postId: number): Promise<Comment[]>;
+    deleteComment(commentId: number, commenterId: number): Promise<any>;
+    updateComment(commentId: number, commenterId: number, createCommentDto: CreateCommentDto): Promise<any>;
 }

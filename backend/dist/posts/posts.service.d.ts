@@ -8,7 +8,7 @@ export declare class PostsService {
     constructor(postsRepository: Repository<Post>, usersRepository: Repository<User>);
     createPost(createPostDto: CreatePostDto): Promise<Post>;
     findAllPosts(): Promise<Post[]>;
-    findOnePost(id: number): Promise<Post>;
-    deletePost(id: number): Promise<void>;
-    updatePost(id: number, createPostDto: CreatePostDto): Promise<void>;
+    findPosts(user: User): Promise<any>;
+    updatePost(postId: number, userId: number, createPostDto: CreatePostDto): Promise<any>;
+    deletePost(postId: number, userId: number): Promise<any>;
 }

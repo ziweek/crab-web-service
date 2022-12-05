@@ -22,6 +22,8 @@ const comment_entity_1 = require("./comments/entity/comment.entity");
 const authority_entity_1 = require("./auth/entity/authority.entity");
 const scanning_module_1 = require("./scanning/scanning.module");
 const events_module_1 = require("./events/events.module");
+const ml_module_1 = require("./ml/ml.module");
+const axios_1 = require("@nestjs/axios");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -46,6 +48,8 @@ AppModule = __decorate([
             comments_module_1.CommentsModule,
             scanning_module_1.ScanningModule,
             events_module_1.EventsModule,
+            ml_module_1.MlModule,
+            axios_1.HttpModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

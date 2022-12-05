@@ -25,18 +25,17 @@ let UsersController = class UsersController {
     constructor(userService) {
         this.userService = userService;
     }
-    async findAllUsers() {
+    findAllUsers() {
         return this.userService.findAllUsers();
     }
     findOneUser(req) {
-        console.log(req.user);
         return this.userService.findOneUser(req.user.id);
     }
     updateUser(req, createUserDto) {
         return this.userService.updateUser(req.user.id, createUserDto);
     }
     deleteUser(req) {
-        this.userService.deleteUser(req.user.id);
+        return this.userService.deleteUser(req.user.id);
     }
     requestFriendship(req, requestFriendshipDto) {
         return this.userService.requestFriendship(req.user.id, requestFriendshipDto);
@@ -97,7 +96,7 @@ __decorate([
     }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", void 0)
 ], UsersController.prototype, "findAllUsers", null);
 __decorate([
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
@@ -221,7 +220,7 @@ __decorate([
 ], UsersController.prototype, "rejectFriendship", null);
 __decorate([
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
-    (0, common_1.Patch)('deleteFriendship/:id'),
+    (0, common_1.Patch)('deleteFriendship'),
     (0, swagger_1.ApiOperation)({ summary: '친구 신청하기' }),
     (0, swagger_1.ApiCreatedResponse)({
         description: '반환 없음',

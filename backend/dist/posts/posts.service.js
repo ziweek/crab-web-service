@@ -25,7 +25,7 @@ let PostsService = class PostsService {
     }
     async createPost(createPostDto) {
         const author = await this.usersRepository.findOne({
-            where: { id: createPostDto.authorId },
+            where: { id: createPostDto.author.id },
         });
         const targetPost = await this.postsRepository.save(createPostDto);
         targetPost.author = author;
@@ -34,20 +34,47 @@ let PostsService = class PostsService {
     async findAllPosts() {
         return await this.postsRepository.find();
     }
-    async findOnePost(id) {
-        return await this.postsRepository.findOne({ where: { id: id } });
-    }
-    async deletePost(id) {
-        await this.postsRepository.delete(id);
-    }
-    async updatePost(id, createPostDto) {
-        await this.postsRepository.update(id, {
-            title: createPostDto.title,
-            content: createPostDto.content,
-            images: createPostDto.images,
-            region: createPostDto.region,
-            hidden: createPostDto.hidden,
+    async findPosts(user) {
+        return await this.postsRepository.find({
+            where: { author: { id: user.id } },
         });
+    }
+    async updatePost(postId, userId, createPostDto) {
+        const existedPost = await this.postsRepository.findOne({
+            where: { id: postId, author: { id: userId } },
+        });
+        if (existedPost) {
+            await this.postsRepository.update(postId, {
+                title: createPostDto.title,
+                content: createPostDto.content,
+                images: createPostDto.images,
+                region: createPostDto.region,
+                hidden: createPostDto.hidden,
+            });
+            return await this.postsRepository.findOne({
+                where: { id: postId },
+            });
+        }
+        else {
+            throw new Error('포스트가 존재하지 않았습니다.');
+        }
+    }
+    async deletePost(postId, userId) {
+        const existedPost = await this.postsRepository.findOne({
+            where: { id: postId, author: { id: userId } },
+        });
+        if (existedPost) {
+            try {
+                await this.postsRepository.delete(postId);
+                return { result: true };
+            }
+            catch (error) {
+                return { result: false, error: error };
+            }
+        }
+        else {
+            throw new Error('포스트가 존재하지 않았습니다.');
+        }
     }
 };
 PostsService = __decorate([

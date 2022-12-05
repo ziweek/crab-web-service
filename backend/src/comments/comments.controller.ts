@@ -6,8 +6,11 @@ import {
   Param,
   Patch,
   Post,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiTags, ApiCreatedResponse, ApiOperation } from '@nestjs/swagger';
+import { AuthGuard } from 'src/auth/security/auth.guard';
 import { CommentsService } from './comments.service';
 import { CreateCommentDto } from './dto/createCommentDto';
 
@@ -16,7 +19,7 @@ import { CreateCommentDto } from './dto/createCommentDto';
 export class CommentsController {
   constructor(private commentsService: CommentsService) {}
 
-  @Get()
+  @Get('/all')
   @ApiOperation({ summary: '전체 댓글 조회하기' })
   @ApiCreatedResponse({
     description: '전체 댓글 반환',
@@ -24,23 +27,25 @@ export class CommentsController {
       // example:
     },
   })
-  async findAllComments(): Promise<any[]> {
-    // return ['findAllUsers'];
+  findAllComments() {
     return this.commentsService.findAllComments();
   }
 
-  @Get(':id')
-  @ApiOperation({ summary: '댓글 하나 조회하기' })
+  @UseGuards(AuthGuard)
+  @Get()
+  @ApiOperation({ summary: '댓글 조회하기' })
   @ApiCreatedResponse({
-    description: '댓글 하나 반환',
+    description: '포스트의 댓글 반환',
     schema: {
       // example:
     },
   })
-  async findOneComment(@Param() param): Promise<any[]> {
-    return ['findOneComment', `${param.id}`];
+  findComments(@Req() req) {
+    const postId = req.body.postId;
+    return this.commentsService.findComments(postId);
   }
 
+  @UseGuards(AuthGuard)
   @Post()
   @ApiOperation({ summary: '댓글 작성하기' })
   @ApiCreatedResponse({
@@ -49,11 +54,13 @@ export class CommentsController {
       // example:
     },
   })
-  async createComment(@Body() createCommentDto: CreateCommentDto) {
-    // return ['createUser', `${createUserDto}`];
-    this.commentsService.createComment(createCommentDto);
+  createComment(@Req() req) {
+    const createCommentDto = req.body;
+    createCommentDto.commenter = req.user;
+    return this.commentsService.createComment(createCommentDto);
   }
 
+  @UseGuards(AuthGuard)
   @Patch(':id')
   @ApiOperation({ summary: '댓글 수정하기' })
   @ApiCreatedResponse({
@@ -62,19 +69,31 @@ export class CommentsController {
       // example:
     },
   })
-  async updateComment(@Param() param): Promise<any[]> {
-    return ['updateUser', `${param.id}`];
+  updateComment(@Req() req) {
+    const commentId = req.params.id;
+    const commenterId = req.user.id;
+    const createCommentDto = req.body;
+    return this.commentsService.updateComment(
+      commentId,
+      commenterId,
+      createCommentDto,
+    );
   }
 
+  @UseGuards(AuthGuard)
   @Delete(':id')
   @ApiOperation({ summary: '댓글 삭제하기' })
   @ApiCreatedResponse({
     description: '댓글 삭제하기',
     schema: {
-      // example:
+      example: {
+        result: true,
+      },
     },
   })
-  async deleteComment(@Param() param): Promise<any[]> {
-    return ['deleteUser', `${param.id}`];
+  deleteComment(@Req() req) {
+    const commentId = req.params.id;
+    const commenterId = req.user.id;
+    return this.commentsService.deleteComment(commentId, commenterId);
   }
 }

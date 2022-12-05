@@ -15,30 +15,38 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CommentsController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
+const auth_guard_1 = require("../auth/security/auth.guard");
 const comments_service_1 = require("./comments.service");
-const createCommentDto_1 = require("./dto/createCommentDto");
 let CommentsController = class CommentsController {
     constructor(commentsService) {
         this.commentsService = commentsService;
     }
-    async findAllComments() {
+    findAllComments() {
         return this.commentsService.findAllComments();
     }
-    async findOneComment(param) {
-        return ['findOneComment', `${param.id}`];
+    findComments(req) {
+        const postId = req.body.postId;
+        return this.commentsService.findComments(postId);
     }
-    async createComment(createCommentDto) {
-        this.commentsService.createComment(createCommentDto);
+    createComment(req) {
+        const createCommentDto = req.body;
+        createCommentDto.commenter = req.user;
+        return this.commentsService.createComment(createCommentDto);
     }
-    async updateComment(param) {
-        return ['updateUser', `${param.id}`];
+    updateComment(req) {
+        const commentId = req.params.id;
+        const commenterId = req.user.id;
+        const createCommentDto = req.body;
+        return this.commentsService.updateComment(commentId, commenterId, createCommentDto);
     }
-    async deleteComment(param) {
-        return ['deleteUser', `${param.id}`];
+    deleteComment(req) {
+        const commentId = req.params.id;
+        const commenterId = req.user.id;
+        return this.commentsService.deleteComment(commentId, commenterId);
     }
 };
 __decorate([
-    (0, common_1.Get)(),
+    (0, common_1.Get)('/all'),
     (0, swagger_1.ApiOperation)({ summary: '전체 댓글 조회하기' }),
     (0, swagger_1.ApiCreatedResponse)({
         description: '전체 댓글 반환',
@@ -46,55 +54,63 @@ __decorate([
     }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", void 0)
 ], CommentsController.prototype, "findAllComments", null);
 __decorate([
-    (0, common_1.Get)(':id'),
-    (0, swagger_1.ApiOperation)({ summary: '댓글 하나 조회하기' }),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, common_1.Get)(),
+    (0, swagger_1.ApiOperation)({ summary: '댓글 조회하기' }),
     (0, swagger_1.ApiCreatedResponse)({
-        description: '댓글 하나 반환',
+        description: '포스트의 댓글 반환',
         schema: {},
     }),
-    __param(0, (0, common_1.Param)()),
+    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], CommentsController.prototype, "findOneComment", null);
+    __metadata("design:returntype", void 0)
+], CommentsController.prototype, "findComments", null);
 __decorate([
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     (0, common_1.Post)(),
     (0, swagger_1.ApiOperation)({ summary: '댓글 작성하기' }),
     (0, swagger_1.ApiCreatedResponse)({
         description: '댓글 작성하기',
         schema: {},
     }),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [createCommentDto_1.CreateCommentDto]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
 ], CommentsController.prototype, "createComment", null);
 __decorate([
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     (0, common_1.Patch)(':id'),
     (0, swagger_1.ApiOperation)({ summary: '댓글 수정하기' }),
     (0, swagger_1.ApiCreatedResponse)({
         description: '댓글 수정하기',
         schema: {},
     }),
-    __param(0, (0, common_1.Param)()),
+    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", void 0)
 ], CommentsController.prototype, "updateComment", null);
 __decorate([
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     (0, common_1.Delete)(':id'),
     (0, swagger_1.ApiOperation)({ summary: '댓글 삭제하기' }),
     (0, swagger_1.ApiCreatedResponse)({
         description: '댓글 삭제하기',
-        schema: {},
+        schema: {
+            example: {
+                result: true,
+            },
+        },
     }),
-    __param(0, (0, common_1.Param)()),
+    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", void 0)
 ], CommentsController.prototype, "deleteComment", null);
 CommentsController = __decorate([
     (0, common_1.Controller)('comments'),
