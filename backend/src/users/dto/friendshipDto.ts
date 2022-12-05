@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class RejectFriendshipDto {
+export class FriendshipDto {
   @ApiProperty({
     example: '2',
     description: '친구 신청을 수락할 User id',

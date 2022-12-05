@@ -1,11 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { AcceptFriendshipDto } from './dto/acceptFriendshipDto';
+import { FriendshipDto } from './dto/friendshipDto';
 import { CreateUserDto } from './dto/createUserDto';
-import { DeleteFriendshipDto } from './dto/deleteFriendshipDto';
-import { RejectFriendshipDto } from './dto/rejectFriendshipDto';
-import { RequestFriendshipDto } from './dto/requestFriendshipDto';
 import { User } from './entity/users.entity';
 
 @Injectable()
@@ -69,19 +66,17 @@ export class UsersService {
 
   async requestFriendship(
     id: number,
-    requestFriendshipDto: RequestFriendshipDto,
+    friendshipDto: FriendshipDto,
   ): Promise<any> {
     const existedUser = await this.usersRepository.findOne({
       where: { id: id },
     });
-    if (
-      existedUser.requesteingFriendIds.includes(requestFriendshipDto.targetId)
-    ) {
+    if (existedUser.requesteingFriendIds.includes(friendshipDto.targetId)) {
       return { result: false };
     }
-    existedUser.requesteingFriendIds.push(requestFriendshipDto.targetId);
+    existedUser.requesteingFriendIds.push(friendshipDto.targetId);
     const targetedUser = await this.usersRepository.findOne({
-      where: { id: requestFriendshipDto.targetId },
+      where: { id: friendshipDto.targetId },
     });
     if (targetedUser.requestedFriendIds.includes(Number(id))) {
       return { result: false };
@@ -94,12 +89,12 @@ export class UsersService {
 
   async acceptFriendship(
     id: number,
-    acceptFriendshipDto: AcceptFriendshipDto,
+    friendshipDto: FriendshipDto,
   ): Promise<any> {
     const existedUser = await this.usersRepository.findOne({
       where: { id: id },
     });
-    if (existedUser.acceptedFriendIds.includes(acceptFriendshipDto.targetId)) {
+    if (existedUser.acceptedFriendIds.includes(friendshipDto.targetId)) {
       return { result: false };
     }
     existedUser.requestedFriendIds = existedUser.requestedFriendIds.filter(
@@ -107,9 +102,9 @@ export class UsersService {
         e !== id;
       },
     );
-    existedUser.acceptedFriendIds.push(acceptFriendshipDto.targetId);
+    existedUser.acceptedFriendIds.push(friendshipDto.targetId);
     const targetedUser = await this.usersRepository.findOne({
-      where: { id: acceptFriendshipDto.targetId },
+      where: { id: friendshipDto.targetId },
     });
     if (targetedUser.acceptedFriendIds.includes(Number(id))) {
       return { result: false };
@@ -126,18 +121,18 @@ export class UsersService {
 
   async rejectFriendship(
     id: number,
-    rejectFriendshipDto: RejectFriendshipDto,
+    friendshipDto: FriendshipDto,
   ): Promise<any> {
     const existedUser = await this.usersRepository.findOne({
       where: { id: id },
     });
     existedUser.requestedFriendIds = existedUser.requestedFriendIds.filter(
       (e) => {
-        Number(e) !== rejectFriendshipDto.targetId;
+        Number(e) !== friendshipDto.targetId;
       },
     );
     const targetedUser = await this.usersRepository.findOne({
-      where: { id: rejectFriendshipDto.targetId },
+      where: { id: friendshipDto.targetId },
     });
     targetedUser.requesteingFriendIds =
       targetedUser.requesteingFriendIds.filter((e) => {
@@ -150,18 +145,18 @@ export class UsersService {
 
   async deleteFriendship(
     id: number,
-    deleteFriendshipDto: DeleteFriendshipDto,
+    friendshipDto: FriendshipDto,
   ): Promise<any> {
     const existedUser = await this.usersRepository.findOne({
       where: { id: id },
     });
     existedUser.acceptedFriendIds = existedUser.acceptedFriendIds.filter(
       (e) => {
-        e !== deleteFriendshipDto.targetId;
+        e !== friendshipDto.targetId;
       },
     );
     const targetedUser = await this.usersRepository.findOne({
-      where: { id: deleteFriendshipDto.targetId },
+      where: { id: friendshipDto.targetId },
     });
     targetedUser.acceptedFriendIds = targetedUser.acceptedFriendIds.filter(
       (e) => {

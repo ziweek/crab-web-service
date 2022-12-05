@@ -11,10 +11,8 @@ import {
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/security/auth.guard';
-import { AcceptFriendshipDto } from './dto/acceptFriendshipDto';
 import { CreateUserDto } from './dto/createUserDto';
-import { RejectFriendshipDto } from './dto/rejectFriendshipDto';
-import { RequestFriendshipDto } from './dto/requestFriendshipDto';
+import { FriendshipDto } from './dto/friendshipDto';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -174,14 +172,8 @@ export class UsersController {
       example: {},
     },
   })
-  requestFriendship(
-    @Req() req,
-    @Body() requestFriendshipDto: RequestFriendshipDto,
-  ) {
-    return this.userService.requestFriendship(
-      req.user.id,
-      requestFriendshipDto,
-    );
+  requestFriendship(@Req() req, @Body() friendshipDto: FriendshipDto) {
+    return this.userService.requestFriendship(req.user.id, friendshipDto);
   }
 
   @UseGuards(AuthGuard)
@@ -193,11 +185,8 @@ export class UsersController {
       example: {},
     },
   })
-  acceptFriendship(
-    @Req() req,
-    @Body() acceptFriendshipDto: AcceptFriendshipDto,
-  ) {
-    return this.userService.acceptFriendship(req.user.id, acceptFriendshipDto);
+  acceptFriendship(@Req() req, @Body() friendshipDto: FriendshipDto) {
+    return this.userService.acceptFriendship(req.user.id, friendshipDto);
   }
 
   @UseGuards(AuthGuard)
@@ -209,11 +198,8 @@ export class UsersController {
       example: {},
     },
   })
-  rejectFriendship(
-    @Req() req,
-    @Body() rejectFriendshipDto: RejectFriendshipDto,
-  ) {
-    return this.userService.rejectFriendship(req.user.id, rejectFriendshipDto);
+  rejectFriendship(@Req() req, @Body() friendshipDto: FriendshipDto) {
+    return this.userService.rejectFriendship(req.user.id, friendshipDto);
   }
 
   @UseGuards(AuthGuard)
@@ -225,10 +211,7 @@ export class UsersController {
       example: {},
     },
   })
-  deleteFriendship(
-    @Req() req,
-    @Body() rejectFriendshipDto: RejectFriendshipDto,
-  ) {
-    return this.userService.deleteFriendship(req.user.id, rejectFriendshipDto);
+  deleteFriendship(@Req() req, @Body() friendshipDto: FriendshipDto) {
+    return this.userService.deleteFriendship(req.user.id, friendshipDto);
   }
 }
