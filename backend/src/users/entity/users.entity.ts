@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Authority } from 'src/auth/entity/authority.entity';
 import { Comment } from 'src/comments/entity/comment.entity';
 import { Post } from 'src/posts/entity/post.entity';
+import { ProfileImageFile } from 'src/uploader/entity/profileImage.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -101,6 +102,13 @@ export class User {
   @ManyToOne(() => Authority, (authority) => authority.id, { eager: true })
   authority: Authority;
 
+  @OneToMany(
+    () => ProfileImageFile,
+    (profileImageFile) => profileImageFile.user,
+    { nullable: true, eager: true },
+  )
+  profileImages: ProfileImageFile[];
+
   // @OneToOne(() => Friendship, (friendship) => friendship.id, { eager: true })
   // @JoinColumn()
   // friendship: Friendship;
@@ -114,7 +122,6 @@ export class User {
   //   nullable: true,
   // })
   // acceptedFriendship: Friendship;
-
   @Column('simple-array')
   requesteingFriendIds: number[];
 

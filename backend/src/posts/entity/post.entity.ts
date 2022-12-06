@@ -1,4 +1,5 @@
 import { Comment } from 'src/comments/entity/comment.entity';
+import { PostImageFile } from 'src/uploader/entity/postImage.entity';
 import { User } from 'src/users/entity/users.entity';
 import {
   Column,
@@ -45,6 +46,12 @@ export class Post {
   // @OneToOne(() => User, { nullable: true, eager: true })
   // @JoinColumn()
   // author: User;
+
+  @OneToMany(() => PostImageFile, (postImageFile) => postImageFile.post, {
+    nullable: true,
+    eager: true,
+  })
+  postImages: PostImageFile[];
 
   @ManyToOne(() => User, (user) => user.posts, {
     eager: true,

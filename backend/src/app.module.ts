@@ -16,6 +16,10 @@ import { EventsModule } from './events/events.module';
 import { MlModule } from './ml/ml.module';
 import { HttpModule } from '@nestjs/axios';
 import { UploaderModule } from './uploader/uploader.module';
+import { CrabsModule } from './crabs/crabs.module';
+import { ProfileImageFile } from './uploader/entity/profileImage.entity';
+import { PostImageFile } from './uploader/entity/postImage.entity';
+import { CrabImageFile } from './uploader/entity/crabImage.entity';
 
 @Module({
   imports: [
@@ -31,7 +35,15 @@ import { UploaderModule } from './uploader/uploader.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [User, Post, Comment, Authority],
+      entities: [
+        User,
+        Post,
+        Comment,
+        Authority,
+        ProfileImageFile,
+        PostImageFile,
+        CrabImageFile,
+      ],
       synchronize: true,
     }),
     UsersModule,
@@ -43,6 +55,7 @@ import { UploaderModule } from './uploader/uploader.module';
     MlModule,
     HttpModule,
     UploaderModule,
+    CrabsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
