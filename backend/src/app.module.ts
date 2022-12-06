@@ -15,6 +15,7 @@ import { ScanningModule } from './scanning/scanning.module';
 import { EventsModule } from './events/events.module';
 import { MlModule } from './ml/ml.module';
 import { HttpModule } from '@nestjs/axios';
+import { UploaderModule } from './uploader/uploader.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { HttpModule } from '@nestjs/axios';
     EventsModule,
     MlModule,
     HttpModule,
+    UploaderModule,
   ],
   controllers: [AppController],
   providers: [AppService],
