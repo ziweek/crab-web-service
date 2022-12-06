@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Authority } from 'src/auth/entity/authority.entity';
 import { Comment } from 'src/comments/entity/comment.entity';
+import { Crab } from 'src/crabs/entity/crab.entity';
 import { Post } from 'src/posts/entity/post.entity';
 import { ProfileImageFile } from 'src/uploader/entity/profileImage.entity';
 import {
@@ -92,6 +93,9 @@ export class User {
     required: true,
   })
   region: JSON;
+
+  @OneToMany(() => Crab, (crab) => crab.user, { nullable: true, eager: true })
+  crabs: Crab[];
 
   @OneToMany(() => Post, (post) => post.author, { nullable: true })
   posts: Post[];
