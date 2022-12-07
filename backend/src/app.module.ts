@@ -20,6 +20,7 @@ import { CrabsModule } from './crabs/crabs.module';
 import { ProfileImageFile } from './uploader/entity/profileImage.entity';
 import { PostImageFile } from './uploader/entity/postImage.entity';
 import { CrabImageFile } from './uploader/entity/crabImage.entity';
+import { Crab } from './crabs/entity/crab.entity';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { CrabImageFile } from './uploader/entity/crabImage.entity';
         ProfileImageFile,
         PostImageFile,
         CrabImageFile,
+        Crab,
       ],
       synchronize: true,
     }),

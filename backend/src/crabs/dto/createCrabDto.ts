@@ -16,4 +16,18 @@ export class CreateCrabDto {
     required: true,
   })
   crabImageFile: CrabImageFile;
+
+  @ApiProperty({
+    example: 'receivedFriendIds',
+    description: 'receivedFriendIds',
+    required: true,
+  })
+  receivedFriendIds: number[];
+
+  @ApiProperty({
+    example: 'CrabImageFile',
+    description: 'CrabImageFile',
+    required: true,
+  })
+  watchedFriendIds: number[];
 }

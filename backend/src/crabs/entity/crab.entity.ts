@@ -1,6 +1,7 @@
 import { CrabImageFile } from 'src/uploader/entity/crabImage.entity';
 import { User } from 'src/users/entity/users.entity';
 import {
+  Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
@@ -15,7 +16,7 @@ export class Crab {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => User, (user) => user.crabs)
+  @ManyToOne(() => User, (user) => user.crabs, { nullable: true })
   user: User;
 
   @OneToMany(() => CrabImageFile, (crabImageFile) => crabImageFile.crab, {
@@ -23,6 +24,12 @@ export class Crab {
     eager: true,
   })
   crabImageFile: CrabImageFile[];
+
+  @Column('simple-array', { nullable: true })
+  receivedFriendIds: number[];
+
+  @Column('simple-array', { nullable: true })
+  watchedFriendIds: number[];
 
   @CreateDateColumn()
   createAt: Date;

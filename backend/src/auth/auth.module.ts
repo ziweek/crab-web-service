@@ -9,12 +9,16 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { UsersModule } from 'src/users/users.module';
 import { UsersService } from 'src/users/users.service';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    JwtModule.register({
-      secret: process.env.TOKEN_SECRET_KEY,
-      signOptions: { expiresIn: '300s' },
+    JwtModule.registerAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        secret: config.get<string>('TOKEN_SECRET_KEY'),
+        signOptions: { expiresIn: '1d' },
+      }),
     }),
     PassportModule,
     UsersModule,
